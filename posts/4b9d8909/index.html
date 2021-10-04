@@ -24,7 +24,7 @@
 <meta property="og:description" content="在能够保证软路由正常运行的前提下，在 Docker 上集成了 qBittorrent 和AdGuardhome 这两个软件，我现在还记得他们成功跑起来的时候心里的感动。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-10-03T03:23:00.000Z">
-<meta property="article:modified_time" content="2021-10-03T05:20:21.734Z">
+<meta property="article:modified_time" content="2021-10-04T12:30:22.026Z">
 <meta property="article:author" content="Seailor">
 <meta property="article:tag" content="杂谈">
 <meta name="twitter:card" content="summary_large_image">
@@ -162,7 +162,7 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('https://cdn.jsdelivr.net/gh/Seailor/store/images/这个博客为何而生 forest banner.jpg') no-repeat center center;
+         style="background: url('https://cdn.jsdelivr.net/gh/Seailor/store/images/这个博客为何而生/这个博客为何而生 forest banner.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -188,7 +188,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.8k 字
+      1.9k 字
     </span>
   
 
@@ -235,7 +235,7 @@
 <p>我看着树莓派，心想能不能做个 NAS 出来，网站的事先搁一搁，我装了 OMV，装了 Docker 和 Portainer，部署了一些下载工具在上面，当然还有 Netdata 这个看起来极其酷炫实则没有什么用处的实时监测工具。折腾完这些，我开始做网站，这回倒是能够安装 Wordpress 了，但是连接数据库这一个操作真的难倒我了，MySQL 的 Docker 镜像没有 ARM 版，只能用 MariaDB，好家伙用了我还是连接不上，加上还得自己装 PHPMyAdmin，算了算了，再放一放。</p>
 <h3 id="群晖阶段"><a href="#群晖阶段" class="headerlink" title="群晖阶段"></a>群晖阶段</h3><p>再后来，我买了群晖，核心驱动力是 Google Photos 宣布不再支持无限空间免费压缩上传，我大批的写真集面临无家可归，这行吗？这不行，买，必须买！</p>
 <p>安置好我的写真集和其他影片，我又开始考虑搭建网站，因为群晖是消费级的产品，很多功能非常“傻瓜式”，安装 Wordpress,PHPMyAdmin 和 LNMP 环境就是点一下的事，至此，我终于见到了 Wordpress 的后台管理界面。</p>
-<h4 id="再见，Wordpress"><a href="#再见，Wordpress" class="headerlink" title="再见，Wordpress"></a>再见，Wordpress</h4><p>只有当你真正去做了，才会知道这件事有多难。Wordpress 根本不适合我，我得到了这样的结论。它的确很好很强大，但正是它的强大造就了他的庞大，它其实更加适合于企业来用，对于个人博客来说实在是太过臃肿，因为种种原因，最后我放弃了 Wordpress。</p>
+<h4 id="再见，Wordpress"><a href="#再见，Wordpress" class="headerlink" title="再见，Wordpress"></a>再见，Wordpress</h4><p>只有当你真正去做了，才会知道这件事有多难。Wordpress 根本不适合我，我得到了这样的结论。它的确很好很强大，但正是它的强大造就了他的庞大，它其实更加适合于企业来用，对于个人博客来说实在是太过臃肿，因为种种原因，最后我放弃了 Wordpress。但此时正巧我在研究自建 RSS 服务器（接收然后统一管理的那种），看到了一个项目：RSSHub，制作者是 DIYgod，他的博客使用 Hexo 搭建，页脚有句话：“由 Hexo 强力驱动”，这又给了我搭建博客的信心。</p>
 <h4 id="你好，Hexo-Ghost-Hugo-jekyll"><a href="#你好，Hexo-Ghost-Hugo-jekyll" class="headerlink" title="你好，Hexo,Ghost,Hugo,jekyll"></a>你好，Hexo,Ghost,Hugo,jekyll</h4><p>这个时候我开始病急乱投医，各种的博客搭建工具都去尝试，想找到一个简单好用适合自己的，其中完整搭建起来的（能在本地跑 并且内容充实）只有 Hexo 和 Ghost，如果放到公网上，Ghost 仍然需要一台 VPS，如果价格低那必然是国内服务器，面临备案等等问题。最后我选择了 Hexo 来搭建本博客，它是静态网页生成器，可以利用 Github Pages 免费托管，jsDelivr CDN 加速，所以是性价比极高的选择。</p>
 <h1 id="为何而生-🤔"><a href="#为何而生-🤔" class="headerlink" title="为何而生 🤔"></a>为何而生 🤔</h1><p>一方面是自己的小念头，想要做这个东西，一直没有做，总要把它完成吧。这也是我的一个特点，我想做一件事，可能当下不会行动，很久都没做好，但总有一天会把它完成。</p>
 <p>另一方面，舆论环境，不多说明白就好。</p>
