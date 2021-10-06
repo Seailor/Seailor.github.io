@@ -24,7 +24,7 @@
 <meta property="og:description" content="标签插件测试 success                          标签插件测试 primary                          标签插件测试 danger                          标签插件测试 warning                          标签插件测试 info">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-10-02T02:29:32.000Z">
-<meta property="article:modified_time" content="2021-10-05T14:59:52.000Z">
+<meta property="article:modified_time" content="2021-10-05T15:05:46.832Z">
 <meta property="article:author" content="Seailor">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -73,7 +73,9 @@
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/assets/css/APlayer.min.css" class="aplayer-style-marker">
+<script src="/assets/js/APlayer.min.js" class="aplayer-script-marker"></script>
+</head>
 
 
 <body>
@@ -199,7 +201,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      553 字
+      709 字
     </span>
   
 
@@ -279,7 +281,27 @@
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;link <span class="hljs-attribute">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attribute">href</span>=<span class="hljs-string">&quot;APlayer.min.css&quot;</span>&gt;<br>&lt;div <span class="hljs-attribute">id</span>=<span class="hljs-string">&quot;aplayer&quot;</span>&gt;&lt;/div&gt;<br>&lt;script <span class="hljs-attribute">src</span>=<span class="hljs-string">&quot;APlayer.min.js&quot;</span>&gt;&lt;/script&gt;<br></code></pre></td></tr></table></figure>
 
 <p><a target="_blank" rel="noopener" href="https://github.com/Seailor/store/raw/main/audio/Hakuna%20Matata%20-%20BEJ48.mp3">https://github.com/Seailor/store/raw/main/audio/Hakuna%20Matata%20-%20BEJ48.mp3</a></p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">&#123;% aplayer Hakuna Matata BEJ48 https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/Seailor/</span>store<span class="hljs-regexp">/raw/m</span>ain<span class="hljs-regexp">/audio/</span>Hakuna%<span class="hljs-number">20</span>Matata%<span class="hljs-number">20</span>-%<span class="hljs-number">20</span>BEJ48.mp3 [picture_url, narrow, autoplay, width:xxx, lrc:xxx] %&#125;<br></code></pre></td></tr></table></figure>
+
+        <div id="aplayer-gTuqfRYW" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+            <pre class="aplayer-lrc-content"></pre>
+        </div>
+        <script>
+          var ap = new APlayer({
+            element: document.getElementById("aplayer-gTuqfRYW"),
+            narrow: false,
+            autoplay: false,
+            showlrc: false,
+            music: {
+              title: "Hakuna Matata",
+              author: "BEJ48",
+              url: "https://github.com/Seailor/store/raw/main/audio/Hakuna%20Matata%20-%20BEJ48.mp3",
+              pic: "",
+              lrc: ""
+            }
+          });
+          window.aplayers || (window.aplayers = []);
+          window.aplayers.push(ap);
+        </script>
 
 
             </div>
