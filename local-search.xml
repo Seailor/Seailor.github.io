@@ -23,19 +23,6 @@
   
   
   <entry>
-    <title>格式测试</title>
-    <link href="/posts/1a0524fb/"/>
-    <url>/posts/1a0524fb/</url>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><div class="note note-success">            <p>标签插件测试 success</p>          </div><div class="note note-primary">            <p>标签插件测试 primary</p>          </div><div class="note note-danger">            <p>标签插件测试 danger</p>          </div><div class="note note-warning">            <p>标签插件测试 warning</p>          </div><div class="note note-info">            <p>标签插件测试 info</p>          </div><div class="note note-light">            <p>标签插件测试 light</p>          </div><span class="label label-primary">primary label测试</span><span class="label label-info">info label测试</span><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/wJQ9ig_d8yY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><h6 id="六级标题"><a href="#六级标题" class="headerlink" title="六级标题"></a>六级标题</h6><p>正文</p><p>Aplayer测试</p><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;link <span class="hljs-attribute">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attribute">href</span>=<span class="hljs-string">&quot;APlayer.min.css&quot;</span>&gt;<br>&lt;div <span class="hljs-attribute">id</span>=<span class="hljs-string">&quot;aplayer&quot;</span>&gt;&lt;/div&gt;<br>&lt;script <span class="hljs-attribute">src</span>=<span class="hljs-string">&quot;APlayer.min.js&quot;</span>&gt;&lt;/script&gt;<br></code></pre></td></tr></table></figure><p><a href="https://github.com/Seailor/store/raw/main/audio/Hakuna%20Matata%20-%20BEJ48.mp3">https://github.com/Seailor/store/raw/main/audio/Hakuna%20Matata%20-%20BEJ48.mp3</a></p>        <div id="aplayer-PYRxrBuD" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">            <pre class="aplayer-lrc-content"></pre>        </div>        <script>          var ap = new APlayer({            element: document.getElementById("aplayer-PYRxrBuD"),            narrow: false,            autoplay: false,            showlrc: false,            music: {              title: "Hakuna Matata",              author: "BEJ48",              url: "https://github.com/Seailor/store/raw/main/audio/Hakuna%20Matata%20-%20BEJ48.mp3",              pic: "",              lrc: ""            }          });          window.aplayers || (window.aplayers = []);          window.aplayers.push(ap);        </script>]]></content>
-    
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>对于女子偶像团体的一些想法</title>
     <link href="/posts/c33f1c23/"/>
     <url>/posts/c33f1c23/</url>
@@ -95,11 +82,11 @@
   
   
   <entry>
-    <title>玩Splatoon，不用加速器如何优化NAT</title>
-    <link href="/posts/5e68a2fd/"/>
-    <url>/posts/5e68a2fd/</url>
+    <title>玩 Splatoon，不用加速器如何优化 NAT</title>
+    <link href="/posts/8180b3e0/"/>
+    <url>/posts/8180b3e0/</url>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><div class="note note-success">            <p>不用加速器的联机优化方案</p>          </div><h2 id="Splatoon是啥样的游戏？"><a href="#Splatoon是啥样的游戏？" class="headerlink" title="Splatoon是啥样的游戏？"></a>Splatoon是啥样的游戏？</h2><p>Splatoon是任天堂旗下的一款TPS游戏，作为任天堂最年轻的IP，以其创新的玩法，大胆的配色，潮爆的服饰赢得了人们的喜爱。2代推出至今已经卖出了1190万份（2021.2.1财报），比马U还要多个200万。Splatoon3也在前两天的直面会上公布，虽然是2022年发售……</p><p>喷射作为一款“网络游戏”，联机的质量是大家共同关心的话题。想玩游戏又不想掏钱买加速器（就是我）的人也有很多，那到底怎么优化自己本地的网络才能裸连呢？</p><h2 id="公网-IP"><a href="#公网-IP" class="headerlink" title="公网 IP"></a>公网 IP</h2><p>第一点就是公网IP，由于国际上IPV4 IP的紧缺，很多运营商都不会主动给个人用户分配公网IP，而是分配通过运营商机房再分出来的内网IP，这是导致NAT等级差的第一个因素。解决这个问题，我们需要给对应的运营商打电话，直接说明我需要公网IP，因为家里要装监控，如果还不给，就表达出“不给我就去工信部投诉”的意思。客服给到你公网IP之后一般需要等个两三天才会在机房实际应用上。</p><p>对了，光纤入户的同学记得一块让客服把自己家里的光猫改成“桥接模式”，有些安装师傅管这个叫“桥连模式”，还得要一下自己的宽带账号密码，用于在路由器上PPPoE拨号。</p><p>具体的验证方式就是登录到路由器的后台，记一下WAN口或者互联网IP，再去ip138之类的网站查一下IP，如果这两个一样，那就说明你已经拥有了公网IP</p><h2 id="路由器-NAT-设置"><a href="#路由器-NAT-设置" class="headerlink" title="路由器 NAT 设置"></a>路由器 NAT 设置</h2><p>第二点就是路由器本身的NAT设置，我知道你们在其他的教程上看的都是一个叫DMZ的东西，把DMZ设置成游戏机的IP，然后NAT会好一点。这个方法可以，但是不通用，一般来说一个路由器只能设置一个DMZ，那我要有两台游戏机怎么办呢？来来，同学们注意了啊，这才是正确的解题步骤：在路由器后台的“防火墙”或者“WAN设置”下面找到NAT类型，有打开的选打开，有开放的选开放，有Fullcone的选Fullcone，有完全圆锥的选完全圆锥。设置过DMZ的把DMZ设置还原，如果你同时拥有公网IP的话，恭喜你，你家所有设备的NAT都是最开放等级了。如果到这一步还不行，下面留言吧。</p><h2 id="后面讲的可能会有些专业"><a href="#后面讲的可能会有些专业" class="headerlink" title="后面讲的可能会有些专业"></a>后面讲的可能会有些专业</h2><p>至于裸连Splatoon，很看线路质量，这个质量不是说我ping百度延迟多少，下载游戏速度多块，而是当地运营商会不会QoS，会不会随机阻断UDP流量以及和其他国家玩家联机时走的什么线路。比如说我当前的对局中有日本玩家，网络走日本NTT线路的话延迟100都算低的了，如果走IIJ线路，那延迟能压到40左右。可惜的是你并不能规定你的流量走哪条线路，这是由运营商决定的。所以能否裸连，还是得自己实际测试，本地优化能做到的只有优化NAT和设备延迟。</p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><div class="note note-success">            <p>不用加速器的联机优化方案</p>          </div><h2 id="Splatoon-是啥样的游戏？"><a href="#Splatoon-是啥样的游戏？" class="headerlink" title="Splatoon 是啥样的游戏？"></a>Splatoon 是啥样的游戏？</h2><p>Splatoon是任天堂旗下的一款TPS游戏，作为任天堂最年轻的IP，以其创新的玩法，大胆的配色，潮爆的服饰赢得了人们的喜爱。2代推出至今已经卖出了1190万份（2021.2.1财报），比马U还要多个200万。Splatoon3也在前两天的直面会上公布，虽然是2022年发售……</p><p>喷射作为一款“网络游戏”，联机的质量是大家共同关心的话题。想玩游戏又不想掏钱买加速器（就是我）的人也有很多，那到底怎么优化自己本地的网络才能裸连呢？</p><h2 id="公网-IP"><a href="#公网-IP" class="headerlink" title="公网 IP"></a>公网 IP</h2><p>第一点就是公网IP，由于国际上IPV4 IP的紧缺，很多运营商都不会主动给个人用户分配公网IP，而是分配通过运营商机房再分出来的内网IP，这是导致NAT等级差的第一个因素。解决这个问题，我们需要给对应的运营商打电话，直接说明我需要公网IP，因为家里要装监控，如果还不给，就表达出“不给我就去工信部投诉”的意思。客服给到你公网IP之后一般需要等个两三天才会在机房实际应用上。</p><p>对了，光纤入户的同学记得一块让客服把自己家里的光猫改成“桥接模式”，有些安装师傅管这个叫“桥连模式”，还得要一下自己的宽带账号密码，用于在路由器上PPPoE拨号。</p><p>具体的验证方式就是登录到路由器的后台，记一下WAN口或者互联网IP，再去ip138之类的网站查一下IP，如果这两个一样，那就说明你已经拥有了公网IP</p><h2 id="路由器-NAT-设置"><a href="#路由器-NAT-设置" class="headerlink" title="路由器 NAT 设置"></a>路由器 NAT 设置</h2><p>第二点就是路由器本身的NAT设置，我知道你们在其他的教程上看的都是一个叫DMZ的东西，把DMZ设置成游戏机的IP，然后NAT会好一点。这个方法可以，但是不通用，一般来说一个路由器只能设置一个DMZ，那我要有两台游戏机怎么办呢？来来，同学们注意了啊，这才是正确的解题步骤：在路由器后台的“防火墙”或者“WAN设置”下面找到NAT类型，有打开的选打开，有开放的选开放，有Fullcone的选Fullcone，有完全圆锥的选完全圆锥。设置过DMZ的把DMZ设置还原，如果你同时拥有公网IP的话，恭喜你，你家所有设备的NAT都是最开放等级了。如果到这一步还不行，下面留言吧。</p><h2 id="后面讲的可能会有些专业"><a href="#后面讲的可能会有些专业" class="headerlink" title="后面讲的可能会有些专业"></a>后面讲的可能会有些专业</h2><p>至于裸连Splatoon，很看线路质量，这个质量不是说我ping百度延迟多少，下载游戏速度多块，而是当地运营商会不会QoS，会不会随机阻断UDP流量以及和其他国家玩家联机时走的什么线路。比如说我当前的对局中有日本玩家，网络走日本NTT线路的话延迟100都算低的了，如果走IIJ线路，那延迟能压到40左右。可惜的是你并不能规定你的流量走哪条线路，这是由运营商决定的。所以能否裸连，还是得自己实际测试，本地优化能做到的只有优化NAT和设备延迟。</p>]]></content>
     
     
     
@@ -116,9 +103,9 @@
   
   
   <entry>
-    <title>qBittorrent的磁盘缓存怎么了？</title>
-    <link href="/posts/21309649/"/>
-    <url>/posts/21309649/</url>
+    <title>qBittorrent 的磁盘缓存怎么了？</title>
+    <link href="/posts/103458fd/"/>
+    <url>/posts/103458fd/</url>
     
     <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><div class="note note-info">            <p>这样的问题居然能存在这么久，某种意义上讲也蛮厉害的。</p>          </div><p>事情是这样的，我在群晖上的 Docker 安装了 qBittorrent 用于 BT 下载，设置好了硬盘缓存之后我以为万事大吉了，但是观察磁盘写入数据发现 qBittorrent 的磁盘缓存设置是无效的。</p><p><strong>这中间到底发生了什么？</strong></p><p>在 Github 上查询发现，这口锅还真不能给 qB 背，问题出在 qB 使用到的一个代码库，名字叫 libtorrent，这个代码库不知道从什么时候起，出现了一个 Bug: 在某些平台上，磁盘缓存无效、闲置内存不会自动回收并最终导致内存泄漏。具体表现就是在 BT 下载的时候，如果没有打开磁盘缓存，那么磁盘将保持写入状态，速度几乎和下载速度持平，且内存也以同样的速度写入；如果打开了磁盘缓存，那么在内存被写满之前（具体要看系统什么时候采取措施限制下载工具的内存增长），磁盘缓存功能正常，写满之后，同样持续写入。不管是哪一种情况，被吃掉的内存都不会被自动释放，除非删除任务。</p><p>libtorrent 的 Bug 是这样，但实际上 qB 的 Bug 有一点小小的区别。</p><p>经过测试，在 qB 上只有当系统缓存和磁盘缓存同时开启时，才能对应上面提到的“磁盘缓存打开的情况”。</p><p>另外并不是只有 qBittorrent 有这种问题，同样使用 libtorrent 的 Deluge 也有这个问题，只不过在Deluge的设置项里不存在系统缓存这个东西。</p><p>从 Github 的 issue 来看，这个问题似乎持续了七年之久，而且可能继续持续下去。因为这个 Bug 并不是在最近的某个版本引入的，七年前就有人发现了这个问题，不知为何 libtorrent 一直没有修复，大概连开发人员都不知道导致 Bug 的原因。</p><p>至于解决方式，如果真的在意磁盘缓存这个功能，可以用 Transmission 替代，不过 Tr 没有 qB 的自动添加 tracker，docker 里使用需要命令行进去手动装 WebUI。而且 Tr 在有多个种子的时候 UI 会卡，种子越多越卡，有时候删除一个种子要将近一分钟才有反应。我实在受不了这个卡，其他的 BT 下载软件还没有让我比较满意的，只能先将就用着 qB 了。</p>]]></content>
     
@@ -129,6 +116,19 @@
       <tag>软件</tag>
       
     </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>格式测试</title>
+    <link href="/posts/1a0524fb/"/>
+    <url>/posts/1a0524fb/</url>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><div class="note note-success">            <p>正如标题所言，本页是测试页，所以格式错乱、出现什么奇怪的东西都是十分正常的。</p>          </div><div class="note note-primary">            <p>标签插件测试 primary</p>          </div><div class="note note-danger">            <p>标签插件测试 danger</p>          </div><div class="note note-warning">            <p>标签插件测试 warning</p>          </div><div class="note note-info">            <p>标签插件测试 info</p>          </div><div class="note note-light">            <p>标签插件测试 light</p>          </div><span class="label label-primary">primary label测试</span><span class="label label-info">info label测试</span><p>Youtube 内嵌尺寸自适应测试</p><div class="videobox"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/wJQ9ig_d8yY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><h6 id="六级标题"><a href="#六级标题" class="headerlink" title="六级标题"></a>六级标题</h6><p>正文</p><p>Aplayer 音频播放器测试</p>          <div id="aplayer-oKbijyDa" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">            <pre class="aplayer-lrc-content"></pre>        </div>        <script>          var ap = new APlayer({            element: document.getElementById("aplayer-oKbijyDa"),            narrow: false,            autoplay: false,            showlrc: false,            music: {              title: "Hakuna Matata",              author: "BEJ48",              url: "https://cdn.jsdelivr.net/gh/Seailor/store/audio/music/Hakuna Matata - BEJ48.mp3",              pic: "https://cdn.jsdelivr.net/gh/Seailor/store/audio/cover/Hakuna Matata.jpg",              lrc: ""            }          });          window.aplayers || (window.aplayers = []);          window.aplayers.push(ap);        </script>]]></content>
+    
+    
     
   </entry>
   
