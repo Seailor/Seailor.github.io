@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://seailor.com/update%20log/index.html</loc>
+    
+    <lastmod>2022-03-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://seailor.com/posts/5ad7eaa2/</loc>
     
     <lastmod>2022-03-08</lastmod>
@@ -41,15 +50,6 @@
     <loc>https://seailor.com/posts/b264e763/</loc>
     
     <lastmod>2022-01-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://seailor.com/update%20log/index.html</loc>
-    
-    <lastmod>2022-01-16</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
