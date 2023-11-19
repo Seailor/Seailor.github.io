@@ -28,8 +28,8 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/Seailor/store/main/image/简洁明快，异地皆然/3.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Seailor/store/main/image/简洁明快，异地皆然/4.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Seailor/store/main/image/简洁明快，异地皆然/5.png">
-<meta property="article:published_time" content="2023-10-13T08:14:24.506Z">
-<meta property="article:modified_time" content="2023-10-13T08:14:00.000Z">
+<meta property="article:published_time" content="2023-11-19T05:37:39.738Z">
+<meta property="article:modified_time" content="2023-11-19T05:37:32.000Z">
 <meta property="article:author" content="Seailor">
 <meta property="article:tag" content="技术">
 <meta property="article:tag" content="网络">
@@ -201,8 +201,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2023-10-13 16:14" pubdate>
-        2023年10月13日 下午
+      <time datetime="2023-11-19 13:37" pubdate>
+        2023年11月19日 下午
       </time>
     </span>
   
@@ -242,7 +242,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2023年10月13日 下午
+                  本文最后更新于：2023年11月19日 下午
                 
               </p>
             
@@ -289,12 +289,12 @@
 <h2 id="得出一个比较折中的设置："><a href="#得出一个比较折中的设置：" class="headerlink" title="得出一个比较折中的设置："></a>得出一个比较折中的设置：</h2><ol>
 <li><p>不常态使用 Tun Mode，仅在有必要情况下打开，但要把 Tun Stack 设置为 System，性能更好。打开 CS，设置为常用 DNS，不包含局域网私有 DNS；</p>
 </li>
-<li><p>在家使用 Mixin 插入局域网私有 DNS，在外关闭 Mixin，并使用 CFW 的 Strategy 实现根据 SSID 自动切换，有线以太网的话手动切换；</p>
+<li><p>在家使用 Mixin 插入局域网私有 DNS，并使用 nameserver-policy 指定返回局域网使用的域名采用私有 DNS 应答（实测，仅靠 DNS 优先级机制并不能保证每次都是私有 DNS 应答）；在外关闭 Mixin，并使用 CFW 的 Strategy 实现根据 SSID 自动切换，有线以太网的话手动切换；</p>
 </li>
 <li><p>常态使用 System Proxy；</p>
 </li>
 <li><p>在配置文件中写明基本的 fake-ip-filter 参数，但这个参数在 CFA 上不会起效（此举是为了方便其他 Clash Premium 内核的软件），所以需要把配置文件中整个 dns 条目粘贴到 Mixin 配置中（并加入私有 DNS），避免在某些必须使用 Tun Mode 的情况下导致其他链接不可用。</p>
-<p>关于上面的 2，有个很小的坑，注意缩进：</p>
+<p>关于上面的 2，有个很小的坑，如果是粘贴过来的话注意缩进：</p>
 <img src="https://raw.githubusercontent.com/Seailor/store/main/image/简洁明快，异地皆然/5.png" srcset="/img/loading.gif" lazyload style="zoom:33%;" /></li>
 </ol>
 <h2 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h2><p><strong>F</strong>：如果在 Mixin 或本身的配置文件中，写明：</p>
@@ -349,18 +349,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/cb2023e0/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">如果你想给 MAC 配台显示器</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/489a15e3/">
-                        <span class="hidden-mobile">GoPro 11 我买了，还行</span>
+                      <a href="/posts/a3a099c9/">
+                        <span class="hidden-mobile">给显示器加上 Type-C 一线通</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
