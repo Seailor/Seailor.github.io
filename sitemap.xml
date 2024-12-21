@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://seailor.com/posts/a0b93f0f/</loc>
+    <loc>https://seailor.com/posts/66800b21/</loc>
     
     <lastmod>2024-12-21</lastmod>
     
@@ -12,6 +12,15 @@
   
   <url>
     <loc>https://seailor.com/update%20log/index.html</loc>
+    
+    <lastmod>2024-12-21</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://seailor.com/posts/a0b93f0f/</loc>
     
     <lastmod>2024-12-21</lastmod>
     
