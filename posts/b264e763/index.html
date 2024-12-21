@@ -1,0 +1,648 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="https://cdn.jsdelivr.net/gh/Seailor/store/blog resource/Seailor LOGO/128.png">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/Seailor/store/blog resource/Seailor LOGO/128.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#51A8DD">
+  <meta name="author" content="Seailor">
+  <meta name="keywords" content="科技,生活,音乐,游戏">
+  
+    <meta name="description" content="永远不要指望别人能护你周全。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="你为什么仍然不注重隐私&#x2F;信息安全？🔐">
+<meta property="og:url" content="https://seailor.com/posts/b264e763/index.html">
+<meta property="og:site_name" content="Seailor 的小屋">
+<meta property="og:description" content="永远不要指望别人能护你周全。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Seailor/store/image/%E4%BD%A0%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BB%8D%E7%84%B6%E4%B8%8D%E6%B3%A8%E9%87%8D%E9%9A%90%E7%A7%81%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%EF%BC%9F/cover.jpg">
+<meta property="article:published_time" content="2022-01-22T06:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-22T06:13:35.000Z">
+<meta property="article:author" content="Seailor">
+<meta property="article:tag" content="杂谈">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Seailor/store/image/%E4%BD%A0%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BB%8D%E7%84%B6%E4%B8%8D%E6%B3%A8%E9%87%8D%E9%9A%90%E7%A7%81%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%EF%BC%9F/cover.jpg">
+  
+  
+  
+  <title>你为什么仍然不注重隐私/信息安全？🔐 - Seailor 的小屋</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Seailor/store/css/videobox.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Seailor/store/css/image full width.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Seailor/store/css/dplayer style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Seailor/store/css/aplayer fixed style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Seailor/store/css/image caption.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"seailor.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Seailor 的小屋" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Seailor 的小屋</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/update%20log/" target="_self">
+                
+                <span>更新历程</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://cdn.jsdelivr.net/gh/Seailor/store/image/你为什么仍然不注重隐私信息安全？/banner.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="你为什么仍然不注重隐私/信息安全？🔐"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-01-22 14:00" pubdate>
+          2022年1月22日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">你为什么仍然不注重隐私/信息安全？🔐</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2022年1月22日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>隐私安全是老生常谈的问题了，但现实就是很多人依然不重视，认为无所谓。“我平民老百姓，又没多少钱，隐私不就那点东西谁爱看啊？”天赋人权你竟然不要，不懂得捍卫自己的权利，中国大陆最新的《民法典》第四编【人格权】第六章【隐私权和个人信息保护】对个人隐私有明确的法律规定。确实，你那点隐私不值钱，但是如果你不注重个人隐私，信息被归入社工库的话，后果你一定不想体验。</p>
+<p>前段时间接触了一点社工库的内容，尝试了一下，惊讶于它查到的信息之多，虽然有些过时老旧的信息，但大体还算准确。这些信息被用来盗号的确不太可能，但是可以用来诈骗、贩卖、针对性的散步广告、威胁骚扰。社工库比你自己都要了解你。甚至于说哪一年哪一天买的电影票、吃的饭都一清二楚，就算是密码，也给你查个底掉。</p>
+<h2 id="如何保护"><a href="#如何保护" class="headerlink" title="如何保护"></a>如何保护</h2><h3 id="隐私号码"><a href="#隐私号码" class="headerlink" title="隐私号码"></a>隐私号码</h3><p>需要注意的其实有很多，一直在讲的就是要使用长的、复杂的密码并且定期更改，但我知道，这就和家长教训孩子说好好学习一样：“我知道这事儿对，也该做，但我仍然不会去做，或者说不会做的那么到位”。虽然这个方式复杂、麻烦，但不得不说这是最有效的。如果你做不到，也请尽量不要用别人可轻易获取的信息，比如你家的门牌号，你的手机号，你的&#x2F;你另一半的生日。其实关于这点，我身边就有朋友实在懒得记手机号，于是手机号后四位是自己生日，这会增加信息被辨认出来的风险：我知道你生日，不知道你手机号，上社工库一查，哎这个手机号后四位和他生日一样，这数据大概是没错。</p>
+<h3 id="数字生活"><a href="#数字生活" class="headerlink" title="数字生活"></a>数字生活</h3><p>另外，不随意点击不明链接，不随意接收文件（我说的是任意文件，电子病毒有可能藏匿在你想像不到的文件格式里，比如音乐档或者图片档）。不安装不明软件，不使用可疑的查询工具，不使用不可靠的“网络工具”。在输入密码的时候，一定留心网页是否有“https锁头🔒”标识（不认识的话看一下地址&#x2F;搜索栏，本站支持https），如果没有锁头🔒，请再三确认网址正确，使用手机流量或私有网络再输入密码，这不是开玩笑。没有扫过局域网或抓过包的人意识不到这个问题的严重性，如果你连接了一个可被扫描的局域网，那么你的设备和互联网往来的所有未加密的数据在扫描设备上清晰可见，别说密码了，就连你意识不到的数据都会泄露。</p>
+<p>接下来是网络社交方面，这一块真的不强求，因为很多情况是避无可避的。<br>尽量不要晒自己的自拍，现在有一种技术叫做 Deepfake，它可以利用一个人在各种环境下的照片、视频、录音来学习这个人的样貌、声音，然后利用这些数据来伪造假照片、假视频、假录音。目前这种技术门槛不算高，Github 上就有现成的项目，它需要高算力的显卡和庞大的数据（也就是你的照片、视频、声音），所以如果你发的足够多，理论上就可以伪造。这些材料可以用来诈骗或者敲诈勒索，至于如何敲诈，网上已经有现成的案例了。</p>
+<h3 id="网购"><a href="#网购" class="headerlink" title="网购"></a>网购</h3><p>网络购物或者点外卖的时候，尽可能使用假名字和不完全的地址，地址完全不需要填写到门牌号，何况现在大部分快递不会送货上门。写到小区就可以了，到时候电话联系快递员派送或者直接去驿站取货。废弃的快递包材不要随意丢弃，在此之前做好敏感信息消除工作，快递单上名字和地址已经处理过了，手机号和快递单号需要毁坏。需要注意的是，发货单也是重要一环，其实可以买个碎纸机，一两百的四级加密完全够用，实在不想买，剪刀也行，注意尽量剪得细碎。</p>
+<h3 id="尾巴"><a href="#尾巴" class="headerlink" title="尾巴"></a>尾巴</h3><p>不管到什么时候，隐私&#x2F;信息安全都是十分重要的。信息化程度越来越高，一些人顽固的想法亟需改变，注重隐私和信息安全不代表你做了什么见不得人的事情，不是所有信息都可以开诚布公让众人皆知的，何必自己和自己抬杠？</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%9D%82%E8%B0%88/" class="print-no-link">#杂谈</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>你为什么仍然不注重隐私/信息安全？🔐</div>
+      <div>https://seailor.com/posts/b264e763/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Seailor</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年1月22日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="ND - 禁止演绎">
+                    <i class="iconfont icon-cc-nd"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/cfc4165d/" title="“她化作一颗星辰，坠入了星河”">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">“她化作一颗星辰，坠入了星河”</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/70d3228d/" title="2021年度歌单🎧">
+                        <span class="hidden-mobile">2021年度歌单🎧</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="https://cdn.jsdelivr.net/gh/Seailor/store/js/duration.js"></script> </div> <span>反馈邮箱：report@seailor.com</span> <div> <script src="https://cdn.jsdelivr.net/gh/Seailor/store-live2d@main/TweenLite.js"></script> <script src="https://cdn.jsdelivr.net/gh/Seailor/store-live2d@main/live2dcubismcore.min.js"></script> <script src="https://cdn.jsdelivr.net/gh/Seailor/store-live2d@main/pixi.min.js"></script> <script src="https://cdn.jsdelivr.net/gh/Seailor/store-live2d@main/cubism4.min.js"></script> <link href="https://cdn.jsdelivr.net/gh/Seailor/store-live2d@main/pio.css" rel="stylesheet" type="text/css"/> <script src="https://cdn.jsdelivr.net/gh/Seailor/store-live2d@main/pio.js"></script> <script src="https://cdn.jsdelivr.net/gh/Seailor/store-live2d@main/pio_sdk4.js"></script> <script src="https://cdn.jsdelivr.net/gh/Seailor/store-live2d@main/load.js"></script> </div> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

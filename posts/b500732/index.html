@@ -1,0 +1,671 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="https://cdn.jsdelivr.net/gh/Seailor/store/blog resource/Seailor LOGO/128.png">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/Seailor/store/blog resource/Seailor LOGO/128.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#51A8DD">
+  <meta name="author" content="Seailor">
+  <meta name="keywords" content="科技,生活,音乐,游戏">
+  
+    <meta name="description" content="我们始终有一种错觉，以为我们的感情源自于我们自己的内心。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="或许是算法时代的另一种选择——RSS">
+<meta property="og:url" content="https://seailor.com/posts/b500732/index.html">
+<meta property="og:site_name" content="Seailor 的小屋">
+<meta property="og:description" content="我们始终有一种错觉，以为我们的感情源自于我们自己的内心。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Seailor/store/image/%E6%88%96%E8%AE%B8%E6%98%AF%E7%AE%97%E6%B3%95%E6%97%B6%E4%BB%A3%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E9%80%89%E6%8B%A9%E2%80%94%E2%80%94RSS/rss%20cover.png">
+<meta property="article:published_time" content="2021-11-19T18:17:00.000Z">
+<meta property="article:modified_time" content="2021-11-20T06:55:57.000Z">
+<meta property="article:author" content="Seailor">
+<meta property="article:tag" content="技术">
+<meta property="article:tag" content="杂谈">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Seailor/store/image/%E6%88%96%E8%AE%B8%E6%98%AF%E7%AE%97%E6%B3%95%E6%97%B6%E4%BB%A3%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E9%80%89%E6%8B%A9%E2%80%94%E2%80%94RSS/rss%20cover.png">
+  
+  
+  
+  <title>或许是算法时代的另一种选择——RSS - Seailor 的小屋</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Seailor/store/css/videobox.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Seailor/store/css/image full width.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Seailor/store/css/dplayer style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Seailor/store/css/aplayer fixed style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Seailor/store/css/image caption.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"seailor.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Seailor 的小屋" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Seailor 的小屋</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/update%20log/" target="_self">
+                
+                <span>更新历程</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://cdn.jsdelivr.net/gh/Seailor/store/image/或许是算法时代的另一种选择——RSS/rss banner.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="或许是算法时代的另一种选择——RSS"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-11-20 02:17" pubdate>
+          2021年11月20日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">或许是算法时代的另一种选择——RSS</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2021年11月20日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <div class="note note-success">
+            <p>互联网时代，你如何获取信息？通过瀑布流推送软件（类似今日头条、微博）？还是短视频平台？又或者是官媒？其实你还有另一种选择——RSS。</p>
+          </div>
+
+<blockquote>
+<p><strong>RSS</strong>（英文全称：<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Resource_Description_Framework">RDF</a> Site Summary 或 Really Simple Syndication[<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/RSS#cite_note-powers-2003-1-2">2]</a>），中文译作<strong>简易信息聚合</strong>[<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/RSS#cite_note-3">3]</a>，也称<strong>聚合内容</strong>[<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/RSS#cite_note-%E5%BC%A0%E9%94%902015-4">4]</a>，是一种<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%B6%88%E6%81%AF%E4%BE%86%E6%BA%90">消息来源</a>格式规范，用以聚合多个网站更新的内容并自动通知网站订阅者。使用 RSS 后，网站订阅者便无需再手动查看网站是否有新的内容，同时 RSS 可将多个网站更新的内容进行整合，以摘要的形式呈现，有助于订阅者快速获取重要信息，并选择性地点阅查看。</p>
+<p align="right">
+——<a href=https://zh.wikipedia.org/zh-hant/RSS>维基百科<a>
+</p>
+</blockquote>
+<blockquote>
+<p>我们始终有一种错觉，以为我们的感情源自于我们自己的内心。</p>
+<p align="right">
+——<a href=https://zh.wikipedia.org/wiki/古斯塔夫·勒庞>古斯塔夫·勒庞<a> <a href= https://zh.wikipedia.org/wiki/乌合之众：大众心理研究>《乌合之众》<a>
+</p>
+</blockquote>
+<h2 id="为什么是"><a href="#为什么是" class="headerlink" title="为什么是"></a>为什么是</h2><p>有没有感觉自己的手机每天都在“监视”自己？自己明明只想看个新闻，瀑布流里却夹杂着很多桃色八卦；同时关注很多网站的更新内容，但又疲于不断地刷新。RSS 就可以解决这些问题。你所看到的，全部是你自己添加的订阅源。</p>
+<p>简单使用 RSS 的门槛并不高，但想要用的顺心，还是需要一番功夫的。我目前是自建了一个服务端，用来刷新 RSS 源并保存下来，手机或电脑使用 Reeder 同步这些信息并阅读。体验非常好，在阅读器里只会看到我添加进服务端的内容，包括我关注的微博、B站UP主、游戏新闻网站、固件更新提醒网站等等，绝对不会有意料之外的内容被插入进来，我甚至可以直接在阅读器里看B站的视频，连 App 都不需要开。</p>
+<h2 id="拒绝算法？"><a href="#拒绝算法？" class="headerlink" title="拒绝算法？"></a>拒绝算法？</h2><p>不可能，现在绝对无法完全拒绝算法，走在街上，红绿灯都是由算法控制的，它已经渗透进我们生活的方方面面，算法给我们带来更好更便利的生活，这没什么不对。</p>
+<p>现在的内容聚合平台几乎都有算法，这不是某个公司决定的，这是时代环境决定的，只有群众需要算法，算法才会在大浪淘沙中留存下来。但过于依赖算法，其实是非常危险的，这等同于把我们自己对于内容的选择权全部交给了机器，交给 AI 去判断，换句话来说：你的思想被 AI 所左右着，人如果一直看自己偏爱的内容，会变得偏激和感性。</p>
+<p>形势依然严峻，当下是算法时代，什么东西都有可能被拿去分析用户画像，在人群中的每个个体都是无力的，这是科技发展的必然。但算法一定是好的吗？不一定，而且很有可能是不利的，当然我们深处其中，并不容易发现它的不利因素，只有当你跳脱出来才能发现，自己原来一直被困在由算法砌成的城墙之中，但城墙里的东西并不纯粹，一方面是你爱看的东西，另一方面是你可能爱看的东西，还有一方面，是有人想让你看的东西。RSS 不能解决视野问题，它依然局限于围城之中，只是这个围城，是你亲手搭建的，选择权依然握在你的手中。</p>
+<p>算法我们避无可避，所以与其说是“拒绝算法”，不如说是“<strong>拒绝交出选择权</strong>”。</p>
+<h2 id="复兴？"><a href="#复兴？" class="headerlink" title="复兴？"></a>复兴？</h2><p>我是非常乐于看到 RSS 再次流行的，因为他可以在很大程度上节约时间，规避广告和所有不想看到的内容。但就连谷歌这样的巨头都放弃了自家的 RSS 平台，这是否说明 RSS 已经是一个落伍的阅读方式？一开始我认为是的，RSS 落伍了，但后来转念一想，谷歌之所以放弃，大概是因为 RSS 本身的运作方式，它其实并不强依赖一个服务器，也就是说用户并不是一定需要一个 Host 才能使用 RSS，比如像我，直接就在 NAS 上自建一个 Host,可以自由控制刷新频率，保存时限。所以谷歌的放弃并不能说明什么问题。</p>
+<p>RSS 协议已经十多年没有更新过了，这能说明它已经是枯萎技术了吗？很可惜也不能，你还想在 RSS 上得到什么？我相信大部分人的答案是：“现在这样就足够了”。当一项技术趋于完善，用户和开发者都找不到优化点时，那就没必要更新了，强行加一些多余的功能反倒不伦不类，丢失 RSS 原本的简洁和直接的优势。</p>
+<p>所以要谈复兴还早的很，或许 RSS 已经走向了生命的尽头，永远不会复兴了。除非大众的观念改变，但这并非一日之功，如同社会体制，需要漫长的演进过程，不幸的是现在的演进方向并不利于RSS。它的高门槛和难上手在当下这个时代注定不会被大众所接受，只能成为小部分发烧友的心头好，但这不能说明 RSS 是不好的，诚然，它不利于盈利、不利于用户画像的分析，对公司来说似乎毫无益处，但互联网精神是什么？是开放、平等、协作、快速和分享，RSS 可以做到除协作外的四点，所以他对于互联网来说正确无比，我坚信这样的技术才能推动人类科技向前迈进，封闭和壁垒对科技发展绝对是没有益处的（虽然现实是壁垒越来越多）。</p>
+<h2 id="反对信息孤岛"><a href="#反对信息孤岛" class="headerlink" title="反对信息孤岛"></a>反对信息孤岛</h2><p>希望未来的互联网不只有巨头，而是有万千英雄分享他们的知识，开源他们的程序，共同推动科技进步。</p>
+<p>这也是我搭建个人博客的初心之一（虽然我分享的仅仅是皮毛而已）。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%8A%80%E6%9C%AF/" class="print-no-link">#技术</a>
+      
+        <a href="/tags/%E6%9D%82%E8%B0%88/" class="print-no-link">#杂谈</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>或许是算法时代的另一种选择——RSS</div>
+      <div>https://seailor.com/posts/b500732/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Seailor</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年11月20日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="ND - 禁止演绎">
+                    <i class="iconfont icon-cc-nd"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/87d52e2d/" title="I ❤️ Markdown">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">I ❤️ Markdown</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/381719eb/" title="“集合森”岛内对外广播🔈">
+                        <span class="hidden-mobile">“集合森”岛内对外广播🔈</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="https://cdn.jsdelivr.net/gh/Seailor/store/js/duration.js"></script> </div> <span>反馈邮箱：report@seailor.com</span> <div> <script src="https://cdn.jsdelivr.net/gh/Seailor/store-live2d@main/TweenLite.js"></script> <script src="https://cdn.jsdelivr.net/gh/Seailor/store-live2d@main/live2dcubismcore.min.js"></script> <script src="https://cdn.jsdelivr.net/gh/Seailor/store-live2d@main/pixi.min.js"></script> <script src="https://cdn.jsdelivr.net/gh/Seailor/store-live2d@main/cubism4.min.js"></script> <link href="https://cdn.jsdelivr.net/gh/Seailor/store-live2d@main/pio.css" rel="stylesheet" type="text/css"/> <script src="https://cdn.jsdelivr.net/gh/Seailor/store-live2d@main/pio.js"></script> <script src="https://cdn.jsdelivr.net/gh/Seailor/store-live2d@main/pio_sdk4.js"></script> <script src="https://cdn.jsdelivr.net/gh/Seailor/store-live2d@main/load.js"></script> </div> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

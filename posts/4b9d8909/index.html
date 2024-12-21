@@ -1,0 +1,658 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="https://cdn.jsdelivr.net/gh/Seailor/store/blog resource/Seailor LOGO/128.png">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/Seailor/store/blog resource/Seailor LOGO/128.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#51A8DD">
+  <meta name="author" content="Seailor">
+  <meta name="keywords" content="科技,生活,音乐,游戏">
+  
+    <meta name="description" content="在能够保证软路由正常运行的前提下，在 Docker 上集成了 qBittorrent 和AdGuardhome 这两个软件，我现在还记得他们成功跑起来的时候心里的感动。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="这个博客为何而生">
+<meta property="og:url" content="https://seailor.com/posts/4b9d8909/index.html">
+<meta property="og:site_name" content="Seailor 的小屋">
+<meta property="og:description" content="在能够保证软路由正常运行的前提下，在 Docker 上集成了 qBittorrent 和AdGuardhome 这两个软件，我现在还记得他们成功跑起来的时候心里的感动。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Seailor/store/image/%E8%BF%99%E4%B8%AA%E5%8D%9A%E5%AE%A2%E4%B8%BA%E4%BD%95%E8%80%8C%E7%94%9F/%E8%BF%99%E4%B8%AA%E5%8D%9A%E5%AE%A2%E4%B8%BA%E4%BD%95%E8%80%8C%E7%94%9F%20book%20index.jpg">
+<meta property="article:published_time" content="2021-10-03T03:23:00.000Z">
+<meta property="article:modified_time" content="2021-10-06T03:56:11.000Z">
+<meta property="article:author" content="Seailor">
+<meta property="article:tag" content="杂谈">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Seailor/store/image/%E8%BF%99%E4%B8%AA%E5%8D%9A%E5%AE%A2%E4%B8%BA%E4%BD%95%E8%80%8C%E7%94%9F/%E8%BF%99%E4%B8%AA%E5%8D%9A%E5%AE%A2%E4%B8%BA%E4%BD%95%E8%80%8C%E7%94%9F%20book%20index.jpg">
+  
+  
+  
+  <title>这个博客为何而生 - Seailor 的小屋</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Seailor/store/css/videobox.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Seailor/store/css/image full width.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Seailor/store/css/dplayer style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Seailor/store/css/aplayer fixed style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Seailor/store/css/image caption.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"seailor.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Seailor 的小屋" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Seailor 的小屋</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/update%20log/" target="_self">
+                
+                <span>更新历程</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://cdn.jsdelivr.net/gh/Seailor/store/image/这个博客为何而生/这个博客为何而生 forest banner.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="这个博客为何而生"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-10-03 11:23" pubdate>
+          2021年10月3日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">这个博客为何而生</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2021年10月6日 中午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="搭建历程"><a href="#搭建历程" class="headerlink" title="搭建历程"></a>搭建历程</h1><h2 id="一闪而过的念头-💡"><a href="#一闪而过的念头-💡" class="headerlink" title="一闪而过的念头 💡"></a>一闪而过的念头 💡</h2><p>很久之前，也就是我刚刚上大学吧，突然就想自己搭建一个博客，知道了有 Wordpress 这样一个工具，但是一直没有付诸实践，直到我买了人生中第一块开发板——R2S，其实我是用它来做软路由的，但是当时有一版很火的固件集成了 Docker，我就开始研究这个极其强大的工具，在能够保证软路由正常运行的前提下，在 Docker 上集成了 qBittorrent 和AdGuardhome 这两个软件，我现在还记得他们成功跑起来的时候心里的感动。</p>
+<h2 id="实践让我清醒-🤦🏻‍♂️"><a href="#实践让我清醒-🤦🏻‍♂️" class="headerlink" title="实践让我清醒 🤦🏻‍♂️"></a>实践让我清醒 🤦🏻‍♂️</h2><p>既然有了 Docker，那我就可以在上面部署数据库安装 Wordpress 啊！说干就干，然而第一步就遇到了麻烦——我不会用数据库，虽然我算半个计算机专业的学生，但我其实是个半吊子，属于那种什么都知道一点但是实际能上手的东西不多。我开始找资料研究，在这个过程中慢慢觉得 R2S 的确只能用来做软路由，USB2.0的速度实在无法满足我的需求。然后我就买了树莓派4B。</p>
+<h3 id="树莓派阶段"><a href="#树莓派阶段" class="headerlink" title="树莓派阶段"></a>树莓派阶段</h3><p>当时是觉得树莓派这么大的项目，网上教程这么全面，我跟着做一定能做下来，不能放到服务器上大不了我放在本地自己看。结果我一上手，树莓派的 USB 倒是 3.0，可它的内存卡 IO 跟不上，电源接口在长方形的长边，各种 IO 口在长方形的短边，这个布局让我很是困扰。</p>
+<p>我看着树莓派，心想能不能做个 NAS 出来，网站的事先搁一搁，我装了 OMV，装了 Docker 和 Portainer，部署了一些下载工具在上面，当然还有 Netdata 这个看起来极其酷炫实则没有什么用处的实时监测工具。折腾完这些，我开始做网站，这回倒是能够安装 Wordpress 了，但是连接数据库这一个操作真的难倒我了，MySQL 的 Docker 镜像没有 ARM 版，只能用 MariaDB，好家伙用了我还是连接不上，加上还得自己装 PHPMyAdmin，算了算了，再放一放。</p>
+<h3 id="群晖阶段"><a href="#群晖阶段" class="headerlink" title="群晖阶段"></a>群晖阶段</h3><p>再后来，我买了群晖，核心驱动力是 Google Photos 宣布不再支持无限空间免费压缩上传，我大批的写真集面临无家可归，这行吗？这不行，买，必须买！</p>
+<p>安置好我的写真集和其他影片，我又开始考虑搭建网站，因为群晖是消费级的产品，很多功能非常“傻瓜式”，安装 Wordpress,PHPMyAdmin 和 LNMP 环境就是点一下的事，至此，我终于见到了 Wordpress 的后台管理界面。</p>
+<h4 id="再见，Wordpress"><a href="#再见，Wordpress" class="headerlink" title="再见，Wordpress"></a>再见，Wordpress</h4><p>只有当你真正去做了，才会知道这件事有多难。Wordpress 根本不适合我，我得到了这样的结论。它的确很好很强大，但正是它的强大造就了他的庞大，它其实更加适合于企业来用，对于个人博客来说实在是太过臃肿，因为种种原因，最后我放弃了 Wordpress。但此时正巧我在研究自建 RSS 服务器（接收然后统一管理的那种），看到了一个项目：RSSHub，制作者是 DIYgod，他的博客使用 Hexo 搭建，页脚有句话：“由 Hexo 强力驱动”，这又给了我搭建博客的信心。</p>
+<h4 id="你好，Hexo-Ghost-Hugo-jekyll"><a href="#你好，Hexo-Ghost-Hugo-jekyll" class="headerlink" title="你好，Hexo,Ghost,Hugo,jekyll"></a>你好，Hexo,Ghost,Hugo,jekyll</h4><p>这个时候我开始病急乱投医，各种的博客搭建工具都去尝试，想找到一个简单好用适合自己的，其中完整搭建起来的（能在本地跑 并且内容充实）只有 Hexo 和 Ghost，如果放到公网上，Ghost 仍然需要一台 VPS，如果价格低那必然是国内服务器，面临备案等等问题。最后我选择了 Hexo 来搭建本博客，它是静态网页生成器，可以利用 Github Pages 免费托管，jsDelivr CDN 加速，所以是性价比极高的选择。</p>
+<h1 id="为何而生-🤔"><a href="#为何而生-🤔" class="headerlink" title="为何而生 🤔"></a>为何而生 🤔</h1><p>一方面是自己的小念头，想要做这个东西，一直没有做，总要把它完成吧。这也是我的一个特点，我想做一件事，可能当下不会行动，很久都没做好，但总有一天会把它完成。</p>
+<p>另一方面，舆论环境，不多说明白就好。</p>
+<h1 id="未来打算"><a href="#未来打算" class="headerlink" title="未来打算"></a>未来打算</h1><h2 id="内容-📄"><a href="#内容-📄" class="headerlink" title="内容 📄"></a>内容 📄</h2><p>条件允许的情况下，本博客会尽可能持续运行，我见到了太多在网上兴高采烈地留下自己的博客地址欢迎别人访问，但是点进去 404 的情况，我不想这样。内容方面，基本上是我能写什么写什么，不会纠结于特定类别，但是涉及敏感话题一概不谈。</p>
+<h2 id="功能-⚙️"><a href="#功能-⚙️" class="headerlink" title="功能 ⚙️"></a>功能 ⚙️</h2><p>博客后续会逐步完善功能，包括关于页、标签页等等；全局音乐可能会加入，主要顾虑是博客运行起来的效率；评论区我还在考虑，原因参考上一段。目前确定要加入的功能是 RSS，我本身也在用 RSS，深切体会到它的方便易用，所以这个功能一定会加。</p>
+<h1 id="尾巴"><a href="#尾巴" class="headerlink" title="尾巴"></a>尾巴</h1><p>2021年10月2日是本博客的生日🎉，本地博客我搭了不少，真正上线的这是第一个，希望能把它做好，一起进步。</p>
+<h2 id="致谢-🌸"><a href="#致谢-🌸" class="headerlink" title="致谢 🌸"></a>致谢 🌸</h2><p>感谢 Hexo 和 Fluid 的制作团队，你们提供的软件是本博客的基石。</p>
+<p>感谢 Github 和 jsDelivr，有你们的鼎力相助才有了本博客公网上线的机会。</p>
+<p>感谢互联网上万千无名英雄提供的教程协助，开源代码世界需要你们这样的英雄。</p>
+<p>最后感谢正在阅读的你❤️</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%9D%82%E8%B0%88/" class="print-no-link">#杂谈</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>这个博客为何而生</div>
+      <div>https://seailor.com/posts/4b9d8909/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Seailor</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年10月3日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="ND - 禁止演绎">
+                    <i class="iconfont icon-cc-nd"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/a0028afb/" title="为什么我推荐厨房新手学做味噌汤">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">为什么我推荐厨房新手学做味噌汤</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/c33f1c23/" title="对于女子偶像团体的一些想法">
+                        <span class="hidden-mobile">对于女子偶像团体的一些想法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="https://cdn.jsdelivr.net/gh/Seailor/store/js/duration.js"></script> </div> <span>反馈邮箱：report@seailor.com</span> <div> <script src="https://cdn.jsdelivr.net/gh/Seailor/store-live2d@main/TweenLite.js"></script> <script src="https://cdn.jsdelivr.net/gh/Seailor/store-live2d@main/live2dcubismcore.min.js"></script> <script src="https://cdn.jsdelivr.net/gh/Seailor/store-live2d@main/pixi.min.js"></script> <script src="https://cdn.jsdelivr.net/gh/Seailor/store-live2d@main/cubism4.min.js"></script> <link href="https://cdn.jsdelivr.net/gh/Seailor/store-live2d@main/pio.css" rel="stylesheet" type="text/css"/> <script src="https://cdn.jsdelivr.net/gh/Seailor/store-live2d@main/pio.js"></script> <script src="https://cdn.jsdelivr.net/gh/Seailor/store-live2d@main/pio_sdk4.js"></script> <script src="https://cdn.jsdelivr.net/gh/Seailor/store-live2d@main/load.js"></script> </div> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
