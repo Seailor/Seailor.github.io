@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/Seailor/store/image/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84Hexo%E6%95%99%E7%A8%8B/index.png">
 <meta property="article:published_time" content="2024-12-21T10:00:00.000Z">
-<meta property="article:modified_time" content="2024-12-21T13:16:16.000Z">
+<meta property="article:modified_time" content="2026-05-23T19:53:21.000Z">
 <meta property="article:author" content="Seailor">
 <meta property="article:tag" content="技术">
 <meta property="article:tag" content="网络">
@@ -377,7 +377,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年12月21日 晚上
+                    本文最后更新于 2026年5月24日 凌晨
                   
                 
               </p>
@@ -403,6 +403,9 @@
 <p>curl 刚才安装过了可以略过。</p>
 <p>第三条命令可能需要选择“国家&#x2F;地区”，根据提示选择即可。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/Seailor/store/image/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84Hexo%E6%95%99%E7%A8%8B/nodesource%E7%9A%84%E5%AE%89%E8%A3%85%E5%91%BD%E4%BB%A4.png" srcset="/img/loading.gif" lazyload alt="nodesource的安装命令"></p>
+<p>不知何时开始，安装 NodeJS 不附带 npm 了，所以还需要手动安装 npm</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">apt install npm<br></code></pre></td></tr></table></figure>
+
 <p>验证</p>
 <p><img src="https://cdn.jsdelivr.net/gh/Seailor/store/image/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84Hexo%E6%95%99%E7%A8%8B/%E9%AA%8C%E8%AF%81nodejs%E5%92%8Cnpm%E5%AE%89%E8%A3%85.png" srcset="/img/loading.gif" lazyload alt="验证nodejs和npm安装"></p>
 <p>至此，NodeJS 和 npm 安装完成。</p>
@@ -435,7 +438,7 @@
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">deploy:</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">git</span><br>  <span class="hljs-attr">repo:</span> <span class="hljs-string">git@github.com:username/repository.git</span> <span class="hljs-comment"># 用 SSH key 的方式，所以改成 ssh 格式</span><br>  <span class="hljs-attr">branch:</span> [<span class="hljs-string">branch</span>] <span class="hljs-comment"># Github Pages 应为 gh-pages</span><br></code></pre></td></tr></table></figure>
 
 <p>使用如下命令生成 SSH 密钥</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh-keygen -t rsa -b 4096 -C <span class="hljs-string">&quot;your-email@example.com&quot;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh-keygen -t ed25519 -C <span class="hljs-string">&quot;your-email@example.com&quot;</span><br></code></pre></td></tr></table></figure>
 
 <table>
 <thead>
@@ -464,7 +467,7 @@
 <p>期间会要求选择路径存放公钥私钥，直接回车使用默认路径即可，方便软件识别，这样我们只要把公钥添加到 Github 就可以立即使用。</p>
 <p>路径选择之后，会要求一个密码，这个密码是让我们后续再次使用私钥生成公钥时输入的，看个人情况选择，可以直接回车保持无密码状态。</p>
 <p>生成公钥后，使用如下命令把公钥拷贝一份到我们之前映射的路径，方便复制里面的内容上传 Github。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cp</span> /root/.ssh/id_rsa.pub /hexo<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cp</span> /root/.ssh/ed25519.pub /hexo<br></code></pre></td></tr></table></figure>
 
 
 
