@@ -1,0 +1,886 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="https://cdn.jsdelivr.net/gh/Seailor/store/blog resource/Seailor LOGO/128.png">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/Seailor/store/blog resource/Seailor LOGO/128.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#51A8DD">
+  <meta name="author" content="Seailor">
+  <meta name="keywords" content="科技,生活,音乐,游戏">
+  
+    <meta name="description" content="鼠须管 + 雾凇方案 + 万象词库补充">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rime 使用分享">
+<meta property="og:url" content="https://seailor.com/posts/698e4fd8/index.html">
+<meta property="og:site_name" content="Seailor 的小屋">
+<meta property="og:description" content="鼠须管 + 雾凇方案 + 万象词库补充">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Seailor/store/image/Rime_%E4%BD%BF%E7%94%A8%E5%88%86%E4%BA%AB/index.jpg">
+<meta property="article:published_time" content="2026-02-14T02:00:00.000Z">
+<meta property="article:modified_time" content="2026-02-14T02:20:37.000Z">
+<meta property="article:author" content="Seailor">
+<meta property="article:tag" content="技术">
+<meta property="article:tag" content="杂谈">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Seailor/store/image/Rime_%E4%BD%BF%E7%94%A8%E5%88%86%E4%BA%AB/index.jpg">
+  
+  
+  
+  <title>Rime 使用分享 - Seailor 的小屋</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Seailor/store/css/videobox.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Seailor/store/css/image full width.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Seailor/store/css/dplayer style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Seailor/store/css/aplayer fixed style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Seailor/store/css/image caption.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"seailor.com","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":60,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Seailor 的小屋" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Seailor 的小屋</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/update%20log/" target="_self">
+                <i class="iconfont icon-code"></i>
+                <span>更新历程</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/update%20log/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-code"></i>
+                  <span>更新历程</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://cdn.jsdelivr.net/gh/Seailor/store/image/Rime_使用分享/index.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Rime 使用分享"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-02-14 10:00" pubdate>
+          2026年2月14日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Rime 使用分享</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2026年2月14日 上午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <blockquote>
+<p><strong>中州韻輸入法引擎</strong>（英語：<strong>Rime Input Method Engine</strong>，又稱<strong>Rime輸入法</strong>）是由佛振編寫的<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%BC%80%E6%94%BE%E6%BA%90%E4%BB%A3%E7%A0%81">開放原始碼</a>的<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%B8%AD%E6%96%87%E8%BC%B8%E5%85%A5%E6%B3%95">中文輸入法</a>[<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%B7%9E%E9%9F%BB%E8%BC%B8%E5%85%A5%E6%B3%95%E5%BC%95%E6%93%8E#cite_note-2">2]</a>，目前專案網站、原始碼均代管在<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/GitHub">GitHub</a>[<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%B7%9E%E9%9F%BB%E8%BC%B8%E5%85%A5%E6%B3%95%E5%BC%95%E6%93%8E#cite_note-3">註 1]</a>。基於同一個核心架構，該輸入法分為三個官方發行版：<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Linux">Linux</a> 發行版<strong>中州韻</strong>（<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Ibus">ibus</a>-rime）、<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Microsoft_Windows">Windows</a>發行版<strong>小狼毫</strong>（Weasel）、<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/MacOS">macOS</a> 發行版<strong>鼠鬚管</strong>（Squirrel）。		——维基百科</p>
+</blockquote>
+<p>Rime 是个输入引擎，用好了大有裨益，很大一部分刚入门的人其实用错了，在网上看了点宣传，以为这就是个好用的离线输入法，捣鼓半天好不容易装上发现打不出汉字，折腾好了又感觉词库很差劲也不好用。</p>
+<p>对 Rime 来说，打字和快捷输入是基本操作，自定义词库、拆字反查、V 模式、Unicode 模式、计算器等等，这些才是在功能上 Rime 区分于其他输入法的特性（这些是雾凇自带的功能，本文不介绍）。</p>
+<p>你可以因为多种目的使用 Rime：可以是多端同步输入习惯，可以是离线输入避免隐私泄露、也可以是想方便地实现一些功能，但是都得建立在你愿意折腾的基础上。因为 Rime 是离线输入，在词句的联想上天然就比不上联网输入法，输入的准确性基本只能依靠词库。也正因如此，当理解了 Rime 的逻辑之后，你几乎可以完全控制词语的联想，按下这几个键会出现什么词是完全可控的。</p>
+<p>这篇文字不是使用教程，只是对自己当前使用方法的分享和介绍，不涉及 Lua 的内容。</p>
+<h2 id="软件"><a href="#软件" class="headerlink" title="软件"></a>软件</h2><p>Mac 端推荐官方鼠须管，Android 推荐 Fcitx5 + rime 插件。Win 不常用，iOS 暂时没找到好用的。</p>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><h3 id="custom"><a href="#custom" class="headerlink" title="custom"></a>custom</h3><p>Rime 有使用 custom 文件进行覆写的逻辑，custom 文件必须位于根目录；关于文件写法，这里要注意两点：</p>
+<h4 id="覆写对象"><a href="#覆写对象" class="headerlink" title="覆写对象"></a>覆写对象</h4><p> dict 文件作为资源不能用 custom 覆写，能被覆写的只有 yaml 这种“配置文件”。</p>
+<h4 id="覆写格式"><a href="#覆写格式" class="headerlink" title="覆写格式"></a>覆写格式</h4><p>假设覆写对象为：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">abc:</span><br>  <span class="hljs-attr">def:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-number">123</span><br>  <span class="hljs-attr">xyz:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-number">456</span><br></code></pre></td></tr></table></figure>
+
+<p>要把它改成：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">abc:</span><br>  <span class="hljs-attr">def:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-number">123</span><br>  <span class="hljs-attr">xyz:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">fix</span><br></code></pre></td></tr></table></figure>
+
+<p>有两种实现方式：整体覆写和局部覆写。</p>
+<h5 id="整体覆写"><a href="#整体覆写" class="headerlink" title="整体覆写"></a>整体覆写</h5><p>直接<strong>完整</strong>写出一级键（abc）修改后的样子</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">patch:</span><br>  <span class="hljs-attr">abc:</span><br>    <span class="hljs-attr">def:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-number">123</span><br>    <span class="hljs-attr">xyz:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">fix</span><br></code></pre></td></tr></table></figure>
+
+<p>如果只在一级键（abc）里写了一个需要修改的二级键（xyz），那编译出的东西会只包含二级键（xyz），变成这样</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">abc:</span><br>  <span class="hljs-attr">xyz:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">fix</span><br></code></pre></td></tr></table></figure>
+
+<h5 id="局部覆写"><a href="#局部覆写" class="headerlink" title="局部覆写"></a>局部覆写</h5><p>只需要写出修改部分，但要注意写法和缩进</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">patch:</span><br>  <span class="hljs-attr">abc/xyz:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">fix</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><p>在执行编译之前，最好删除目录下之前编译好的 build 和日常使用积累下来的 db 数据库，如果配置有问题，编译出的 build 体积会异常地小，这样能够及时发现错误；如果编译失败且之前没有删除 build，Rime 仍会使用之前的 build，在主观看来，就是修改不生效但输入法还能用。</p>
+<h2 id="使用分享"><a href="#使用分享" class="headerlink" title="使用分享"></a>使用分享</h2><p>整体是雾凇方案 + 万象词库补充</p>
+<p>雾凇的底层方案比较简洁，易于定制，缺点是词库同样简洁，只能满足基本输入需求。而万象几乎反过来，追求大而全，方案嵌套过多，短时间难以理顺逻辑，修改起来难免掣肘，但它的的词库又比较好用，所以做了这么一个拼接。</p>
+<h3 id="万象词库适配"><a href="#万象词库适配" class="headerlink" title="万象词库适配"></a>万象词库适配</h3><p>万象词库是不能直接应用在雾凇里的，万象主打的是带声调的词库，而雾凇的逻辑里没有声调之说，无法完成映射，所以在 rime_ice.dict 的 import_tables 里加入万象的词库之外，还需要在对应 schema 的 speller&#x2F;algebra 的<strong>所有列表项前面</strong>加入如下列表项：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-bullet">-</span> <span class="hljs-string">xlit/āáǎàōóǒòēéěèīíǐìūúǔùǖǘǚǜü/aaaaooooeeeeiiiiuuuuvvvvv/</span><br><span class="hljs-bullet">-</span> <span class="hljs-string">xform/^ng$/eng/</span><br><span class="hljs-bullet">-</span> <span class="hljs-string">xform/ńg|ňg|ǹg/eng/</span><br><span class="hljs-bullet">-</span> <span class="hljs-string">xform/ń|ň|ǹ/en/</span> <br><span class="hljs-bullet">-</span> <span class="hljs-string">xform/ḿ/m/</span> <br></code></pre></td></tr></table></figure>
+
+<p>作用是在编译过程中，把词库中所有带声调的韵母改成无声调的。一定要加在最前面，避免对输入方案产生影响。</p>
+<h3 id="方便符号键入"><a href="#方便符号键入" class="headerlink" title="方便符号键入"></a>方便符号键入</h3><p>在你输入方案的 recognizer&#x2F;patterns 最下面加入，方便在中文模式下输入网址、邮箱、地址等中间的符号，改写输入符号时自动上屏的行为。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">规则名:</span> <span class="hljs-string">&quot;^[0-9A-Za-z]+[./:?_@#-].*$&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>为了避免覆盖，规则应处于所有 patterns 之后，有些方案会先引入 default.yaml 里的规则，而且一般优先级最高，所以不能加在 default.yaml 里；方案本身也会引入一些特殊功能，所以要把这条加在最下面。规则名可以自定义一个，但应避免如 symbols punct radical 等常用词。</p>
+<h3 id="显示双拼编码"><a href="#显示双拼编码" class="headerlink" title="显示双拼编码"></a>显示双拼编码</h3><p>如果你用双拼方案的话，可以考虑修改此处</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">patch:</span><br>  <span class="hljs-attr">translator/preedit_format:</span> []<br></code></pre></td></tr></table></figure>
+
+<p>这是小鹤双拼</p>
+<p>全拼编码：zhe shi xiao he shuang pin</p>
+<p>双拼编码：ve ui xn he ul pb</p>
+<h3 id="取消左-Shift-切换中英文"><a href="#取消左-Shift-切换中英文" class="headerlink" title="取消左 Shift 切换中英文"></a>取消左 Shift 切换中英文</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">patch:</span><br>  <span class="hljs-attr">ascii_composer:</span><br>    <span class="hljs-attr">switch_key:</span><br>      <span class="hljs-attr">Shift_L:</span> <span class="hljs-string">noop</span><br></code></pre></td></tr></table></figure>
+
+<p>这个覆写有点意思，他在雾凇原方案里是这样的</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># good_old_caps_lock:</span><br><span class="hljs-comment"># true   切换大写</span><br><span class="hljs-comment"># false  切换中英</span><br><span class="hljs-comment"># macOS 偏好设置的优先级更高，如果勾选【使用大写锁定键切换“ABC”输入法】则始终会切换输入法。</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># 切换中英：</span><br><span class="hljs-comment"># 不同的选项表示：打字打到一半时按下了 CapsLock、Shift、Control 后：</span><br><span class="hljs-comment"># commit_code  上屏原始的编码，然后切换到英文</span><br><span class="hljs-comment"># commit_text  上屏拼出的词句，然后切换到英文</span><br><span class="hljs-comment"># clear        清除未上屏内容，然后切换到英文</span><br><span class="hljs-comment"># inline_ascii 切换到临时英文模式，按回车上屏后回到中文状态</span><br><span class="hljs-comment"># noop         屏蔽快捷键，不切换中英，但不要屏蔽 CapsLock</span><br><br><span class="hljs-attr">ascii_composer:</span><br>  <span class="hljs-attr">good_old_caps_lock:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">switch_key:</span><br>    <span class="hljs-attr">Caps_Lock:</span> <span class="hljs-string">clear</span><br>    <span class="hljs-attr">Shift_L:</span> <span class="hljs-string">commit_code</span><br>    <span class="hljs-attr">Shift_R:</span> <span class="hljs-string">noop</span><br>    <span class="hljs-attr">Control_L:</span> <span class="hljs-string">noop</span><br>    <span class="hljs-attr">Control_R:</span> <span class="hljs-string">noop</span><br></code></pre></td></tr></table></figure>
+
+<p>Mac 默认勾选大写锁定切换输入法功能，并且 switch_key 不定义的话在 Rime 的默认逻辑中是不具有任何功能的，所以看似没有包含完整的一级键，实则完全包含了所有必要的内容。</p>
+<h2 id="想法"><a href="#想法" class="headerlink" title="想法"></a>想法</h2><p>Rime 是一个值得玩味的工具，几乎可以实现你在输入上的各种想法，但也存在一些问题，软件在实现输入功能时，所经过的配置文件不少，如果分别有覆写，从 default 到 schema 是四个文件，再进入 dict 列表是五个文件，根据词库配置的不同具体词库文件的数目也有不同，时常让人感到混乱。</p>
+<p>想修改某一功能，找到修改位置只是开始，改了后没作用或改了导致其他功能不能用的情况时有发生，因为配置文件多，实现路径复杂，此时的 Debug 才是难题，往往无从下手。所以 Rime 也许可以优化一下，哪怕只是允许覆写文件都集中在一个文件夹中也好，起码看起来不会太乱。（Mac 用户可以给自定义过的文件加标签，再按照列表显示、种类分组，会清晰一些）</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%8A%80%E6%9C%AF/" class="print-no-link">#技术</a>
+      
+        <a href="/tags/%E6%9D%82%E8%B0%88/" class="print-no-link">#杂谈</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Rime 使用分享</div>
+      <div>https://seailor.com/posts/698e4fd8/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Seailor</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年2月14日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="ND - 禁止演绎">
+                    <i class="iconfont icon-cc-nd"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/10a6cb3f/" title="关于三星安全文件夹的一得之愚">
+                        <span class="hidden-mobile">关于三星安全文件夹的一得之愚</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    
+      <script type="text/javascript">
+        var disqus_config = function() {
+          this.page.url = 'https://seailor.com/posts/698e4fd8/';
+          this.page.identifier = '/posts/698e4fd8/';
+        };
+        Fluid.utils.loadComments('#disqus_thread', function() {
+          var d = document, s = d.createElement('script');
+          s.src = '//' + 'seailor-de-xiao-wu' + '.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', new Date());
+          (d.head || d.body).appendChild(s);
+        });
+      </script>
+    
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="https://cdn.jsdelivr.net/gh/Seailor/store/js/duration.js"></script> </div> <span>反馈邮箱：report@seailor.com</span> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
