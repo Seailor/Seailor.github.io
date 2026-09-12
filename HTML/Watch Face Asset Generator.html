@@ -26,9 +26,37 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     --border: #2a3038;
     --text: #dfe4ea;
     --text-dim: #8993a1;
-    --amber: #ffb454;
-    --amber-dim: #7a5a2c;
+    --accent: #0A84FF;
+    --accent-dim: #cfe4ff;
     --mono: 'SF Mono', 'Consolas', 'Menlo', monospace;
+  }
+  :root[data-theme="light"] {
+    --bg: #f4f5f7;
+    --panel: #ffffff;
+    --panel-2: #eef0f3;
+    --border: #dde1e7;
+    --text: #1c2128;
+    --text-dim: #6b7280;
+    --accent: #0A84FF;
+    --accent-dim: #cfe4ff;
+  }
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      --bg: #f4f5f7;
+      --panel: #ffffff;
+      --panel-2: #eef0f3;
+      --border: #dde1e7;
+      --text: #1c2128;
+      --text-dim: #6b7280;
+      --accent: #0A84FF;
+      --accent-dim: #cfe4ff;
+    }
+  }
+  body { transition: background-color 0.2s ease, color 0.2s ease; }
+  :root { --checker: #2a2f38; }
+  :root[data-theme="light"] { --checker: #d7dbe1; }
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) { --checker: #d7dbe1; }
   }
   * { box-sizing: border-box; }
   body {
@@ -46,10 +74,40 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   header {
     margin-bottom: 28px;
   }
+  .theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    border-radius: 20px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-family: var(--mono);
+  }
+  .theme-toggle select {
+    background: transparent;
+    border: none;
+    color: var(--text);
+    font-size: 13px;
+    font-family: var(--mono);
+    cursor: pointer;
+  }
+  @media (max-width: 480px) {
+    .theme-toggle { top: 12px; right: 12px; padding: 6px 10px; font-size: 11px; }
+    .wrap { padding-top: 56px !important; }
+    .row2 { grid-template-columns: 1fr; }
+    h1 { font-size: 22px; }
+  }
   header .eyebrow {
     font-family: var(--mono);
     font-size: 12px;
-    color: var(--amber);
+    color: var(--accent);
     letter-spacing: 0.02em;
     margin-bottom: 6px;
   }
@@ -115,7 +173,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   .color-field { display: flex; align-items: center; gap: 10px; }
   .color-field span { font-size: 12px; color: var(--text-dim); font-family: var(--mono); }
   .checkline { display: flex; align-items: center; gap: 8px; }
-  .checkline input { accent-color: var(--amber); }
+  .checkline input { accent-color: var(--accent); }
   .checkline label { margin: 0; }
   .font-status {
     font-size: 12px;
@@ -133,13 +191,13 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     font-weight: 600;
   }
   .btn-primary {
-    background: var(--amber);
-    color: #1a1206;
+    background: var(--accent);
+    color: #ffffff;
     width: 100%;
   }
   .btn-primary:disabled {
-    background: var(--amber-dim);
-    color: #6b6459;
+    background: var(--accent-dim);
+    color: #8a9bb0;
     cursor: not-allowed;
   }
   .btn-ghost {
@@ -161,7 +219,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   }
   .preview-header .count {
     font-family: var(--mono);
-    color: var(--amber);
+    color: var(--accent);
   }
   .grid {
     display: grid;
@@ -180,10 +238,10 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   }
   .tile canvas {
     background:
-      linear-gradient(45deg, #2a2f38 25%, transparent 25%),
-      linear-gradient(-45deg, #2a2f38 25%, transparent 25%),
-      linear-gradient(45deg, transparent 75%, #2a2f38 75%),
-      linear-gradient(-45deg, transparent 75%, #2a2f38 75%);
+      linear-gradient(45deg, var(--checker) 25%, transparent 25%),
+      linear-gradient(-45deg, var(--checker) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, var(--checker) 75%),
+      linear-gradient(-45deg, transparent 75%, var(--checker) 75%);
     background-size: 10px 10px;
     background-position: 0 0, 0 5px, 5px -5px, -5px 0px;
     border-radius: 4px;
@@ -200,7 +258,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   .tile .dl {
     font-family: var(--mono);
     font-size: 11px;
-    color: var(--amber);
+    color: var(--accent);
     background: none;
     border: none;
     padding: 0;
@@ -216,13 +274,62 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     border-radius: 8px;
   }
   .actions { margin-top: 20px; display: flex; gap: 10px; }
+  .tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+  .tab-btn {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px 14px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
 </style>
 </head>
 <body>
+<div class="theme-toggle" id="themeToggleWrap">
+  <span>色彩模式:</span>
+  <select id="themeSelect">
+    <option value="auto">跟随系统</option>
+    <option value="dark">深色</option>
+    <option value="light">浅色</option>
+  </select>
+</div>
 <div class="wrap">
   <header>
     <div class="eyebrow">WATCH FACE ASSET GENERATOR</div>
     <h1>表盘素材生成器</h1>
+    <p>生成表盘所需的各类图片素材——数字/星期字符、电量点阵、图标转换、开机闪烁动画、光晕动画,均可批量导出透明背景 PNG。</p>
+  </header>
+
+  <div class="tabs" id="tabBar">
+    <button class="tab-btn active" data-tab="chars">字符素材</button>
+    <button class="tab-btn" data-tab="battery">电量点阵</button>
+    <button class="tab-btn" data-tab="svg">SVG 转 PNG</button>
+    <button class="tab-btn" data-tab="flicker">闪烁动画</button>
+    <button class="tab-btn" data-tab="glow">光晕动画</button>
+  </div>
+
+  <div class="tab-panel active" data-panel="chars">
+  <header>
+    <div class="eyebrow">CHARACTER GLYPHS</div>
+    <h1 style="font-size: 20px;">字符素材(数字/星期等)</h1>
     <p>上传字体文件,设置字符列表和样式,批量生成数字、星期等表盘素材图片(透明背景 PNG),可单张下载或打包下载。</p>
   </header>
 
@@ -265,7 +372,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
         <label>文字颜色 / 背景</label>
         <div class="row2">
           <div class="color-field">
-            <input type="color" id="textColor" value="#ffffff">
+            <input type="color" id="textColor" value="#0A84FF">
             <span>文字色</span>
           </div>
           <div class="color-field">
@@ -298,7 +405,9 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       <div class="empty" id="emptyState">点击左侧「生成素材」,预览会显示在这里</div>
     </div>
   </div>
+  </div>
 
+  <div class="tab-panel" data-panel="battery">
   <header style="margin-top: 44px;">
     <div class="eyebrow">BATTERY DOTS</div>
     <h1 style="font-size: 20px;">电量点阵素材</h1>
@@ -333,7 +442,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
         <label>点颜色 / 熄灭态透明度</label>
         <div class="row2">
           <div class="color-field">
-            <input type="color" id="battColor" value="#ffb454">
+            <input type="color" id="battColor" value="#0A84FF">
             <span>点颜色</span>
           </div>
           <div class="color-field">
@@ -380,7 +489,9 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       <div class="empty" id="battEmptyState">点击左侧「生成电量素材」,预览会显示在这里</div>
     </div>
   </div>
+  </div>
 
+  <div class="tab-panel" data-panel="svg">
   <header style="margin-top: 44px;">
     <div class="eyebrow">SVG TO PNG</div>
     <h1 style="font-size: 20px;">SVG 批量转 PNG</h1>
@@ -414,7 +525,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
           <label for="svgRecolorEnabled" style="margin:0;">统一改色(忽略原始颜色)</label>
         </div>
         <div class="color-field" style="margin-top:10px;">
-          <input type="color" id="svgRecolorColor" value="#ffb454">
+          <input type="color" id="svgRecolorColor" value="#0A84FF">
           <span>统一颜色</span>
         </div>
       </div>
@@ -449,7 +560,9 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       <div class="empty" id="svgEmptyState">点击左侧「生成 PNG」,预览会显示在这里</div>
     </div>
   </div>
+  </div>
 
+  <div class="tab-panel" data-panel="flicker">
   <header style="margin-top: 44px;">
     <div class="eyebrow">FLICKER ANIMATION</div>
     <h1 style="font-size: 20px;">随机闪烁动画(开机式)</h1>
@@ -496,7 +609,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       <div class="field row2">
         <div>
           <label>熄灭态透明度 (0~1)</label>
-          <input type="number" id="flickerOffOpacity" value="0.15" min="0" max="1" step="0.05">
+          <input type="number" id="flickerOffOpacity" value="0" min="0" max="1" step="0.05">
         </div>
         <div>
           <label>导出倍率</label>
@@ -508,7 +621,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
         <label>文字颜色 / 背景</label>
         <div class="row2">
           <div class="color-field">
-            <input type="color" id="flickerColor" value="#ffb454">
+            <input type="color" id="flickerColor" value="#0A84FF">
             <span>文字色</span>
           </div>
           <div class="color-field">
@@ -534,7 +647,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
             <input type="number" id="flickerGlowBlur" value="14" min="0" max="60">
           </div>
           <div class="color-field" style="align-self:flex-end;">
-            <input type="color" id="flickerGlowColor" value="#ffb454">
+            <input type="color" id="flickerGlowColor" value="#0A84FF">
             <span>辉光颜色</span>
           </div>
         </div>
@@ -561,10 +674,10 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       <div style="display:flex; justify-content:center; padding: 16px; background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 16px;">
         <canvas id="flickerPreviewCanvas" style="max-width:100%; height:auto;
           background:
-            linear-gradient(45deg, #2a2f38 25%, transparent 25%),
-            linear-gradient(-45deg, #2a2f38 25%, transparent 25%),
-            linear-gradient(45deg, transparent 75%, #2a2f38 75%),
-            linear-gradient(-45deg, transparent 75%, #2a2f38 75%);
+            linear-gradient(45deg, var(--checker) 25%, transparent 25%),
+            linear-gradient(-45deg, var(--checker) 25%, transparent 25%),
+            linear-gradient(45deg, transparent 75%, var(--checker) 75%),
+            linear-gradient(-45deg, transparent 75%, var(--checker) 75%);
           background-size: 10px 10px;
           background-position: 0 0, 0 5px, 5px -5px, -5px 0px;
           border-radius: 4px;"></canvas>
@@ -579,6 +692,153 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       <div id="flickerGrid" class="grid"></div>
       <div class="empty" id="flickerEmptyState">点击左侧「生成闪烁帧序列」,预览会显示在这里</div>
     </div>
+  </div>
+  </div>
+
+  <div class="tab-panel" data-panel="glow">
+  <header style="margin-top: 44px;">
+    <div class="eyebrow">GLOW ANIMATION</div>
+    <h1 style="font-size: 20px;">圆形光晕动画</h1>
+    <p>一个可控的圆形光晕,支持从无到有(淡入)或从有到无(淡出),可设置内核大小、辐射范围,以及动画开始前的延迟帧数。</p>
+  </header>
+
+  <div class="layout">
+    <div class="panel">
+      <div class="field row2">
+        <div>
+          <label>画布宽 (px)</label>
+          <input type="number" id="glowCanvasW" value="200" min="10">
+        </div>
+        <div>
+          <label>画布高 (px)</label>
+          <input type="number" id="glowCanvasH" value="200" min="10">
+        </div>
+      </div>
+
+      <div class="field row2">
+        <div>
+          <label>圆心 X(留空=居中)</label>
+          <input type="number" id="glowCx" placeholder="居中">
+        </div>
+        <div>
+          <label>圆心 Y(留空=居中)</label>
+          <input type="number" id="glowCy" placeholder="居中">
+        </div>
+      </div>
+
+      <div class="field row2">
+        <div>
+          <label>内核半径(大小,px)</label>
+          <input type="number" id="glowCoreRadius" value="26" min="0">
+        </div>
+        <div>
+          <label>辐射范围(羽化,px)</label>
+          <input type="number" id="glowFeather" value="40" min="0">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>光晕颜色</label>
+        <div class="color-field">
+          <input type="color" id="glowColor" value="#0A84FF">
+          <span>颜色</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="checkline">
+          <input type="checkbox" id="glowSizeAnimate" checked>
+          <label for="glowSizeAnimate" style="margin:0;">尺寸随动画一起变化(不勾选则只变透明度,尺寸固定)</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>动画方向</label>
+        <select id="glowDirection" style="width:100%; background:var(--panel-2); border:1px solid var(--border); border-radius:6px; color:var(--text); padding:8px 10px; font-size:13px;">
+          <option value="in">淡入</option>
+          <option value="out">淡出</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>变化曲线(不是匀速的线性变化)</label>
+        <select id="glowEasing" style="width:100%; background:var(--panel-2); border:1px solid var(--border); border-radius:6px; color:var(--text); padding:8px 10px; font-size:13px;">
+          <option value="linear">线性(匀速)</option>
+          <option value="easeInOut" selected>缓入缓出(两端慢,中间快)</option>
+          <option value="easeIn">缓入(先慢后快)</option>
+          <option value="easeOut">缓出(先快后慢)</option>
+        </select>
+      </div>
+
+      <div class="field row2">
+        <div>
+          <label>总帧数</label>
+          <input type="number" id="glowFrames" value="12" min="1" max="120">
+        </div>
+        <div>
+          <label>前置延迟帧数(可选)</label>
+          <input type="number" id="glowDelayFrames" value="0" min="0">
+        </div>
+      </div>
+
+      <div class="field row2">
+        <div>
+          <label>导出倍率</label>
+          <input type="number" id="glowScale" value="1" min="1" max="4" step="1">
+        </div>
+        <div class="color-field" style="align-self:flex-end;">
+          <input type="color" id="glowBgColor" value="#000000">
+          <span>背景色</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="checkline">
+          <input type="checkbox" id="glowTransparentBg" checked>
+          <label for="glowTransparentBg" style="margin:0;">背景透明</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>文件名前缀</label>
+        <input type="text" id="glowPrefix" value="glow_">
+      </div>
+
+      <button class="btn-primary" id="glowGenerateBtn">生成光晕帧序列</button>
+    </div>
+
+    <div>
+      <div class="preview-header">
+        <h2>动画预览</h2>
+        <div class="actions" style="margin:0; gap: 8px;">
+          <label style="font-size:12px; color:var(--text-dim); font-family:var(--mono); display:flex; align-items:center; gap:6px;">
+            FPS <input type="number" id="glowFps" value="10" min="1" max="30" style="width:52px;">
+          </label>
+          <button class="btn-ghost" id="glowPlayPauseBtn" disabled>播放</button>
+        </div>
+      </div>
+      <div style="display:flex; justify-content:center; padding: 16px; background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 16px;">
+        <canvas id="glowPreviewCanvas" style="max-width:100%; height:auto;
+          background:
+            linear-gradient(45deg, var(--checker) 25%, transparent 25%),
+            linear-gradient(-45deg, var(--checker) 25%, transparent 25%),
+            linear-gradient(45deg, transparent 75%, var(--checker) 75%),
+            linear-gradient(-45deg, transparent 75%, var(--checker) 75%);
+          background-size: 10px 10px;
+          background-position: 0 0, 0 5px, 5px -5px, -5px 0px;
+          border-radius: 4px;"></canvas>
+      </div>
+
+      <div class="preview-header">
+        <h2>逐帧预览 <span class="count" id="glowCountLabel"></span></h2>
+        <div class="actions" style="margin:0;">
+          <button class="btn-ghost" id="glowDownloadAllBtn" disabled>打包下载 ZIP</button>
+        </div>
+      </div>
+      <div id="glowGrid" class="grid"></div>
+      <div class="empty" id="glowEmptyState">点击左侧「生成光晕帧序列」,预览会显示在这里</div>
+    </div>
+  </div>
   </div>
 </div>
 
@@ -1269,6 +1529,241 @@ flickerDownloadAllBtn.addEventListener('click', async () => {
 
   flickerDownloadAllBtn.disabled = false;
   flickerDownloadAllBtn.textContent = '打包下载 ZIP';
+});
+
+// ---------- 页签切换 ----------
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelector(`.tab-panel[data-panel="${btn.dataset.tab}"]`).classList.add('active');
+  });
+});
+
+// ---------- 圆形光晕动画 ----------
+let glowFramesData = [];
+let glowPreviewTimer = null;
+let glowPreviewIndex = 0;
+let glowIsPlaying = false;
+
+const glowGrid = document.getElementById('glowGrid');
+const glowEmptyState = document.getElementById('glowEmptyState');
+const glowCountLabel = document.getElementById('glowCountLabel');
+const glowDownloadAllBtn = document.getElementById('glowDownloadAllBtn');
+const glowPreviewCanvas = document.getElementById('glowPreviewCanvas');
+const glowPlayPauseBtn = document.getElementById('glowPlayPauseBtn');
+
+function applyEasing(t, mode) {
+  const clamped = Math.min(1, Math.max(0, t));
+  switch (mode) {
+    case 'easeIn': return clamped * clamped;
+    case 'easeOut': return clamped * (2 - clamped);
+    case 'easeInOut': return clamped < 0.5 ? 2 * clamped * clamped : -1 + (4 - 2 * clamped) * clamped;
+    default: return clamped; // linear
+  }
+}
+
+function hexToRgb(hex) {
+  const m = hex.replace('#', '');
+  const r = parseInt(m.substring(0, 2), 16);
+  const g = parseInt(m.substring(2, 4), 16);
+  const b = parseInt(m.substring(4, 6), 16);
+  return { r, g, b };
+}
+
+function drawGlowFrame(ctx, w, h, cx, cy, coreRadius, feather, color, opacity, sizeScale) {
+  const rgb = hexToRgb(color);
+  const totalR = (coreRadius + feather) * sizeScale;
+  if (totalR <= 0 || opacity <= 0) return;
+  const coreR = Math.max(0, coreRadius * sizeScale);
+
+  const gradient = ctx.createRadialGradient(cx, cy, 0, cx, cy, totalR);
+  const coreStop = totalR > 0 ? Math.min(1, coreR / totalR) : 0;
+  gradient.addColorStop(0, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${opacity})`);
+  gradient.addColorStop(coreStop, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${opacity})`);
+  gradient.addColorStop(1, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0)`);
+
+  ctx.fillStyle = gradient;
+  ctx.beginPath();
+  ctx.arc(cx, cy, totalR, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+document.getElementById('glowGenerateBtn').addEventListener('click', () => {
+  const w = parseInt(document.getElementById('glowCanvasW').value, 10) || 200;
+  const h = parseInt(document.getElementById('glowCanvasH').value, 10) || 200;
+  const cxRaw = document.getElementById('glowCx').value;
+  const cyRaw = document.getElementById('glowCy').value;
+  const cx = cxRaw === '' ? w / 2 : parseFloat(cxRaw);
+  const cy = cyRaw === '' ? h / 2 : parseFloat(cyRaw);
+  const coreRadius = Math.max(0, parseFloat(document.getElementById('glowCoreRadius').value) || 0);
+  const feather = Math.max(0, parseFloat(document.getElementById('glowFeather').value) || 0);
+  const color = document.getElementById('glowColor').value;
+  const sizeAnimate = document.getElementById('glowSizeAnimate').checked;
+  const direction = document.getElementById('glowDirection').value; // 'in' | 'out'
+  const easing = document.getElementById('glowEasing').value;
+  const totalFrames = Math.max(1, parseInt(document.getElementById('glowFrames').value, 10) || 12);
+  const delayFrames = Math.max(0, Math.min(totalFrames - 1, parseInt(document.getElementById('glowDelayFrames').value, 10) || 0));
+  const scale = parseInt(document.getElementById('glowScale').value, 10) || 1;
+  const bgColor = document.getElementById('glowBgColor').value;
+  const transparent = document.getElementById('glowTransparentBg').checked;
+  const prefix = sanitizeFilename(document.getElementById('glowPrefix').value || 'glow_');
+
+  const animFrameCount = Math.max(1, totalFrames - delayFrames);
+
+  glowGrid.innerHTML = '';
+  glowFramesData = [];
+  stopGlowPreview();
+
+  for (let frame = 0; frame < totalFrames; frame++) {
+    let progress;
+    if (frame < delayFrames) {
+      progress = direction === 'in' ? 0 : 1;
+    } else {
+      const t = animFrameCount > 1 ? (frame - delayFrames) / (animFrameCount - 1) : 1;
+      const easedT = applyEasing(t, easing);
+      progress = direction === 'in' ? easedT : 1 - easedT;
+    }
+
+    const opacity = progress;
+    const sizeScale = sizeAnimate ? progress : 1;
+
+    const canvas = document.createElement('canvas');
+    canvas.width = w * scale;
+    canvas.height = h * scale;
+    const ctx = canvas.getContext('2d');
+    ctx.scale(scale, scale);
+
+    if (!transparent) {
+      ctx.fillStyle = bgColor;
+      ctx.fillRect(0, 0, w, h);
+    }
+
+    drawGlowFrame(ctx, w, h, cx, cy, coreRadius, feather, color, opacity, sizeScale);
+
+    const filename = `${prefix}${String(frame).padStart(2, '0')}.png`;
+    glowFramesData.push({ canvas, filename });
+
+    const tile = document.createElement('div');
+    tile.className = 'tile';
+
+    const dispCanvas = document.createElement('canvas');
+    dispCanvas.width = w;
+    dispCanvas.height = h;
+    dispCanvas.getContext('2d').drawImage(canvas, 0, 0, w, h);
+    tile.appendChild(dispCanvas);
+
+    const label = document.createElement('div');
+    label.className = 'label';
+    label.textContent = `帧 ${frame + 1}/${totalFrames}`;
+    tile.appendChild(label);
+
+    const dlBtn = document.createElement('button');
+    dlBtn.className = 'dl';
+    dlBtn.textContent = '下载 PNG';
+    dlBtn.addEventListener('click', () => {
+      canvas.toBlob((blob) => {
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = filename;
+        a.click();
+      });
+    });
+    tile.appendChild(dlBtn);
+
+    glowGrid.appendChild(tile);
+  }
+
+  glowEmptyState.style.display = 'none';
+  glowCountLabel.textContent = `共 ${totalFrames} 帧`;
+  glowDownloadAllBtn.disabled = false;
+  glowPlayPauseBtn.disabled = false;
+
+  glowPreviewCanvas.width = w;
+  glowPreviewCanvas.height = h;
+  glowPreviewIndex = 0;
+  drawGlowPreviewFrame();
+  startGlowPreview();
+});
+
+function drawGlowPreviewFrame() {
+  if (glowFramesData.length === 0) return;
+  const frameData = glowFramesData[glowPreviewIndex];
+  const ctx = glowPreviewCanvas.getContext('2d');
+  ctx.clearRect(0, 0, glowPreviewCanvas.width, glowPreviewCanvas.height);
+  ctx.drawImage(frameData.canvas, 0, 0, glowPreviewCanvas.width, glowPreviewCanvas.height);
+}
+
+function startGlowPreview() {
+  stopGlowPreviewTimerOnly();
+  const fps = Math.max(1, parseInt(document.getElementById('glowFps').value, 10) || 10);
+  glowIsPlaying = true;
+  glowPlayPauseBtn.textContent = '暂停';
+  glowPreviewTimer = setInterval(() => {
+    glowPreviewIndex = (glowPreviewIndex + 1) % glowFramesData.length;
+    drawGlowPreviewFrame();
+  }, 1000 / fps);
+}
+
+function stopGlowPreviewTimerOnly() {
+  if (glowPreviewTimer) {
+    clearInterval(glowPreviewTimer);
+    glowPreviewTimer = null;
+  }
+}
+
+function stopGlowPreview() {
+  stopGlowPreviewTimerOnly();
+  glowIsPlaying = false;
+  glowPlayPauseBtn.textContent = '播放';
+}
+
+glowPlayPauseBtn.addEventListener('click', () => {
+  if (glowFramesData.length === 0) return;
+  if (glowIsPlaying) {
+    stopGlowPreview();
+  } else {
+    startGlowPreview();
+  }
+});
+
+document.getElementById('glowFps').addEventListener('change', () => {
+  if (glowIsPlaying) startGlowPreview();
+});
+
+glowDownloadAllBtn.addEventListener('click', async () => {
+  if (glowFramesData.length === 0) return;
+  glowDownloadAllBtn.disabled = true;
+  glowDownloadAllBtn.textContent = '打包中...';
+  const zip = new JSZip();
+
+  await Promise.all(glowFramesData.map(f => new Promise((resolve) => {
+    f.canvas.toBlob((blob) => {
+      zip.file(f.filename, blob);
+      resolve();
+    });
+  })));
+
+  const content = await zip.generateAsync({ type: 'blob' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(content);
+  a.download = '光晕动画帧序列.zip';
+  a.click();
+
+  glowDownloadAllBtn.disabled = false;
+  glowDownloadAllBtn.textContent = '打包下载 ZIP';
+});
+
+// ---------- 日夜主题切换(跟随系统 / 深色 / 浅色) ----------
+const themeSelect = document.getElementById('themeSelect');
+themeSelect.value = 'auto';
+themeSelect.addEventListener('change', () => {
+  if (themeSelect.value === 'auto') {
+    document.documentElement.removeAttribute('data-theme');
+  } else {
+    document.documentElement.setAttribute('data-theme', themeSelect.value);
+  }
 });
 </script>
 </body>
