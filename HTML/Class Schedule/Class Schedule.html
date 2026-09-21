@@ -1,0 +1,2061 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="mist" data-scheme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>AttendFrame</title>
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" id="metaThemeColor" content="#ffffff">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="AttendFrame">
+<link rel="icon" href="icon-192.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --radius:10px; --shadow:0 2px 10px rgba(0,0,0,0.06); --sidebar-w:264px;
+    /* --day-w（列宽）/ --row-h（行高）不再自动随视口宽度缩放，而是由用户在"更多"菜单里手动调节，
+       JS 会把用户设置的像素值直接写到这两个变量上；这里只是页面加载出来之前的初始占位值。
+       --label-col2（节次列宽）仍由 JS 按当前实际显示内容（数字节次 + 竖排起止时间）动态量出所需宽度后设置。 */
+    --label-col2: 70px;
+    --day-w: 96px;
+    --row-h: 86px;
+    --day-cols:7; }
+
+  button{ font-family:inherit; -webkit-appearance:none; -moz-appearance:none; appearance:none; background:none; border:none; margin:0; padding:0; cursor:pointer; color:inherit; font:inherit; }
+
+  /* 每个配色主题都提供浅色 / 深色两套变量，由 html 上的 data-scheme="light|dark" 决定实际生效哪一套 */
+  html[data-theme="mist"][data-scheme="light"]{ /* 绿杨烟外·浅色 */
+    --bg:#EEF1F0; --surface:#FFFFFF; --header-bg:#F4F7F6;
+    --ink:#2A3634; --ink-soft:#7E8F8C; --border:#D6E0DE;
+    --accent:#5C8A82; --accent-soft:#D6E6E2;
+    --c1:#5C8A82; --c2:#5C728A; --c3:#8A8264; --c4:#6E7A8A;
+    --c5:#4E6E6A; --c6:#7A8E6E; --c7:#5C6E82; --c8:#8A6E5C;
+  }
+  html[data-theme="mist"][data-scheme="dark"]{ /* 绿杨烟外·深色 */
+    --bg:#151C1B; --surface:#1D2624; --header-bg:#192120;
+    --ink:#DDE8E6; --ink-soft:#8DA19E; --border:#324240;
+    --accent:#7FC0B6; --accent-soft:#223634;
+    --c1:#7FC0B6; --c2:#7FA0C0; --c3:#C0B587; --c4:#96A6C0;
+    --c5:#6FA69E; --c6:#A6C093; --c7:#7F96AC; --c8:#C0967F;
+  }
+  html[data-theme="lake"][data-scheme="light"]{ /* 湖光山色·浅色 */
+    --bg:#EFF4EF; --surface:#FFFFFF; --header-bg:#F4F8F4;
+    --ink:#223528; --ink-soft:#7C8A7E; --border:#D3E0D4;
+    --accent:#3F7350; --accent-soft:#D8E8DA;
+    --c1:#3F7350; --c2:#2E5266; --c3:#8B7355; --c4:#5C7A99;
+    --c5:#6B8E4E; --c6:#7A5C4E; --c7:#3D8A7A; --c8:#4E6B54;
+  }
+  html[data-theme="lake"][data-scheme="dark"]{ /* 湖光山色·深色 */
+    --bg:#141C16; --surface:#1C271F; --header-bg:#18221B;
+    --ink:#DCEBDD; --ink-soft:#8FA593; --border:#324438;
+    --accent:#6FBE85; --accent-soft:#213A28;
+    --c1:#6FBE85; --c2:#5C9CC2; --c3:#C9A876; --c4:#7FAAD4;
+    --c5:#9BCB6E; --c6:#C79470; --c7:#5CC2AC; --c8:#7EA486;
+  }
+  html[data-theme="sunset"][data-scheme="light"]{ /* 落霞孤鹜·浅色 */
+    --bg:#FBF0E4; --surface:#FFFBF5; --header-bg:#FDF4EA;
+    --ink:#4A2E22; --ink-soft:#9C7B62; --border:#F0D9BE;
+    --accent:#D97A3F; --accent-soft:#F5D9B8;
+    --c1:#D97A3F; --c2:#C1543E; --c3:#E0A458; --c4:#B85C7A;
+    --c5:#8E5A3C; --c6:#D68C6A; --c7:#A6472F; --c8:#C98A4E;
+  }
+  html[data-theme="sunset"][data-scheme="dark"]{ /* 落霞孤鹜·深色 */
+    --bg:#241A12; --surface:#2E2116; --header-bg:#291D13;
+    --ink:#F3E2D2; --ink-soft:#C2A186; --border:#4A3624;
+    --accent:#F0985C; --accent-soft:#4A3520;
+    --c1:#F0985C; --c2:#E07A6A; --c3:#F0C177; --c4:#D687A0;
+    --c5:#C2946E; --c6:#F0AC8C; --c7:#D97258; --c8:#E0A96E;
+  }
+  html[data-theme="plum"][data-scheme="light"]{ /* 疏影暗香·浅色 */
+    --bg:#F5F1EE; --surface:#FFFFFF; --header-bg:#FAF6F3;
+    --ink:#3A2E30; --ink-soft:#93807F; --border:#E6D9D6;
+    --accent:#A85C72; --accent-soft:#EAD3D9;
+    --c1:#A85C72; --c2:#6B7A5E; --c3:#8E6C88; --c4:#B98A6A;
+    --c5:#5E7A6E; --c6:#9E5C5C; --c7:#7A6B8E; --c8:#B98A9E;
+  }
+  html[data-theme="plum"][data-scheme="dark"]{ /* 疏影暗香·深色 */
+    --bg:#231C1E; --surface:#2C2325; --header-bg:#282022;
+    --ink:#EFE3E1; --ink-soft:#B29B9A; --border:#4A3B3D;
+    --accent:#D98BA0; --accent-soft:#4A2C34;
+    --c1:#D98BA0; --c2:#93A87E; --c3:#B08CAA; --c4:#D9A986;
+    --c5:#7EA89A; --c6:#C97D7D; --c7:#9A8CAE; --c8:#D9A9BC;
+  }
+  html[data-theme="sea"][data-scheme="light"]{ /* 沧海月明·浅色 */
+    --bg:#EEF1F6; --surface:#FFFFFF; --header-bg:#F4F6FA;
+    --ink:#1E2A3D; --ink-soft:#7A87A0; --border:#D6DDEE;
+    --accent:#2E4E8E; --accent-soft:#D0DCF2;
+    --c1:#2E4E8E; --c2:#4E6E9E; --c3:#6E5C8E; --c4:#3D6E8E;
+    --c5:#5C4E8E; --c6:#2E6E7E; --c7:#4E3E8E; --c8:#6E8EAE;
+  }
+  html[data-theme="sea"][data-scheme="dark"]{ /* 沧海月明·深色 */
+    --bg:#131A26; --surface:#1B2432; --header-bg:#171F2C;
+    --ink:#DCE4F2; --ink-soft:#8B98B8; --border:#2E3A50;
+    --accent:#7096DA; --accent-soft:#22304A;
+    --c1:#7096DA; --c2:#8CACE0; --c3:#A48CD0; --c4:#7EACD0;
+    --c5:#9C8CD0; --c6:#6EAEBE; --c7:#8C7ED0; --c8:#A4C0E0;
+  }
+  html[data-theme="redbean"][data-scheme="light"]{ /* 乱红如雨·浅色 */
+    --bg:#F7EFEC; --surface:#FFFBFA; --header-bg:#FBF3F0;
+    --ink:#4A2420; --ink-soft:#9C7268; --border:#EAD2CA;
+    --accent:#A8362E; --accent-soft:#E8C4BC;
+    --c1:#A8362E; --c2:#7A5C3E; --c3:#8E4E3E; --c4:#B8703E;
+    --c5:#6E3E2E; --c6:#9E5C4E; --c7:#7A3E3E; --c8:#B8825C;
+  }
+  html[data-theme="redbean"][data-scheme="dark"]{ /* 乱红如雨·深色 */
+    --bg:#251815; --surface:#2F1E1A; --header-bg:#291A16;
+    --ink:#F2E0DB; --ink-soft:#C29A8E; --border:#4A312A;
+    --accent:#E06B5E; --accent-soft:#4A2620;
+    --c1:#E06B5E; --c2:#C2A26E; --c3:#D6816E; --c4:#E0996E;
+    --c5:#B27158; --c6:#D6906E; --c7:#B26E6E; --c8:#E0AC7E;
+  }
+  html[data-theme="mono"][data-scheme="light"]{ /* 知白守黑·浅色 */
+    --bg:#F6F6F5; --surface:#FFFFFF; --header-bg:#FAFAF9;
+    --ink:#1C1C1C; --ink-soft:#8A8A87; --border:#DDDDDA;
+    --accent:#1C1C1C; --accent-soft:#E5E5E3;
+    --c1:#3A3A38; --c2:#5C5C58; --c3:#7A7A76; --c4:#4A4A46;
+    --c5:#6A6A66; --c6:#8A8A86; --c7:#333331; --c8:#54544F;
+  }
+  html[data-theme="mono"][data-scheme="dark"]{ /* 知白守黑·深色 */
+    --bg:#161616; --surface:#1F1F1F; --header-bg:#1A1A1A;
+    --ink:#EDEDEC; --ink-soft:#9E9E9A; --border:#3A3A38;
+    --accent:#EDEDEC; --accent-soft:#333331;
+    --c1:#C7C7C4; --c2:#A6A6A2; --c3:#8A8A86; --c4:#B6B6B2;
+    --c5:#96968F; --c6:#7A7A76; --c7:#D6D6D3; --c8:#8F8F8A;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{height:100%;}
+  /* 页面/表格滚动到边界后禁止继续拖拽产生"橡皮筋"回弹效果——滚动到头就在那里停住 */
+  /* 注意：这里不设置 overscroll-behavior，避免连带屏蔽了表格之外（页面本身）的下拉刷新手势；
+     只在表格、弹窗等真正会滚动的内层容器上单独限制它们自己的回弹（见下）*/
+  body{ margin:0; background:var(--bg); color:var(--ink); font-family:"Noto Sans SC", sans-serif; transition:background .3s ease; }
+  /* 输入框内的文字选中高亮颜色跟随当前主题色，而不是浏览器默认的系统蓝 */
+  ::selection{ background:var(--accent); color:#fff; }
+  ::-moz-selection{ background:var(--accent); color:#fff; }
+  input::selection{ background:var(--accent); color:#fff; }
+  input::-moz-selection{ background:var(--accent); color:#fff; }
+
+  .app-shell{ display:flex; flex-direction:column; height:100vh; height:100dvh; }
+
+  .main-layout{ display:flex; flex-direction:column; flex:1; min-height:0; }
+
+  .side-label{ font-size:11px; color:var(--ink-soft); font-weight:600; letter-spacing:.5px; }
+
+  .schedule-wrap{ max-width: calc(var(--label-col2) + var(--day-cols) * var(--day-w)); margin:0 auto; display:flex; flex-direction:column; gap:14px; width:100%; flex:1; min-height:0; }
+
+  /* ---------- 顶部图标工具条（加号 / 导入导出 / 更多） ---------- */
+  .schedule-toolbar{
+    display:flex; align-items:center; justify-content:space-between; gap:14px; flex:none;
+    max-width: calc(var(--label-col2) + var(--day-cols) * var(--day-w));
+    width:100%; margin:0 auto; box-sizing:border-box;
+    padding:10px clamp(6px,2vw,10px) 8px; background:var(--bg);
+  }
+  .toolbar-icons{ display:flex; align-items:center; gap:6px; flex:none; }
+  .icon-toolbtn{
+    width:34px; height:34px; border-radius:50%; border:1px solid var(--border); background:var(--bg);
+    color:var(--ink); font-size:16px; line-height:1; display:flex; align-items:center; justify-content:center;
+    cursor:pointer; transition:background .15s ease, box-shadow .15s ease;
+  }
+  .icon-toolbtn:hover{box-shadow:var(--shadow);}
+  #addBtn.icon-toolbtn{background:var(--accent); color:#fff; border-color:var(--accent); font-size:18px;}
+  #helpBtn.icon-toolbtn{font-size:15px;}
+
+  .icon-dropdown{ position:relative; }
+  .icon-menu{
+    position:absolute; top:calc(100% + 8px); right:0; min-width:190px; z-index:70;
+    background:var(--surface); border:1px solid var(--border); border-radius:12px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.18); padding:6px; display:none;
+  }
+  .icon-menu.open{ display:block; }
+  .icon-menu.settings-menu{
+    min-width:250px; display:none; flex-direction:column; gap:8px; padding:12px;
+    /* 屏幕放不下整条设置条时，改为在设置条自身内部纵向滑动查看；
+       这里给一个兜底的最大高度，实际生效值由 JS 按当前可用视口空间动态计算并覆盖 */
+    max-height:calc(100dvh - 90px); overflow-y:auto; overscroll-behavior:contain;
+    touch-action:pan-y;
+    /* 注意：这里不加 -webkit-overflow-scrolling:touch —— 它会让 iOS 把这块内容单独提到一个
+       GPU 合成层，导致里面 1px 高的分隔线因为跨设备像素取整/图层拼接而被"抹掉"或忽隐忽现。
+       现在的 iOS/Android 系统浏览器对 overflow-y:auto 已经原生支持惯性滚动，
+       去掉这个旧属性既能保留顺滑滑动，也不会再吃掉分隔线。 */
+  }
+  .icon-menu.settings-menu.open{ display:flex; }
+  .icon-menu-item{
+    display:flex; align-items:center; justify-content:space-between; gap:10px; width:100%;
+    padding:9px 10px; border-radius:9px; text-align:left; font-size:13px; color:var(--ink); cursor:pointer;
+  }
+  .icon-menu-item:hover{ background:var(--accent-soft); }
+  .icon-menu-item.switch-item{ cursor:pointer; }
+  .icon-menu-sep{ height:1px; background:var(--border); margin:5px 4px; flex:none; }
+
+  .btn{ display:inline-flex; align-items:center; justify-content:center; font-family:inherit; font-size:13px; font-weight:500; padding:9px 14px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--ink); cursor:pointer; transition:transform .12s ease, box-shadow .12s ease; white-space:nowrap; }
+  .btn:hover{box-shadow:var(--shadow); transform:translateY(-1px);}
+  .btn.primary{background:var(--accent); color:#fff; border-color:var(--accent);}
+  .btn.small{padding:7px 10px; font-size:12px;}
+  .btn.full{width:100%;}
+
+  .side-select{ width:100%; padding:8px 10px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--ink); font-family:inherit; font-size:13px; }
+
+  .switch-row{display:flex; align-items:center; justify-content:space-between; gap:10px; font-size:12.5px; color:var(--ink); cursor:pointer;}
+  .switch{position:relative; width:36px; height:21px; flex:none; display:inline-block;}
+  .switch input{opacity:0; width:0; height:0; position:absolute;}
+  .switch .slider{position:absolute; inset:0; background:var(--border); border-radius:999px; transition:background .2s ease; display:block;}
+  .switch .slider::before{content:''; position:absolute; width:15px; height:15px; left:3px; top:3px; background:#fff; border-radius:50%; transition:transform .2s ease; box-shadow:0 1px 2px rgba(0,0,0,.25);}
+  .switch input:checked + .slider{background:var(--accent);}
+  .switch input:checked + .slider::before{transform:translateX(15px);}
+  .switch-hint{font-size:11px; color:var(--ink-soft); line-height:1.5;}
+
+  .sidebar-hint{ font-size:11.5px; color:var(--ink-soft); line-height:1.7; padding-top:10px; border-top:1px solid var(--border); }
+
+  /* 外观模式（系统 / 浅色 / 深色）三选一选项卡 */
+  .segmented{ display:flex; width:100%; background:var(--bg); border:1px solid var(--border); border-radius:9px; padding:2px; gap:2px; }
+  .segmented-option{
+    flex:1; text-align:center; padding:7px 4px; border-radius:7px; font-size:12.5px;
+    color:var(--ink-soft); cursor:pointer; transition:background .15s ease, color .15s ease;
+  }
+  .segmented-option:hover{ color:var(--ink); }
+  .segmented-option.active{ background:var(--accent); color:#fff; font-weight:600; }
+
+  .table-area{ flex:1; min-width:0; min-height:0; overflow:visible; padding:8px clamp(6px,2vw,10px) calc(12px + env(safe-area-inset-bottom,0px)); display:flex; flex-direction:column; }
+  /* overflow-x 默认先给 hidden（JS 会在算出精确宽度后按需切换成 auto），避免首次绘制时
+     出现短暂可横向滚动的状态；overflow-y 保持 auto，节次很多时纵向滚动是正常需要 */
+  .schedule-card{ background:var(--surface); border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); overflow-y:auto; overflow-x:hidden; overscroll-behavior:none; width:fit-content; max-width:100%; align-self:center; flex:0 1 auto; min-height:0; }
+  /* Safari 下，网格内其他元素（如 .stack-card）的 transform/box-shadow 悬停动画会触发 Safari 对
+     整个 CSS Grid 重新做像素级布局计算，导致表格格线出现抖动（Chrome 无此问题）。
+     把 .grid 提升为独立的合成层（transform+backface-visibility）可以让 Safari 不再因为
+     子元素的动画而反复重排/重绘格线本身。 */
+  /* 列宽现在是用户手动设置的固定像素值，不再需要 1fr 参与"自动撑满剩余空间"，
+     所以这里改成纯固定宽度而不是 minmax(..., 1fr) —— 后者在配合外层 width:fit-content 时，
+     浏览器计算"内容自适应宽度"会引入极小的取整误差，表现为表格明明能完整显示却仍能被拖出一丝滑动空间 */
+  .grid{ display:grid; grid-template-columns: var(--label-col2) repeat(var(--day-cols), var(--day-w)); grid-template-rows:50px; grid-auto-rows: var(--row-h);
+    transform:translateZ(0); -webkit-transform:translateZ(0); backface-visibility:hidden; -webkit-backface-visibility:hidden; }
+  .cell{ border-right:1px solid var(--border); border-bottom:1px solid var(--border); position:relative; }
+  /* 上午 / 下午 时段分界：由 JS 根据节次时段自动判断并加粗对应行的底部边框 */
+  .seg-boundary{ border-bottom-width:2px !important; border-bottom-color:var(--ink-soft) !important; }
+  .head{ background:var(--header-bg); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px; font-size:13px; border-bottom:1px solid var(--border); position:sticky; top:0; z-index:2; }
+  .head-day-name{ font-weight:700; color:var(--ink); }
+  .head-day-date{ font-weight:400; color:var(--ink-soft); font-size:11px; }
+  .corner{background:var(--header-bg); display:flex; align-items:center; justify-content:center; font-size:13px; color:var(--ink-soft); font-weight:400; text-align:center; line-height:1.4; position:sticky; top:0; left:0; z-index:3;}
+  .corner.week-num{ font-weight:700; color:var(--ink); font-size:14px; }
+
+  .date-trigger{
+    display:flex; flex-direction:column; align-items:flex-start; justify-content:center; gap:0;
+    padding:6px 12px; border-radius:10px; border:1px solid var(--border); background:var(--bg);
+    cursor:pointer; transition:background .15s ease, box-shadow .15s ease; flex:none;
+  }
+  .date-trigger:hover{ box-shadow:var(--shadow); background:var(--accent-soft); }
+  .date-trigger .date-trigger-text{ font-size:13px; font-weight:600; line-height:1.5; color:var(--ink); white-space:nowrap; }
+  .date-trigger .date-trigger-text b{ color:var(--ink); font-weight:700; }
+
+  .period-cell{ background:var(--surface); display:flex; flex-direction:column; align-items:center; justify-content:center; font-size:12px; color:var(--ink-soft); line-height:1.5; text-align:center; padding:2px; position:sticky; left:0; z-index:1; }
+  .period-cell b{font-size:13px; color:var(--ink); font-weight:600;}
+  /* 节次列：固定使用"数字节次（1/2/3/4…）+ 竖排起止时间"样式，不再随列宽切换为完整版文字；
+     列宽始终按当前实际展示内容动态收紧，不多留空白。起止时间各自可编辑，失焦后写回。 */
+  .period-cell .p-compact{ display:flex; flex-direction:column; align-items:center; gap:1px; }
+  .period-cell .p-compact-num{ font-size:13px; color:var(--ink); font-weight:700; }
+  .period-cell .p-compact-time{ display:flex; flex-direction:column; align-items:center; font-size:var(--period-time-fs, 9.5px); color:var(--ink-soft); line-height:1.25; }
+  .period-cell .p-compact-time .ptime{ max-width:100%; white-space:nowrap; overflow:hidden; }
+
+  .day-cell{ cursor:pointer; background:var(--surface); }
+  .day-cell:hover{background:var(--accent-soft); opacity:.55;}
+
+  /* ---------- 课程卡片：标签风格 ---------- */
+  .course-cell{ padding:0; cursor:pointer; z-index:0; }
+  .course-inner{
+    position:absolute; inset:3px; border-radius:7px; padding:7px 6px 7px 9px;
+    overflow:hidden; display:flex; flex-direction:column; gap:2px;
+    box-shadow:0 1px 4px rgba(0,0,0,0.10);
+    -webkit-print-color-adjust: exact; print-color-adjust:exact; transition:opacity .2s ease;
+  }
+  .course-inner.dimmed{opacity:.38;}
+  .course-inner .name{font-weight:700; font-size:13px; line-height:1.3;}
+  .course-inner .meta{font-size:11px; line-height:1.35; opacity:.78;}
+  .course-inner .tag{ position:absolute; top:3px; right:3px; font-size:9px; background:rgba(0,0,0,0.35); color:#fff; padding:1px 5px; border-radius:6px; }
+  /* 悬停辉光：不改变任何布局尺寸（只叠加一层向外扩散的发光阴影），避免像之前的缩放效果那样引发抖动；
+     淡入约 0.28s（比早期版本更快），同时把卡片自身层级提到冻结表头（2/3）与其他课程格之上，确保辉光不被遮住。
+     辉光比早期版本更收敛：半径更小、颜色更淡 */
+  .course-cell::after{
+    content:''; position:absolute; inset:3px; border-radius:7px; pointer-events:none;
+    box-shadow:0 0 9px 2px var(--accent-soft);
+    opacity:0; transition:opacity .28s ease-out;
+  }
+  .course-cell:hover{ z-index:8; }
+  .course-cell:hover::after{ opacity:1; }
+
+  /* ---------- 重叠课程：完全遮住才允许悬停探出，有部分露出则保持静止不弹出 ---------- */
+  .overlap-wrapper{ padding:0; position:relative; z-index:0; }
+  /* 悬停展开重叠课程时，把整组的层级提到冻结表头（z-index:2/3）之上，
+     否则展开的卡片虽然自身 z-index:999，但仍被限制在 wrapper 自身 z-index:0 的层叠上下文里，
+     会被冻结表头盖住 */
+  .overlap-wrapper:hover{ z-index:10; }
+  .stack-card{
+    position:absolute; border-radius:7px; cursor:pointer; overflow:hidden;
+    box-shadow:0 1px 4px rgba(0,0,0,0.10);
+    transition:transform .15s ease, box-shadow .28s ease-out;
+    -webkit-print-color-adjust: exact; print-color-adjust:exact;
+    will-change:transform; -webkit-backface-visibility:hidden; backface-visibility:hidden;
+  }
+  .stack-card-inner{ position:absolute; left:0; right:0; padding:7px 6px 7px 9px; display:flex; flex-direction:column; gap:2px; }
+  .stack-card.dimmed{opacity:.38;}
+  .stack-card .name{font-weight:700; font-size:13px; line-height:1.3;}
+  .stack-card .meta{font-size:11px; line-height:1.35; opacity:.78;}
+  .stack-card .tag{ position:absolute; top:3px; right:3px; font-size:9px; background:rgba(0,0,0,0.35); color:#fff; padding:1px 5px; border-radius:6px; }
+  /* 悬停辉光：无论是完全遮住会探出的 .back，还是未被遮挡的 .front / 部分露出保持静止的
+     .back-static，鼠标悬停时都统一叠加同一层辉光提示；辉光比早期版本更收敛：半径更小、颜色更淡。
+     注意 .stack-card 自身设了 overflow:hidden（用于裁切文字），不能用 ::after 子元素叠加辉光
+     （会被裁掉），所以直接在元素自身的 box-shadow 上叠加一层——元素自身的阴影不受自身
+     overflow:hidden 影响，天然不会被裁切。.back 额外叠加探出位移效果，其余样式保持静止 */
+  .stack-card:hover{
+    z-index:8;
+    box-shadow:0 1px 4px rgba(0,0,0,0.10), 0 0 9px 2px var(--accent-soft);
+  }
+  .stack-card.back:hover{
+    transform:translateX(-30px); z-index:999 !important;
+  }
+  /* 弹窗打开时强制取消探出/辉光效果 */
+  body.modal-open .stack-card:hover{ transform:none !important; z-index:auto !important; box-shadow:0 1px 4px rgba(0,0,0,0.10); }
+
+  /* ---------- 今天所在列：浅色高亮，不影响边框 ---------- */
+  /* 时间指示线的层级要比冻结表头（z-index:2/3）和冻结节次列（z-index:1）低，
+     这样滑动到表头/节次列下面时会被正确遮挡，而不是穿透显示在它们上面；
+     同时仍高于普通课程格（z-index:0 起点），保证指示线在课程色块之上可见 */
+  .now-line-cell{ position:relative; pointer-events:none; z-index:0; }
+  .now-line-bar{ position:absolute; left:0; right:0; height:2px; border-radius:2px; }
+
+  .overlay{ position:fixed; inset:0; background:rgba(20,15,10,0.35); display:none; align-items:center; justify-content:center; z-index:100; backdrop-filter: blur(2px); }
+  .overlay.open{display:flex;}
+  .modal{ background:var(--surface); border-radius:14px; width:360px; max-height:88vh; overflow-y:auto; overscroll-behavior:none; padding:26px; box-shadow:0 12px 40px rgba(0,0,0,0.25); border:1px solid var(--border); }
+  .modal.wide{width:440px;}
+  .modal h2{ margin:0 0 18px; font-family:"Noto Serif SC", serif; font-size:19px; }
+  .modal p.desc{font-size:13px; color:var(--ink-soft); margin:-10px 0 16px;}
+  .field{margin-bottom:13px;}
+  .field label{display:block; font-size:12px; color:var(--ink-soft); margin-bottom:5px;}
+  .field input, .field select{ width:100%; padding:9px 10px; border-radius:7px; border:1px solid var(--border); font-family:inherit; font-size:13px; background:var(--bg); color:var(--ink); }
+  .row2{display:flex; gap:10px;}
+  .row2 .field{flex:1;}
+  .color-row{display:flex; gap:8px; margin-top:4px; flex-wrap:wrap;}
+  .color-dot{ width:22px; height:22px; border-radius:50%; cursor:pointer; border:2px solid var(--border); display:inline-block; }
+  .color-dot.selected{border-color:var(--ink); box-shadow:0 0 0 2px var(--surface), 0 0 0 4px var(--ink);}
+  .modal-actions{display:flex; justify-content:space-between; margin-top:20px; gap:10px;}
+  .modal-actions .left{display:flex; gap:8px;}
+
+  .file-drop{ border:1.5px dashed var(--border); border-radius:10px; padding:22px; text-align:center; font-size:13px; color:var(--ink-soft); cursor:pointer; background:var(--bg); }
+  .file-drop:hover{border-color:var(--accent);}
+
+  .quick-gen{ border:1px solid var(--border); border-radius:10px; margin-bottom:14px; background:var(--bg); overflow:hidden; }
+  .quick-gen summary{ cursor:pointer; padding:10px 12px; font-size:13px; font-weight:600; color:var(--ink); list-style:none; display:flex; align-items:center; gap:6px; user-select:none; }
+  .quick-gen summary::-webkit-details-marker{display:none;}
+  .quick-gen summary::before{content:'▸'; font-size:11px; color:var(--ink-soft); transition:transform .15s ease;}
+  .quick-gen[open] summary::before{transform:rotate(90deg);}
+  .quick-gen .qg-body{ padding:2px 12px 14px; }
+  .quick-gen .qg-hint{ font-size:11.5px; color:var(--ink-soft); margin:0 0 10px; }
+  .quick-gen .row2{gap:8px;}
+  .quick-gen .row3{display:flex; gap:8px;}
+  .quick-gen .row3 .field{flex:1;}
+  .quick-gen .field{margin-bottom:10px;}
+  .quick-gen .field input{padding:7px 8px; font-size:12px;}
+  .quick-gen .field label{font-size:11px; margin-bottom:4px;}
+
+  .period-row{ display:flex; align-items:center; gap:6px; padding:8px 0; border-bottom:1px solid var(--border); }
+  .period-row .pIndex{ width:20px; flex:none; text-align:center; font-size:13px; font-weight:700; color:var(--ink); }
+  .period-row input[type="time"]{ padding:6px 7px; border-radius:6px; border:1px solid var(--border); background:var(--bg); color:var(--ink); font-size:12px; font-family:inherit; width:96px; }
+  .period-row .pTimeSep{ color:var(--ink-soft); font-size:12px; flex:none; }
+  .period-row select{ padding:7px 6px; border-radius:6px; border:1px solid var(--border); background:var(--bg); color:var(--ink); font-size:12px; font-family:inherit; }
+  .period-row .spacer{flex:1;}
+  .icon-btn{ width:26px; height:26px; border-radius:6px; border:1px solid var(--border); background:var(--surface); color:var(--ink); cursor:pointer; font-size:13px; display:flex; align-items:center; justify-content:center; padding:0; }
+  .icon-btn:hover{background:var(--accent-soft);}
+  .icon-btn.danger:hover{background:#e2b0b0;}
+  .icon-btn:disabled{opacity:.35; cursor:default;}
+  .period-list{max-height:340px; overflow-y:auto; overscroll-behavior:none; margin-bottom:10px; scroll-behavior:smooth;}
+
+  .overlap-row{ display:flex; align-items:center; gap:8px; padding:7px 0; border-bottom:1px solid var(--border); font-size:12.5px; }
+  .overlap-row .nm{flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .overlap-row .front-badge{font-size:10px; color:#fff; background:var(--accent); padding:1px 6px; border-radius:6px;}
+  .overlap-hint{font-size:11px; color:var(--ink-soft); margin:-4px 0 8px;}
+
+  .cal-header{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;}
+  .cal-month-label{font-family:"Noto Serif SC", serif; font-size:16px; font-weight:700;}
+  .cal-weekdays{display:grid; grid-template-columns:repeat(7,1fr); text-align:center; font-size:11px; color:var(--ink-soft); margin-bottom:4px;}
+  .cal-days{display:grid; grid-template-columns:repeat(7,1fr); gap:3px;}
+  .cal-day{ aspect-ratio:1; display:flex; align-items:center; justify-content:center; border-radius:8px; font-size:13px; cursor:pointer; color:var(--ink); }
+  .cal-day:hover{background:var(--accent-soft);}
+  .cal-day.outside{color:var(--ink-soft); opacity:.4;}
+  .cal-day.is-today{border:1.5px solid var(--accent); font-weight:700;}
+  .cal-day.is-selected{background:var(--accent); color:#fff; font-weight:700;}
+  .cal-footer{ margin-top:16px; padding-top:14px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  .cal-start-label{font-size:12px; color:var(--ink-soft);}
+  .cal-footer input[type="date"]{ padding:7px 8px; border-radius:6px; border:1px solid var(--border); background:var(--bg); color:var(--ink); font-family:inherit; font-size:12px; }
+
+  .help-content{ max-height:56vh; overflow-y:auto; overscroll-behavior:none; font-size:13.5px; line-height:1.8; color:var(--ink); }
+  .help-content h3{ font-family:"Noto Serif SC", serif; font-size:17px; margin:0 0 10px; }
+  .help-content h4{ font-size:14.5px; margin:16px 0 6px; color:var(--ink); }
+  .help-content h4:first-child{ margin-top:0; }
+  .help-content p{ margin:0 0 8px; }
+  .help-content ul{ margin:0 0 10px; padding-left:20px; }
+  .help-content li{ margin:2px 0; }
+  .help-content strong{ color:var(--accent); font-weight:700; }
+  .help-content a{ color:var(--accent); text-decoration:underline; word-break:break-all; }
+
+  /* ---------- 列宽 / 行高改由 :root 中的 clamp() 连续函数驱动（见文件顶部），
+     不再使用固定断点，因此横竖屏切换、窗口缩放时都是平滑的连续变化，不会突变。 ---------- */
+
+  @media (max-width: 480px){
+    .icon-menu.settings-menu{ right:-6px; min-width:220px; }
+  }
+
+  
+</style>
+</head>
+<body>
+
+<div class="app-shell">
+  <div class="schedule-toolbar">
+    <button class="date-trigger" id="dateStatus" type="button" title="选择日期">
+      <span class="date-trigger-text"></span>
+    </button>
+
+    <div class="toolbar-icons">
+      <button class="icon-toolbtn" id="addBtn" type="button" title="添加课程">＋</button>
+
+      <div class="icon-dropdown" id="moreDropdown">
+        <button class="icon-toolbtn" id="moreToggleBtn" type="button" title="更多">⋯</button>
+        <div class="icon-menu settings-menu" id="moreMenu">
+          <button class="icon-menu-item" id="periodSettingsBtn" type="button">节次设置</button>
+
+          <div class="icon-menu-item" style="cursor:default;">
+            <span>默认课时</span>
+            <select class="side-select" id="defaultSpanSelect" style="width:auto;"></select>
+          </div>
+
+          <label class="icon-menu-item switch-item" for="showWeekendsToggle">
+            <span>显示周末</span>
+            <span class="switch"><input type="checkbox" id="showWeekendsToggle"><span class="slider"></span></span>
+          </label>
+
+          <label class="icon-menu-item switch-item" for="autoPromoteToggle">
+            <span>本周课程置顶</span>
+            <span class="switch"><input type="checkbox" id="autoPromoteToggle"><span class="slider"></span></span>
+          </label>
+
+          <div class="icon-menu-item" style="cursor:default;">
+            <span>起止时间字号</span>
+            <span style="display:flex; align-items:center; gap:4px;">
+              <input type="number" id="periodTimeFontSizeInput" class="side-select" style="width:64px; padding:6px 8px;" min="7" max="16" step="0.5">
+              <span class="side-label" style="padding-top:0;">px</span>
+            </span>
+          </div>
+
+          <div class="icon-menu-item" style="cursor:default;">
+            <span>行高</span>
+            <span style="display:flex; align-items:center; gap:4px;">
+              <input type="number" id="rowHeightInput" class="side-select" style="width:64px; padding:6px 8px;" min="50" max="160" step="2">
+              <span class="side-label" style="padding-top:0;">px</span>
+            </span>
+          </div>
+
+          <div class="icon-menu-item" style="cursor:default;">
+            <span>列宽</span>
+            <span style="display:flex; align-items:center; gap:4px;">
+              <input type="number" id="colWidthInput" class="side-select" style="width:64px; padding:6px 8px;" min="50" max="220" step="2">
+              <span class="side-label" style="padding-top:0;">px</span>
+            </span>
+          </div>
+
+          <div class="icon-menu-sep"></div>
+
+          <button class="icon-menu-item" id="importJsonBtn" type="button">导入 JSON</button>
+          <input type="file" id="jsonFileInput" accept="application/json" style="display:none;">
+
+          <div class="icon-menu-sep"></div>
+
+          <button class="icon-menu-item" id="exportJsonBtn" type="button">导出 JSON</button>
+          <button class="icon-menu-item" id="exportPngBtn" type="button">导出 PNG</button>
+
+          <div class="icon-menu-sep"></div>
+
+          <div class="icon-menu-item" style="cursor:default; flex-direction:column; align-items:stretch; gap:6px;">
+            <span class="side-label" style="padding-top:0;">外观模式</span>
+            <div class="segmented" id="colorSchemeSegmented">
+              <button type="button" class="segmented-option" data-mode="system">系统</button>
+              <button type="button" class="segmented-option" data-mode="light">浅色</button>
+              <button type="button" class="segmented-option" data-mode="dark">深色</button>
+            </div>
+          </div>
+
+          <div class="icon-menu-item" style="cursor:default;">
+            <span>配色</span>
+            <select class="side-select" id="themeSelect" style="width:auto; max-width:150px;"></select>
+          </div>
+
+          <div class="icon-menu-sep"></div>
+
+          <button class="icon-menu-item" id="clearCoursesBtn" type="button">清空课程表</button>
+          <button class="icon-menu-item" id="resetDefaultBtn" type="button">恢复默认配置</button>
+        </div>
+      </div>
+
+      <button class="icon-toolbtn" id="helpBtn" type="button" title="帮助">?</button>
+    </div>
+  </div>
+
+  <div class="main-layout">
+    <main class="table-area">
+      <div class="schedule-wrap">
+        <div class="schedule-card">
+          <div class="grid" id="grid"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+  <!-- 添加/编辑课程 弹窗 -->
+  <div class="overlay" id="overlay">
+    <div class="modal">
+      <h2 id="modalTitle">添加课程</h2>
+      <div class="field">
+        <label>课程名称</label>
+        <input type="text" id="fName" placeholder="例如：数据结构与算法">
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>教师</label>
+          <input type="text" id="fTeacher" placeholder="例如：王老师">
+        </div>
+        <div class="field">
+          <label>地点</label>
+          <input type="text" id="fLocation" placeholder="例如：信息楼 302">
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>星期</label>
+          <select id="fDay"></select>
+        </div>
+        <div class="field">
+          <label>单双周</label>
+          <select id="fParity">
+            <option value="all">不区分单双周</option>
+            <option value="odd">单周</option>
+            <option value="even">双周</option>
+          </select>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>起始周（留空=不限）</label>
+          <input type="number" id="fWeeksFrom" min="1" placeholder="例如 1">
+        </div>
+        <div class="field">
+          <label>结束周（留空=不限）</label>
+          <input type="number" id="fWeeksTo" min="1" placeholder="例如 16">
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>开始节次</label>
+          <select id="fStart"></select>
+        </div>
+        <div class="field">
+          <label>持续节数</label>
+          <select id="fSpan"></select>
+        </div>
+      </div>
+      <div class="field">
+        <label>颜色</label>
+        <div class="color-row" id="colorRow"></div>
+      </div>
+
+      <button class="btn full" id="addOverlapBtn" style="display:none; margin-bottom:14px;">＋ 添加与此重叠的课程</button>
+
+      <div class="field" id="overlapOrderField" style="display:none;">
+        <label>与本课重叠的课程排序</label>
+        <div class="overlap-hint">列表从上到下＝从前到后（最上面显示在最前面）</div>
+        <div id="overlapOrderList"></div>
+      </div>
+
+      <div class="modal-actions">
+        <div class="left"><button class="btn" id="deleteBtn" style="display:none;">删除</button></div>
+        <div class="left">
+          <button class="btn" id="cancelBtn">取消</button>
+          <button class="btn primary" id="saveBtn">保存</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 导入 JSON 弹窗 -->
+  <div class="overlay" id="importOverlay">
+    <div class="modal">
+      <h2>导入课表 JSON</h2>
+      <p class="desc">导入会覆盖当前的标题、配色、节次与全部课程，建议先导出备份当前课表。</p>
+      <div class="file-drop" id="fileDropZone">点击选择 .json 文件</div>
+      <div class="modal-actions">
+        <div class="left"></div>
+        <div class="left"><button class="btn" id="importCancelBtn">取消</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 节次设置 弹窗 -->
+  <div class="overlay" id="periodOverlay">
+    <div class="modal wide">
+      <h2>节次设置</h2>
+      <p class="desc">可自由增加或删除节次，用系统时间选择器设置起止时间；修改时间后会自动按时间先后重新排序。</p>
+
+      <details class="quick-gen" id="quickGenDetails">
+        <summary>⚡ 快捷生成节次</summary>
+        <div class="qg-body">
+          <p class="qg-hint">分别设置上午、下午的节数与各自第一节的起始时间，再按每节时长与课间时长生成节次；将替换当前全部节次。</p>
+          <div class="row3">
+            <div class="field"><label>上午节数</label><input type="number" id="qgMorningCount" min="0" max="20" step="1" value="4"></div>
+            <div class="field"><label>下午节数</label><input type="number" id="qgAfternoonCount" min="0" max="20" step="1" value="4"></div>
+          </div>
+          <div class="row3">
+            <div class="field"><label>上午第一节起始时间</label><input type="time" id="qgMorningStart" value="08:00"></div>
+            <div class="field"><label>下午第一节起始时间</label><input type="time" id="qgAfternoonStart" value="14:00"></div>
+          </div>
+          <div class="row3">
+            <div class="field"><label>每节时长（分钟）</label><input type="number" id="qgClassDuration" min="1" max="300" step="1" value="45"></div>
+            <div class="field"><label>课间时长（分钟）</label><input type="number" id="qgBreakDuration" min="0" max="120" step="1" value="10"></div>
+          </div>
+          <button class="btn" id="qgGenerateBtn" type="button" style="width:100%;">按以上设置生成节次</button>
+        </div>
+      </details>
+
+      <div class="period-list" id="periodList"></div>
+      <button class="btn" id="addPeriodBtn" style="width:100%;">＋ 添加一节</button>
+      <div class="modal-actions">
+        <div class="left"></div>
+        <div class="left"><button class="btn primary" id="periodDoneBtn">完成</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 日历 弹窗 -->
+  <div class="overlay" id="calendarOverlay">
+    <div class="modal">
+      <div class="cal-header">
+        <button class="icon-btn" id="calPrev">‹</button>
+        <div class="cal-month-label" id="calMonthLabel"></div>
+        <button class="icon-btn" id="calNext">›</button>
+      </div>
+      <div class="cal-weekdays"><span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span></div>
+      <div class="cal-days" id="calDays"></div>
+      <div class="cal-footer">
+        <span class="cal-start-label">教学第1周的周一：</span>
+        <input type="date" id="semesterStartInput">
+      </div>
+      <div class="modal-actions">
+        <div class="left"></div>
+        <div class="left">
+          <button class="btn" id="calCloseBtn">取消</button>
+          <button class="btn primary" id="todayBtn" type="button">回到今天</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 帮助 弹窗 -->
+  <div class="overlay" id="helpOverlay">
+    <div class="modal">
+      <h2>使用帮助</h2>
+      <div class="help-content" id="helpContent"></div>
+      <div class="modal-actions">
+        <div class="left"></div>
+        <div class="left"><button class="btn primary" id="helpCloseBtn">知道了</button></div>
+      </div>
+    </div>
+  </div>
+
+
+<!-- 第三方库：html2canvas v1.4.1（MIT License，https://html2canvas.hertzen.com），用于"导出 PNG"功能，已拆分为外部文件 html2canvas.min.js -->
+<script src="html2canvas_min.js"></script>
+<script>
+  const days = ['周日','周一','周二','周三','周四','周五','周六'];
+  const ENG_DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const STORAGE_KEY = 'schedule-app-state-v1';
+  const LAYER_OFFSET_PX = 22; // 重叠卡片每层的水平缩进，留出足够空间便于触摸
+
+  let periods = [
+    {id:1, label:'第1节', time:'08:00-08:45'},
+    {id:2, label:'第2节', time:'08:55-09:40'},
+    {id:3, label:'第3节', time:'10:00-10:45'},
+    {id:4, label:'第4节', time:'10:55-11:40'},
+    {id:5, label:'第5节', time:'14:00-14:45'},
+    {id:6, label:'第6节', time:'14:55-15:40'},
+    {id:7, label:'第7节', time:'16:00-16:45'},
+    {id:8, label:'第8节', time:'16:55-17:40'},
+    {id:9, label:'第9节', time:'19:00-19:45'},
+    {id:10,label:'第10节',time:'19:55-20:40'},
+  ];
+  let nextPeriodId = 11;
+
+  let courses = [
+    {id:1, day:0, startId:8, span:1, name:'学生会例会', teacher:'', location:'二教308', weeksFrom:null, weeksTo:null, parity:'all', colorIdx:7},
+    {id:2, day:5, startId:7, span:2, name:'组会', teacher:'', location:'德心电教', weeksFrom:null, weeksTo:null, parity:'even', colorIdx:2},
+    {id:3, day:1, startId:2, span:2, name:'数据结构', teacher:'', location:'六教电信102', weeksFrom:null, weeksTo:null, parity:'all', colorIdx:3},
+    {id:4, day:5, startId:6, span:2, name:'Web 竞赛', teacher:'', location:'', weeksFrom:null, weeksTo:null, parity:'all', colorIdx:3},
+    {id:5, day:3, startId:3, span:2, name:'嵌入式开发', teacher:'', location:'德心302', weeksFrom:null, weeksTo:null, parity:'all', colorIdx:4},
+    {id:6, day:6, startId:3, span:1, name:'AT交流', teacher:'', location:'二操场', weeksFrom:null, weeksTo:null, parity:'all', colorIdx:2},
+    {id:7, day:4, startId:6, span:2, name:'Web 竞赛', teacher:'', location:'', weeksFrom:null, weeksTo:null, parity:'all', colorIdx:3},
+    {id:8, day:3, startId:6, span:2, name:'Web 竞赛', teacher:'', location:'', weeksFrom:null, weeksTo:null, parity:'all', colorIdx:1},
+    {id:9, day:3, startId:5, span:3, name:'攻防测试', teacher:'', location:'信息404', weeksFrom:null, weeksTo:null, parity:'all', colorIdx:4},
+    {id:10, day:6, startId:2, span:2, name:'棒球', teacher:'', location:'一操场', weeksFrom:null, weeksTo:null, parity:'all', colorIdx:0},
+  ];
+  let nextId = 11;
+  let editingId = null;
+  let defaultSpan = 2;
+  let autoPromoteCurrent = true;
+  let showWeekends = false;
+  const DEFAULT_ROW_HEIGHT = 86;
+  const DEFAULT_COL_WIDTH = 96;
+  const DEFAULT_PERIOD_TIME_FS = 9.5;
+  let rowHeightPx = DEFAULT_ROW_HEIGHT;
+  let colWidthPx = DEFAULT_COL_WIDTH;
+  let periodTimeFontSizePx = DEFAULT_PERIOD_TIME_FS;
+  // 把用户设置的行高/列宽/起止时间字号写到 CSS 变量上；--day-w / --row-h 不再自动随视口宽度缩放
+  function applySizeVars(){
+    document.documentElement.style.setProperty('--row-h', rowHeightPx + 'px');
+    document.documentElement.style.setProperty('--day-w', colWidthPx + 'px');
+    document.documentElement.style.setProperty('--period-time-fs', periodTimeFontSizePx + 'px');
+  }
+
+  // ---------- 日期 / 教学周 ----------
+  function mondayOf(d){ const dt=new Date(d); dt.setHours(0,0,0,0); const wd=(dt.getDay()+6)%7; dt.setDate(dt.getDate()-wd); return dt; }
+  // 根据当前选中日期所在的那一周，算出星期几（0=周日...6=周六）对应的具体日期
+  function dateOfWeekday(weekdayIdx){
+    const monday = mondayOf(selectedDate);
+    const offset = weekdayIdx===0 ? 6 : weekdayIdx-1;
+    const d = new Date(monday); d.setDate(monday.getDate()+offset);
+    return d;
+  }
+  function formatMMDD(d){ return String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+  function sundayOf(d){ const dt=new Date(d); dt.setHours(0,0,0,0); dt.setDate(dt.getDate()-dt.getDay()); return dt; }
+  function toISODate(d){ const y=d.getFullYear(), m=String(d.getMonth()+1).padStart(2,'0'), day=String(d.getDate()).padStart(2,'0'); return y+'-'+m+'-'+day; }
+
+  let semesterStart = toISODate(mondayOf(new Date()));
+  let selectedDate = new Date(); selectedDate.setHours(0,0,0,0);
+  let calViewDate = new Date(selectedDate);
+
+  function computeWeekNum(dateObj){
+    const start = mondayOf(new Date(semesterStart));
+    const target = mondayOf(dateObj);
+    return Math.round((target-start)/(7*86400000)) + 1;
+  }
+  function matchesWeek(course, weekNum){
+    if(weekNum==null || isNaN(weekNum)) return true;
+    if(course.weeksFrom!=null && weekNum < course.weeksFrom) return false;
+    if(course.weeksTo!=null && weekNum > course.weeksTo) return false;
+    if(course.parity==='odd') return weekNum % 2 === 1;
+    if(course.parity==='even') return weekNum % 2 === 0;
+    return true;
+  }
+  function weeksLabel(c){
+    const parts = [];
+    if(c.weeksFrom!=null || c.weeksTo!=null){
+      parts.push((c.weeksFrom!=null?c.weeksFrom:'') + '-' + (c.weeksTo!=null?c.weeksTo:'') + '周');
+    }
+    if(c.parity==='odd') parts.push('单周');
+    if(c.parity==='even') parts.push('双周');
+    return parts.join(' · ');
+  }
+  function parseLegacyWeeks(s){
+    let parity='all', from=null, to=null;
+    if(typeof s === 'string'){
+      if(s.includes('单周')) parity='odd';
+      else if(s.includes('双周')) parity='even';
+      const range = s.match(/(\d+)\s*[-~至]\s*(\d+)/);
+      if(range){ from=parseInt(range[1]); to=parseInt(range[2]); }
+    }
+    return {weeksFrom:from, weeksTo:to, parity};
+  }
+  function parseTimeToMinutes(str){
+    const m = str.match(/(\d{1,2}):(\d{2})/);
+    if(!m) return null;
+    return parseInt(m[1])*60+parseInt(m[2]);
+  }
+  function minutesToHHMM(min){
+    min = ((min % 1440) + 1440) % 1440;
+    const h = Math.floor(min/60), m = min%60;
+    return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0');
+  }
+  function parsePeriodRange(timeStr){
+    const parts = (timeStr||'').split(/[-~至]/);
+    if(parts.length<2) return null;
+    const start = parseTimeToMinutes(parts[0]);
+    const end = parseTimeToMinutes(parts[1]);
+    if(start==null||end==null||end<=start) return null;
+    return {start,end};
+  }
+  // 节次起始时间（分钟数），用于按时间先后自动排序
+  function periodStartMinutes(p){
+    const range = parsePeriodRange(p && p.time);
+    if(range) return range.start;
+    const m = parseTimeToMinutes((p && p.time) || '');
+    return m==null ? 0 : m;
+  }
+  // 按起始时间重新排序节次列表（Array.prototype.sort 是稳定排序，相同起始时间的节次保持原有相对顺序）
+  function resortPeriodsByTime(){
+    periods.sort((a,b)=> periodStartMinutes(a) - periodStartMinutes(b));
+  }
+  // 根据节次的 24 小时制起始时间自动判断所属时段：不区分晚上，只分上午 / 下午
+  function segOfPeriod(p){
+    const range = parsePeriodRange(p && p.time);
+    const startMin = range ? range.start : parseTimeToMinutes((p && p.time) || '');
+    if(startMin==null) return '上午';
+    const hour = Math.floor(startMin/60);
+    return hour < 12 ? '上午' : '下午';
+  }
+
+  function currentColors(){
+    const style = getComputedStyle(document.documentElement);
+    return ['--c1','--c2','--c3','--c4','--c5','--c6','--c7','--c8'].map(v=>style.getPropertyValue(v).trim());
+  }
+  function currentAccent(){ return getComputedStyle(document.documentElement).getPropertyValue('--accent').trim(); }
+  function escapeHtml(s){
+    return (s||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+  // 窄屏下节次列压缩显示用：把 "08:00-08:45" 拆成起止两行，不带分隔符
+  function compactTimeParts(timeStr){
+    const parts = (timeStr||'').split(/[-~至]/);
+    if(parts.length<2) return [escapeHtml((timeStr||'').trim())];
+    return [escapeHtml(parts[0].trim()), escapeHtml(parts[1].trim())];
+  }
+
+  // ---------- 颜色处理：标签风格（浅底色 + 高饱和文字/色条） ----------
+  function hexToRgb(hex){
+    const h = hex.replace('#','');
+    return { r: parseInt(h.substring(0,2),16), g: parseInt(h.substring(2,4),16), b: parseInt(h.substring(4,6),16) };
+  }
+  function rgbToHex(r,g,b){
+    return '#' + [r,g,b].map(v=>Math.max(0,Math.min(255,Math.round(v))).toString(16).padStart(2,'0')).join('');
+  }
+  function tintOf(hex, ratio){
+    const {r,g,b} = hexToRgb(hex);
+    return rgbToHex(r+(255-r)*ratio, g+(255-g)*ratio, b+(255-b)*ratio);
+  }
+
+  const grid = document.getElementById('grid');
+  const stackOrders = new Map(); // 记录重叠课程组的手动排序（数组：从后到前，最后一个＝最前）
+
+  function updateDateStatus(){
+    const dateStatus = document.getElementById('dateStatus');
+    if(!dateStatus) return;
+    const wIdx = selectedDate.getDay();
+    const label = selectedDate.getFullYear()+'年'+(selectedDate.getMonth()+1)+'月'+selectedDate.getDate()+'日 '+days[wIdx];
+    dateStatus.querySelector('.date-trigger-text').textContent = label;
+  }
+
+  function findOverlapGroups(dayCourses){
+    const sorted = [...dayCourses].sort((a,b)=>a.idx-b.idx);
+    const groups = [];
+    let current = [], currentEnd = -1;
+    sorted.forEach(item=>{
+      if(current.length===0){ current=[item]; currentEnd=item.idx+item.span; }
+      else if(item.idx < currentEnd){ current.push(item); currentEnd=Math.max(currentEnd, item.idx+item.span); }
+      else { groups.push(current); current=[item]; currentEnd=item.idx+item.span; }
+    });
+    if(current.length) groups.push(current);
+    return groups;
+  }
+
+  function computeDayGroupData(di){
+    const dayCourses = courses
+      .map(c=>({c, idx: periods.findIndex(p=>p.id===c.startId)}))
+      .filter(x=>x.idx>=0 && x.c.day===di)
+      .map(x=>({...x, span: Math.max(1, Math.min(x.c.span, periods.length - x.idx))}));
+    return findOverlapGroups(dayCourses);
+  }
+  function groupKeyFor(di, ids){ return di+'_'+[...ids].sort((a,b)=>a-b).join('-'); }
+
+  function getBaseOrder(key, group){
+    let order = stackOrders.get(key);
+    if(!order || order.length!==group.length || !order.every(id=>group.some(g=>g.c.id===id))){
+      order = group.map(g=>g.c.id).sort((a,b)=>a-b);
+      stackOrders.set(key, order);
+    }
+    return order;
+  }
+  function effectiveOrder(baseOrder, group, weekNum){
+    if(!autoPromoteCurrent) return baseOrder;
+    const applicable = [], notApplicable = [];
+    baseOrder.forEach(id=>{
+      const g = group.find(x=>x.c.id===id);
+      if(g && matchesWeek(g.c, weekNum)) applicable.push(id); else notApplicable.push(id);
+    });
+    return [...notApplicable, ...applicable];
+  }
+  // 计算某张背面卡片，按其自身课时切分为"被前方卡片遮住"与"完全暴露"的连续区段
+  function courseCoverageRuns(g, order, group){
+    const myLayer = order.indexOf(g.c.id);
+    const flags = [];
+    for(let local=0; local<g.span; local++){
+      const absP = g.idx+local;
+      const covered = order.some((cid,layer)=>{
+        if(layer<=myLayer) return false;
+        const other = group.find(x=>x.c.id===cid);
+        return other && absP>=other.idx && absP<other.idx+other.span;
+      });
+      flags.push(covered);
+    }
+    const runs = [];
+    let start=0;
+    for(let local=1; local<=flags.length; local++){
+      if(local===flags.length || flags[local]!==flags[start]){
+        runs.push({startLocal:start, endLocal:local, covered:flags[start]});
+        start = local;
+      }
+    }
+    return runs;
+  }
+
+  function courseCardHtml(c, dim, wl){
+    return (dim ? '<span class="tag">本周不上</span>' : '') +
+      '<div class="name">'+escapeHtml(c.name)+'</div>'+
+      '<div class="meta">'+escapeHtml(c.location||'')+'</div>';
+  }
+
+  function makeCardPiece(top0, top1, totalRows, leftPx, extraClass, zIndex, accent, tint, dim, html, textOffsetPct){
+    const topPct = (top0/totalRows)*100;
+    const heightPct = ((top1-top0)/totalRows)*100;
+    const piece = document.createElement('div');
+    piece.className = 'stack-card' + (extraClass?(' '+extraClass):'') + (dim?' dimmed':'');
+    piece.style.top = 'calc(' + topPct + '% + 3px)';
+    piece.style.height = 'calc(' + heightPct + '% - 6px)';
+    piece.style.left = leftPx + 'px';
+    piece.style.right = '3px';
+    piece.style.zIndex = String(zIndex);
+    piece.style.background = tint;
+    piece.style.borderLeft = '4px solid ' + accent;
+    piece.style.color = accent;
+    piece.innerHTML = '<div class="stack-card-inner" style="top:'+(textOffsetPct||0)+'%">' + html + '</div>';
+    return piece;
+  }
+
+  function buildGrid(){
+    grid.innerHTML = '';
+    const weekNum = computeWeekNum(selectedDate);
+    const activeDayIdx = selectedDate.getDay();
+    const colors = currentColors();
+    const accentColor = currentAccent();
+    const todayTint = tintOf(accentColor, 0.90);
+    const visibleDays = showWeekends ? [0,1,2,3,4,5,6] : [1,2,3,4,5];
+    document.documentElement.style.setProperty('--day-cols', visibleDays.length);
+
+    // 根据节次的所属时段（上午/下午）自动判断分界行：凡是某个时段最后一节所在的行，
+    // 都会在其下边框加粗，从而在不显示"上午/下午"这一列的情况下依然能一眼区分时段
+    const segBoundaryRows = new Set();
+    for(let k=0;k<periods.length-1;k++){
+      if(segOfPeriod(periods[k]) !== segOfPeriod(periods[k+1])) segBoundaryRows.add(k+2);
+    }
+
+    const corner = document.createElement('div');
+    corner.className = 'cell corner' + (weekNum>=1 ? ' week-num' : '');
+    corner.style.gridColumn = '1'; corner.style.gridRow = '1';
+    corner.textContent = weekNum>=1 ? ('W'+weekNum) : '尚未开学';
+    grid.appendChild(corner);
+
+    visibleDays.forEach((i, colPos)=>{
+      const h = document.createElement('div');
+      h.className = 'cell head head-day';
+      h.style.gridColumn = (colPos+2); h.style.gridRow = '1';
+      if(i===activeDayIdx){ h.style.background = todayTint; h.classList.add('today-col'); }
+      h.innerHTML = '<span class="head-day-name">'+ENG_DAYS[i]+'</span><span class="head-day-date">'+formatMMDD(dateOfWeekday(i))+'</span>';
+      grid.appendChild(h);
+    });
+
+    periods.forEach((p,idx)=>{
+      const pc = document.createElement('div');
+      const track = idx+2;
+      pc.className = 'cell period-cell' + (segBoundaryRows.has(track) ? ' seg-boundary' : '');
+      pc.style.gridColumn = '1'; pc.style.gridRow = track;
+      const timeParts = compactTimeParts(p.time);
+      const startText = timeParts[0] || '';
+      const endText = timeParts.length>1 ? timeParts[1] : '';
+      pc.innerHTML =
+        '<div class="p-compact"><b class="p-compact-num">'+(idx+1)+'</b>'
+        + '<span class="p-compact-time">'
+        + '<span class="ptime pt-start">'+startText+'</span>'
+        + '<span class="ptime pt-end">'+endText+'</span>'
+        + '</span></div>';
+      grid.appendChild(pc);
+    });
+
+    visibleDays.forEach((di, colPos)=>{
+      const groups = computeDayGroupData(di);
+      const covered = new Array(periods.length).fill(false);
+
+      groups.forEach(group=>{
+        if(group.length===1){
+          const g = group[0], c = g.c;
+          for(let k=g.idx;k<g.idx+g.span;k++) covered[k]=true;
+          const dim = !matchesWeek(c, weekNum);
+          const wl = weeksLabel(c);
+          const accent = colors[c.colorIdx % colors.length];
+          const tint = tintOf(accent, 0.86);
+
+          const cell = document.createElement('div');
+          cell.className = 'cell course-cell';
+          if(di===activeDayIdx){ cell.style.background = todayTint; cell.classList.add('today-col'); }
+          if(segBoundaryRows.has(g.idx+2+g.span-1)) cell.classList.add('seg-boundary');
+          cell.style.gridColumn = (colPos+2);
+          cell.style.gridRow = (g.idx+2) + ' / ' + (g.idx+2+g.span);
+          cell.innerHTML = '<div class="course-inner'+(dim?' dimmed':'')+'" style="background:'+tint+'; border-left:4px solid '+accent+'; color:'+accent+';">' + courseCardHtml(c, dim, wl) + '</div>';
+          cell.addEventListener('click', ()=> openModal(c));
+          grid.appendChild(cell);
+        } else {
+          const minIdx = Math.min(...group.map(g=>g.idx));
+          const maxEnd = Math.max(...group.map(g=>g.idx+g.span));
+          for(let k=minIdx;k<maxEnd;k++) covered[k]=true;
+          const totalRows = maxEnd-minIdx;
+
+          const key = groupKeyFor(di, group.map(g=>g.c.id));
+          const baseOrder = getBaseOrder(key, group);
+          const order = effectiveOrder(baseOrder, group, weekNum);
+
+          const wrapper = document.createElement('div');
+          wrapper.className = 'cell overlap-wrapper';
+          if(di===activeDayIdx){ wrapper.style.background = todayTint; wrapper.classList.add('today-col'); }
+          if(segBoundaryRows.has(maxEnd+1)) wrapper.classList.add('seg-boundary');
+          wrapper.style.gridColumn = (colPos+2);
+          wrapper.style.gridRow = (minIdx+2) + ' / ' + (maxEnd+2);
+
+          order.forEach((cid, layer)=>{
+            const g = group.find(x=>x.c.id===cid);
+            const c = g.c;
+            const isFront = layer === order.length-1;
+            const dim = !matchesWeek(c, weekNum);
+            const wl = weeksLabel(c);
+            const accent = colors[c.colorIdx % colors.length];
+            const tint = tintOf(accent, 0.86);
+            const localStart = g.idx-minIdx;
+
+            if(isFront){
+              const piece = makeCardPiece(localStart, localStart+g.span, totalRows, layer*LAYER_OFFSET_PX, 'front', layer+1, accent, tint, dim, courseCardHtml(c, dim, wl), 0);
+              piece.addEventListener('click', (e)=>{ e.stopPropagation(); openModal(c); });
+              wrapper.appendChild(piece);
+            } else {
+              // 只有"完全被前方卡片遮住"时才允许悬停探出；只要有任何一段是完全露出的，
+              // 就整块保持静止，不做弹出效果（露出的部分本来就能直接看到，不需要探出）
+              const runs = courseCoverageRuns(g, order, group);
+              const fullyCovered = !runs.some(r=>!r.covered);
+              let textOffsetPct = 0;
+              if(!fullyCovered){
+                const firstExposed = runs.find(r=>!r.covered);
+                textOffsetPct = (firstExposed.startLocal / g.span) * 100;
+              }
+              const leftPx = layer*LAYER_OFFSET_PX;
+              const cardClass = fullyCovered ? 'back' : 'back-static';
+
+              const card = makeCardPiece(localStart, localStart+g.span, totalRows, leftPx, cardClass, layer+1, accent, tint, dim, courseCardHtml(c, dim, wl), textOffsetPct);
+              card.addEventListener('click', (e)=>{ e.stopPropagation(); openModal(c); });
+              wrapper.appendChild(card);
+            }
+          });
+
+          grid.appendChild(wrapper);
+        }
+      });
+
+      for(let p=0;p<periods.length;p++){
+        if(!covered[p]){
+          const per = periods[p];
+          const dc = document.createElement('div');
+          dc.className = 'cell day-cell' + (segBoundaryRows.has(p+2) ? ' seg-boundary' : '');
+          dc.style.gridColumn = (colPos+2); dc.style.gridRow = (p+2);
+          if(di===activeDayIdx){ dc.style.background = todayTint; dc.classList.add('today-col'); }
+          dc.addEventListener('click', ()=> openModal(null, di, per.id));
+          grid.appendChild(dc);
+        }
+      }
+    });
+
+    updateDateStatus();
+    renderNowLine();
+    updatePeriodColumnLayout();
+    saveState();
+  }
+
+  // ---------- 节次列：用 Canvas 精确测量文字像素宽度，而不是依赖 DOM 布局的 scrollWidth/clientWidth ----------
+  // 节次列固定使用"数字节次 + 竖排起止时间"样式，列宽始终按当前实际展示内容的所需宽度来设置，
+  // 不会比内容需要的更宽——列宽会收窄到刚好能放下文字为止。
+  function measureTextWidth(text, font){
+    const canvas = measureTextWidth._canvas || (measureTextWidth._canvas = document.createElement('canvas'));
+    const ctx = canvas.getContext('2d');
+    ctx.font = font;
+    return ctx.measureText(text||'').width;
+  }
+  function fontOf(el){
+    const cs = getComputedStyle(el);
+    return cs.fontStyle+' '+cs.fontWeight+' '+cs.fontSize+' '+cs.fontFamily;
+  }
+  let labelCol2Px = 70;
+  function updatePeriodColumnLayout(){
+    const cells = Array.from(grid.querySelectorAll('.period-cell'));
+    const corner = grid.querySelector('.corner');
+    if(!cells.length && !corner) return;
+
+    let compactNeed = 0;
+    cells.forEach(cell=>{
+      const numEl = cell.querySelector('.p-compact-num');
+      const times = cell.querySelectorAll('.p-compact-time .ptime');
+      if(numEl) compactNeed = Math.max(compactNeed, measureTextWidth(numEl.textContent, fontOf(numEl)));
+      times.forEach(t=> compactNeed = Math.max(compactNeed, measureTextWidth(t.textContent, fontOf(t))));
+    });
+
+    const cornerNeed = corner ? measureTextWidth(corner.textContent, fontOf(corner)) : 0;
+
+    const PAD = 10; // 两侧留白，避免文字贴边
+    const finalWidth = Math.max(compactNeed, cornerNeed) + PAD;
+    labelCol2Px = Math.ceil(finalWidth);
+    document.documentElement.style.setProperty('--label-col2', labelCol2Px + 'px');
+    syncScheduleCardWidth();
+  }
+  // 不依赖浏览器对 CSS Grid 做 width:fit-content 的自动内联尺寸计算（不同引擎在这里的取整方式
+  // 不完全一致，会导致表格明明能显示完全却仍能被拖出一丝横向滑动空间）。改为用 JS 已知的精确
+  // 像素值（节次列宽 + 每个星期列宽 × 列数）直接算出表格应有的宽度，写死在 .schedule-card 上。
+  function syncScheduleCardWidth(){
+    const card = document.querySelector('.schedule-card');
+    if(!card) return;
+    const dayCols = showWeekends ? 7 : 5;
+    const totalW = labelCol2Px + dayCols * colWidthPx;
+    card.style.width = totalW + 'px';
+    // 是否需要横向滚动，不看浏览器自己算出来的 scrollWidth/clientWidth（这两者在现代浏览器的
+    // 亚像素布局引擎里，即使视觉上完全一致也可能相差 1px，导致"内容明明能显示完全，却仍然
+    // 可以滑动一点点"——这其实是浏览器排版引擎的正常取整行为，不是这里的 bug，但可以绕开它）。
+    // 直接拿我们自己算出来的精确整数宽度，跟父容器的可用宽度比较，够不着就干脆连滚动能力
+    // 都关掉（overflow-x:hidden），从根源上排除这种亚像素误差被人手感知到的可能。
+    const available = card.parentElement ? card.parentElement.clientWidth : 0;
+    card.style.overflowX = totalW > available ? 'auto' : 'hidden';
+  }
+  let periodLayoutRAF = null;
+  function schedulePeriodLayoutCheck(){
+    if(periodLayoutRAF) cancelAnimationFrame(periodLayoutRAF);
+    periodLayoutRAF = requestAnimationFrame(updatePeriodColumnLayout);
+  }
+  window.addEventListener('resize', schedulePeriodLayoutCheck);
+
+  // ---------- 当前时间横线 ----------
+  function renderNowLine(){
+    const old = grid.querySelector('.now-line-cell');
+    if(old) old.remove();
+    const isToday = toISODate(selectedDate) === toISODate(new Date());
+    if(!isToday) return;
+    const now = new Date();
+    const nowMinutes = now.getHours()*60 + now.getMinutes();
+    let matchedIdx = -1, frac = 0;
+    for(let idx=0; idx<periods.length; idx++){
+      const range = parsePeriodRange(periods[idx].time);
+      if(range && nowMinutes>=range.start && nowMinutes<range.end){
+        matchedIdx = idx; frac = (nowMinutes-range.start)/(range.end-range.start); break;
+      }
+    }
+    if(matchedIdx<0) return;
+    const activeDayIdx = selectedDate.getDay();
+    if(!showWeekends && (activeDayIdx===0 || activeDayIdx===6)) return; // 周末列被隐藏时不显示指示线
+    const visibleDays = showWeekends ? [0,1,2,3,4,5,6] : [1,2,3,4,5];
+    const colPos = visibleDays.indexOf(activeDayIdx);
+    const accent = currentAccent();
+    const wrap = document.createElement('div');
+    wrap.className = 'now-line-cell';
+    wrap.style.gridColumn = (colPos+2);
+    wrap.style.gridRow = (matchedIdx+2);
+    const bar = document.createElement('div');
+    bar.className = 'now-line-bar';
+    bar.style.top = (frac*100)+'%';
+    bar.style.background = accent;
+    bar.style.boxShadow = '0 0 4px ' + accent;
+    wrap.appendChild(bar);
+    grid.appendChild(wrap);
+    const dot = document.createElement('span');
+    dot.style.position='absolute'; dot.style.left='-3px'; dot.style.top='-3px';
+    dot.style.width='8px'; dot.style.height='8px'; dot.style.borderRadius='50%'; dot.style.background=accent;
+    bar.appendChild(dot);
+  }
+  setInterval(renderNowLine, 60000);
+
+  // ---------- 课程弹窗 ----------
+  const overlay = document.getElementById('overlay');
+  const fName = document.getElementById('fName');
+  const fTeacher = document.getElementById('fTeacher');
+  const fLocation = document.getElementById('fLocation');
+  const fWeeksFrom = document.getElementById('fWeeksFrom');
+  const fWeeksTo = document.getElementById('fWeeksTo');
+  const fParity = document.getElementById('fParity');
+  const fDay = document.getElementById('fDay');
+  const fStart = document.getElementById('fStart');
+  const fSpan = document.getElementById('fSpan');
+  const colorRow = document.getElementById('colorRow');
+  const deleteBtn = document.getElementById('deleteBtn');
+  const modalTitle = document.getElementById('modalTitle');
+  const addOverlapBtn = document.getElementById('addOverlapBtn');
+  const overlapOrderField = document.getElementById('overlapOrderField');
+  const overlapOrderList = document.getElementById('overlapOrderList');
+  let selectedColorIdx = 0;
+
+  days.forEach((d,idx)=>{ const o=document.createElement('option'); o.value=idx; o.textContent=d; fDay.appendChild(o); });
+
+  function rebuildStartOptions(selectedStartId){
+    fStart.innerHTML = '';
+    periods.forEach((p,idx)=>{
+      const o = document.createElement('option');
+      o.value = p.id; o.textContent = '第'+(idx+1)+'节 ('+p.time+' · '+segOfPeriod(p)+')';
+      fStart.appendChild(o);
+    });
+    if(selectedStartId!=null) fStart.value = selectedStartId;
+    rebuildSpanOptions();
+  }
+  function rebuildSpanOptions(preferred){
+    const idx = periods.findIndex(p=>p.id===parseInt(fStart.value));
+    const maxSpan = idx>=0 ? (periods.length - idx) : 6;
+    const prev = preferred!=null ? preferred : fSpan.value;
+    fSpan.innerHTML = '';
+    for(let k=1;k<=Math.max(1,maxSpan);k++){
+      const o=document.createElement('option'); o.value=k; o.textContent=k+' 节'; fSpan.appendChild(o);
+    }
+    if(prev && parseInt(prev)<=maxSpan) fSpan.value = prev;
+  }
+  fStart.addEventListener('change', ()=>rebuildSpanOptions());
+
+  function buildColorRow(){
+    colorRow.innerHTML='';
+    currentColors().forEach((col, idx)=>{
+      const dot = document.createElement('div');
+      dot.className = 'color-dot' + (idx===selectedColorIdx?' selected':'');
+      dot.style.background = col;
+      dot.addEventListener('click', ()=>{
+        selectedColorIdx = idx;
+        [...colorRow.children].forEach(c=>c.classList.remove('selected'));
+        dot.classList.add('selected');
+      });
+      colorRow.appendChild(dot);
+    });
+  }
+
+  // 列表从上到下＝从前到后：displayOrder[0] 是最前面（最上层）
+  function renderOverlapOrderList(key, order, group){
+    const displayOrder = [...order].reverse();
+    overlapOrderList.innerHTML = '';
+    displayOrder.forEach((cid, dIdx)=>{
+      const g = group.find(x=>x.c.id===cid);
+      const row = document.createElement('div');
+      row.className = 'overlap-row';
+      const isFront = dIdx===0;
+      row.innerHTML = '<span class="nm">'+escapeHtml(g.c.name)+'</span>' + (isFront ? '<span class="front-badge">最前</span>' : '');
+
+      const upBtn = document.createElement('button');
+      upBtn.className='icon-btn'; upBtn.type='button'; upBtn.textContent='↑'; upBtn.title='上移（更靠前）';
+      upBtn.disabled = dIdx===0;
+      upBtn.addEventListener('click', ()=>{
+        [displayOrder[dIdx-1], displayOrder[dIdx]] = [displayOrder[dIdx], displayOrder[dIdx-1]];
+        const newOrder = [...displayOrder].reverse();
+        stackOrders.set(key, newOrder);
+        renderOverlapOrderList(key, newOrder, group);
+        buildGrid();
+      });
+
+      const downBtn = document.createElement('button');
+      downBtn.className='icon-btn'; downBtn.type='button'; downBtn.textContent='↓'; downBtn.title='下移（更靠后）';
+      downBtn.disabled = dIdx===displayOrder.length-1;
+      downBtn.addEventListener('click', ()=>{
+        [displayOrder[dIdx+1], displayOrder[dIdx]] = [displayOrder[dIdx], displayOrder[dIdx+1]];
+        const newOrder = [...displayOrder].reverse();
+        stackOrders.set(key, newOrder);
+        renderOverlapOrderList(key, newOrder, group);
+        buildGrid();
+      });
+
+      row.appendChild(upBtn);
+      row.appendChild(downBtn);
+      overlapOrderList.appendChild(row);
+    });
+  }
+
+  function refreshOverlapSection(course){
+    if(!course){
+      addOverlapBtn.style.display = 'none';
+      overlapOrderField.style.display = 'none';
+      return;
+    }
+    addOverlapBtn.style.display = 'inline-flex';
+    const groups = computeDayGroupData(course.day);
+    const myGroup = groups.find(g=>g.some(x=>x.c.id===course.id));
+    if(myGroup && myGroup.length>1){
+      overlapOrderField.style.display = 'block';
+      const key = groupKeyFor(course.day, myGroup.map(x=>x.c.id));
+      const order = getBaseOrder(key, myGroup);
+      renderOverlapOrderList(key, order, myGroup);
+    } else {
+      overlapOrderField.style.display = 'none';
+    }
+  }
+
+  // 弹窗开关统一走这两个函数，负责维护 body.modal-open（用于在弹窗打开时强制取消重叠卡片的探出效果）
+  function openOverlay(el){ el.classList.add('open'); document.body.classList.add('modal-open'); }
+  function closeOverlay(el){
+    el.classList.remove('open');
+    if(!document.querySelector('.overlay.open')) document.body.classList.remove('modal-open');
+  }
+
+  function openModal(course, prefDay, prefStartId){
+    rebuildStartOptions();
+    buildColorRow();
+    if(course){
+      editingId = course.id;
+      modalTitle.textContent = '编辑课程';
+      fName.value = course.name;
+      fTeacher.value = course.teacher||'';
+      fLocation.value = course.location||'';
+      fWeeksFrom.value = course.weeksFrom!=null ? course.weeksFrom : '';
+      fWeeksTo.value = course.weeksTo!=null ? course.weeksTo : '';
+      fParity.value = course.parity || 'all';
+      fDay.value = course.day;
+      rebuildStartOptions(course.startId);
+      fSpan.value = course.span;
+      selectedColorIdx = course.colorIdx;
+      buildColorRow();
+      deleteBtn.style.display = 'inline-block';
+      refreshOverlapSection(course);
+    } else {
+      editingId = null;
+      modalTitle.textContent = '添加课程';
+      fName.value=''; fTeacher.value=''; fLocation.value='';
+      fWeeksFrom.value=''; fWeeksTo.value=''; fParity.value='all';
+      fDay.value = prefDay!=null ? prefDay : 1;
+      rebuildStartOptions(prefStartId!=null ? prefStartId : periods[0].id);
+      rebuildSpanOptions(defaultSpan);
+      selectedColorIdx = Math.floor(Math.random()*8);
+      buildColorRow();
+      deleteBtn.style.display = 'none';
+      refreshOverlapSection(null);
+    }
+    openOverlay(overlay);
+  }
+  function closeModal(){ closeOverlay(overlay); }
+
+  document.getElementById('addBtn').addEventListener('click', ()=> openModal(null));
+  document.getElementById('cancelBtn').addEventListener('click', closeModal);
+
+  // 只有当"按下"和"松开(click)"都发生在遮罩本体上才关闭，避免在弹窗内选字/拖动到框外松手导致误关闭
+  function setupBackdropClose(overlayEl, onClose){
+    let downOnBackdrop = false;
+    overlayEl.addEventListener('mousedown', (e)=>{ downOnBackdrop = (e.target===overlayEl); });
+    overlayEl.addEventListener('touchstart', (e)=>{ downOnBackdrop = (e.target===overlayEl); }, {passive:true});
+    overlayEl.addEventListener('click', (e)=>{
+      if(e.target===overlayEl && downOnBackdrop) onClose();
+      downOnBackdrop = false;
+    });
+  }
+  setupBackdropClose(overlay, closeModal);
+
+  addOverlapBtn.addEventListener('click', ()=>{
+    const seedDay = parseInt(fDay.value);
+    const seedStart = parseInt(fStart.value);
+    closeOverlay(overlay);
+    openModal(null, seedDay, seedStart);
+  });
+
+  document.getElementById('saveBtn').addEventListener('click', ()=>{
+    if(!fName.value.trim()){ fName.focus(); return; }
+    const data = {
+      day: parseInt(fDay.value),
+      startId: parseInt(fStart.value),
+      span: parseInt(fSpan.value),
+      name: fName.value.trim(),
+      teacher: fTeacher.value.trim(),
+      location: fLocation.value.trim(),
+      weeksFrom: fWeeksFrom.value ? parseInt(fWeeksFrom.value) : null,
+      weeksTo: fWeeksTo.value ? parseInt(fWeeksTo.value) : null,
+      parity: fParity.value,
+      colorIdx: selectedColorIdx
+    };
+    if(editingId){
+      const idx = courses.findIndex(c=>c.id===editingId);
+      courses[idx] = {...courses[idx], ...data};
+    } else {
+      courses.push({id: nextId++, ...data});
+    }
+    closeOverlay(overlay);
+    buildGrid();
+  });
+  deleteBtn.addEventListener('click', ()=>{
+    courses = courses.filter(c=>c.id!==editingId);
+    closeOverlay(overlay);
+    buildGrid();
+  });
+
+  // ---------- 主题切换（改用系统原生 <select>，去掉自绘图标/描述；用色块 emoji 在选项文字里做色彩预览） ----------
+  const THEMES = [
+    {key:'mist',    name:'绿杨烟外', accent:'#5C8A82'},
+    {key:'plum',    name:'疏影暗香', accent:'#A85C72'},
+    {key:'lake',    name:'湖光山色', accent:'#3F7350'},
+    {key:'sunset',  name:'落霞孤鹜', accent:'#D97A3F'},
+    {key:'sea',     name:'沧海月明', accent:'#2E4E8E'},
+    {key:'redbean', name:'乱红如雨', accent:'#A8362E'},
+    {key:'mono',    name:'知白守黑', accent:'#1C1C1C'},
+  ];
+  const themeSelect = document.getElementById('themeSelect');
+
+  function renderThemeSelect(){
+    themeSelect.innerHTML = '';
+    THEMES.forEach(t=>{
+      const opt = document.createElement('option');
+      opt.value = t.key;
+      opt.textContent = t.name;
+      // 渐进增强：部分桌面浏览器会让原生下拉的选项文字跟着这个颜色走；
+      // 移动端系统选择器通常会忽略这个样式，这时就只显示普通文字，不影响使用
+      opt.style.color = t.accent;
+      themeSelect.appendChild(opt);
+    });
+  }
+
+  function selectTheme(key){
+    const t = THEMES.find(x=>x.key===key) || THEMES.find(x=>x.key==='mist');
+    document.documentElement.setAttribute('data-theme', t.key);
+    themeSelect.value = t.key;
+    if(typeof applyColorScheme === 'function') applyColorScheme(); // 主题变了，状态栏颜色也要跟着换成新主题的背景色
+    buildGrid();
+  }
+  themeSelect.addEventListener('change', ()=> selectTheme(themeSelect.value));
+
+  // ---------- 外观模式：系统 / 浅色 / 深色 ----------
+  let colorSchemeMode = 'light';
+  const colorSchemeSegmented = document.getElementById('colorSchemeSegmented');
+  const darkModeMedia = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+
+  const metaThemeColor = document.getElementById('metaThemeColor');
+  function applyColorScheme(){
+    const effective = colorSchemeMode === 'system'
+      ? ((darkModeMedia && darkModeMedia.matches) ? 'dark' : 'light')
+      : colorSchemeMode;
+    document.documentElement.setAttribute('data-scheme', effective);
+    // 让浏览器地址栏/PWA 状态栏的颜色跟着当前配色主题的实际背景色走，不再只区分黑白两档
+    if(metaThemeColor){
+      const bg = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
+      if(bg) metaThemeColor.setAttribute('content', bg);
+    }
+  }
+  function updateColorSchemeSegmentedUI(){
+    colorSchemeSegmented.querySelectorAll('.segmented-option').forEach(btn=>{
+      btn.classList.toggle('active', btn.dataset.mode === colorSchemeMode);
+    });
+  }
+  function selectColorSchemeMode(mode){
+    if(mode !== 'system' && mode !== 'light' && mode !== 'dark') return;
+    colorSchemeMode = mode;
+    applyColorScheme();
+    updateColorSchemeSegmentedUI();
+    saveState();
+  }
+  colorSchemeSegmented.querySelectorAll('.segmented-option').forEach(btn=>{
+    btn.addEventListener('click', ()=> selectColorSchemeMode(btn.dataset.mode));
+  });
+  // 如果用户选的是"系统"，系统深浅色切换时（比如到点自动夜间模式）实时同步，不需要重开页面
+  if(darkModeMedia){
+    const onSystemSchemeChange = ()=>{ if(colorSchemeMode==='system') applyColorScheme(); };
+    if(darkModeMedia.addEventListener) darkModeMedia.addEventListener('change', onSystemSchemeChange);
+    else if(darkModeMedia.addListener) darkModeMedia.addListener(onSystemSchemeChange);
+  }
+
+  // ---------- 默认课时 ----------
+  const defaultSpanSelect = document.getElementById('defaultSpanSelect');
+  for(let k=1;k<=6;k++){ const o=document.createElement('option'); o.value=k; o.textContent=k+' 节'; defaultSpanSelect.appendChild(o); }
+  defaultSpanSelect.value = defaultSpan;
+  defaultSpanSelect.addEventListener('change', ()=>{ defaultSpan = parseInt(defaultSpanSelect.value); saveState(); });
+
+  // ---------- 自动置顶开关 ----------
+  const autoPromoteToggle = document.getElementById('autoPromoteToggle');
+  autoPromoteToggle.addEventListener('change', ()=>{ autoPromoteCurrent = autoPromoteToggle.checked; buildGrid(); });
+
+  const showWeekendsToggle = document.getElementById('showWeekendsToggle');
+  showWeekendsToggle.addEventListener('change', ()=>{ showWeekends = showWeekendsToggle.checked; buildGrid(); });
+
+  // ---------- 行高 / 列宽 / 起止时间字号（用户手动调节，不再自动随视口宽度缩放） ----------
+  const rowHeightInput = document.getElementById('rowHeightInput');
+  const colWidthInput = document.getElementById('colWidthInput');
+  const periodTimeFontSizeInput = document.getElementById('periodTimeFontSizeInput');
+  function clampSize(v, min, max, fallback){
+    v = parseInt(v);
+    if(!Number.isFinite(v)) return fallback;
+    return Math.min(max, Math.max(min, v));
+  }
+  function clampSizeFloat(v, min, max, fallback){
+    v = parseFloat(v);
+    if(!Number.isFinite(v)) return fallback;
+    return Math.min(max, Math.max(min, v));
+  }
+  rowHeightInput.addEventListener('change', ()=>{
+    rowHeightPx = clampSize(rowHeightInput.value, 50, 160, rowHeightPx);
+    rowHeightInput.value = rowHeightPx;
+    applySizeVars();
+    renderNowLine();
+    saveState();
+  });
+  colWidthInput.addEventListener('change', ()=>{
+    colWidthPx = clampSize(colWidthInput.value, 50, 220, colWidthPx);
+    colWidthInput.value = colWidthPx;
+    applySizeVars();
+    syncScheduleCardWidth();
+    renderNowLine();
+    saveState();
+  });
+  periodTimeFontSizeInput.addEventListener('change', ()=>{
+    periodTimeFontSizePx = clampSizeFloat(periodTimeFontSizeInput.value, 7, 16, periodTimeFontSizePx);
+    periodTimeFontSizeInput.value = periodTimeFontSizePx;
+    applySizeVars();
+    updatePeriodColumnLayout();
+    saveState();
+  });
+
+  // ---------- 导出 PNG（仅课程表格范围，含表头，不含上方按钮；使用 html2canvas） ----------
+  async function exportGridAsPNG(){
+    const target = document.querySelector('.schedule-card');
+    if(!target || typeof html2canvas !== 'function'){
+      alert('图片导出功能不可用。');
+      return;
+    }
+    const btn = document.getElementById('exportPngBtn');
+    const originalText = btn.textContent;
+    btn.textContent = '生成中…';
+    // 把要截图的节点复制到一个脱离原有布局（不受父级 padding / max-width 影响）的
+    // 离屏容器里再截图，避免截图宽度和实际内容宽度对不上、右侧出现空白
+    const width = target.scrollWidth;
+    const height = target.scrollHeight;
+    const clone = target.cloneNode(true);
+    clone.style.width = width+'px';
+    clone.style.height = height+'px';
+    clone.style.maxWidth = 'none';
+    clone.style.margin = '0';
+    // 把当前主题的颜色，用写死在 JS 里的十六进制值直接"焊"在克隆节点上（而不是从
+    // getComputedStyle 里现读）。原因：Mac 版 Safari 在广色域（P3）屏幕上，
+    // getComputedStyle 读出来的颜色有时会变成 color(display-p3 ...) 这种写法，
+    // 而 html2canvas 这个库根本不认识这种颜色格式，一读到就直接报错、导出失败。
+    // 这里的数值要和上面每个 html[data-theme][data-scheme] 选择器里写的完全一致。
+    const THEME_COLOR_VALUES = {
+      mist:    { light:{'--bg':'#EEF1F0','--surface':'#FFFFFF','--header-bg':'#F4F7F6','--ink':'#2A3634','--ink-soft':'#7E8F8C','--border':'#D6E0DE','--accent':'#5C8A82','--accent-soft':'#D6E6E2','--c1':'#5C8A82','--c2':'#5C728A','--c3':'#8A8264','--c4':'#6E7A8A','--c5':'#4E6E6A','--c6':'#7A8E6E','--c7':'#5C6E82','--c8':'#8A6E5C'},
+                 dark:{'--bg':'#151C1B','--surface':'#1D2624','--header-bg':'#192120','--ink':'#DDE8E6','--ink-soft':'#8DA19E','--border':'#324240','--accent':'#7FC0B6','--accent-soft':'#223634','--c1':'#7FC0B6','--c2':'#7FA0C0','--c3':'#C0B587','--c4':'#96A6C0','--c5':'#6FA69E','--c6':'#A6C093','--c7':'#7F96AC','--c8':'#C0967F'} },
+      lake:    { light:{'--bg':'#EFF4EF','--surface':'#FFFFFF','--header-bg':'#F4F8F4','--ink':'#223528','--ink-soft':'#7C8A7E','--border':'#D3E0D4','--accent':'#3F7350','--accent-soft':'#D8E8DA','--c1':'#3F7350','--c2':'#2E5266','--c3':'#8B7355','--c4':'#5C7A99','--c5':'#6B8E4E','--c6':'#7A5C4E','--c7':'#3D8A7A','--c8':'#4E6B54'},
+                 dark:{'--bg':'#141C16','--surface':'#1C271F','--header-bg':'#18221B','--ink':'#DCEBDD','--ink-soft':'#8FA593','--border':'#324438','--accent':'#6FBE85','--accent-soft':'#213A28','--c1':'#6FBE85','--c2':'#5C9CC2','--c3':'#C9A876','--c4':'#7FAAD4','--c5':'#9BCB6E','--c6':'#C79470','--c7':'#5CC2AC','--c8':'#7EA486'} },
+      sunset:  { light:{'--bg':'#FBF0E4','--surface':'#FFFBF5','--header-bg':'#FDF4EA','--ink':'#4A2E22','--ink-soft':'#9C7B62','--border':'#F0D9BE','--accent':'#D97A3F','--accent-soft':'#F5D9B8','--c1':'#D97A3F','--c2':'#C1543E','--c3':'#E0A458','--c4':'#B85C7A','--c5':'#8E5A3C','--c6':'#D68C6A','--c7':'#A6472F','--c8':'#C98A4E'},
+                 dark:{'--bg':'#241A12','--surface':'#2E2116','--header-bg':'#291D13','--ink':'#F3E2D2','--ink-soft':'#C2A186','--border':'#4A3624','--accent':'#F0985C','--accent-soft':'#4A3520','--c1':'#F0985C','--c2':'#E07A6A','--c3':'#F0C177','--c4':'#D687A0','--c5':'#C2946E','--c6':'#F0AC8C','--c7':'#D97258','--c8':'#E0A96E'} },
+      plum:    { light:{'--bg':'#F5F1EE','--surface':'#FFFFFF','--header-bg':'#FAF6F3','--ink':'#3A2E30','--ink-soft':'#93807F','--border':'#E6D9D6','--accent':'#A85C72','--accent-soft':'#EAD3D9','--c1':'#A85C72','--c2':'#6B7A5E','--c3':'#8E6C88','--c4':'#B98A6A','--c5':'#5E7A6E','--c6':'#9E5C5C','--c7':'#7A6B8E','--c8':'#B98A9E'},
+                 dark:{'--bg':'#231C1E','--surface':'#2C2325','--header-bg':'#282022','--ink':'#EFE3E1','--ink-soft':'#B29B9A','--border':'#4A3B3D','--accent':'#D98BA0','--accent-soft':'#4A2C34','--c1':'#D98BA0','--c2':'#93A87E','--c3':'#B08CAA','--c4':'#D9A986','--c5':'#7EA89A','--c6':'#C97D7D','--c7':'#9A8CAE','--c8':'#D9A9BC'} },
+      sea:     { light:{'--bg':'#EEF1F6','--surface':'#FFFFFF','--header-bg':'#F4F6FA','--ink':'#1E2A3D','--ink-soft':'#7A87A0','--border':'#D6DDEE','--accent':'#2E4E8E','--accent-soft':'#D0DCF2','--c1':'#2E4E8E','--c2':'#4E6E9E','--c3':'#6E5C8E','--c4':'#3D6E8E','--c5':'#5C4E8E','--c6':'#2E6E7E','--c7':'#4E3E8E','--c8':'#6E8EAE'},
+                 dark:{'--bg':'#131A26','--surface':'#1B2432','--header-bg':'#171F2C','--ink':'#DCE4F2','--ink-soft':'#8B98B8','--border':'#2E3A50','--accent':'#7096DA','--accent-soft':'#22304A','--c1':'#7096DA','--c2':'#8CACE0','--c3':'#A48CD0','--c4':'#7EACD0','--c5':'#9C8CD0','--c6':'#6EAEBE','--c7':'#8C7ED0','--c8':'#A4C0E0'} },
+      redbean: { light:{'--bg':'#F7EFEC','--surface':'#FFFBFA','--header-bg':'#FBF3F0','--ink':'#4A2420','--ink-soft':'#9C7268','--border':'#EAD2CA','--accent':'#A8362E','--accent-soft':'#E8C4BC','--c1':'#A8362E','--c2':'#7A5C3E','--c3':'#8E4E3E','--c4':'#B8703E','--c5':'#6E3E2E','--c6':'#9E5C4E','--c7':'#7A3E3E','--c8':'#B8825C'},
+                 dark:{'--bg':'#251815','--surface':'#2F1E1A','--header-bg':'#291A16','--ink':'#F2E0DB','--ink-soft':'#C29A8E','--border':'#4A312A','--accent':'#E06B5E','--accent-soft':'#4A2620','--c1':'#E06B5E','--c2':'#C2A26E','--c3':'#D6816E','--c4':'#E0996E','--c5':'#B27158','--c6':'#D6906E','--c7':'#B26E6E','--c8':'#E0AC7E'} },
+      mono:    { light:{'--bg':'#F6F6F5','--surface':'#FFFFFF','--header-bg':'#FAFAF9','--ink':'#1C1C1C','--ink-soft':'#8A8A87','--border':'#DDDDDA','--accent':'#1C1C1C','--accent-soft':'#E5E5E3','--c1':'#3A3A38','--c2':'#5C5C58','--c3':'#7A7A76','--c4':'#4A4A46','--c5':'#6A6A66','--c6':'#8A8A86','--c7':'#333331','--c8':'#54544F'},
+                 dark:{'--bg':'#161616','--surface':'#1F1F1F','--header-bg':'#1A1A1A','--ink':'#EDEDEC','--ink-soft':'#9E9E9A','--border':'#3A3A38','--accent':'#EDEDEC','--accent-soft':'#333331','--c1':'#C7C7C4','--c2':'#A6A6A2','--c3':'#8A8A86','--c4':'#B6B6B2','--c5':'#96968F','--c6':'#7A7A76','--c7':'#D6D6D3','--c8':'#8F8F8A'} }
+    };
+    const curTheme = document.documentElement.getAttribute('data-theme');
+    const curScheme = document.documentElement.getAttribute('data-scheme') === 'dark' ? 'dark' : 'light';
+    const colorSet = (THEME_COLOR_VALUES[curTheme] || THEME_COLOR_VALUES.mist)[curScheme];
+    Object.keys(colorSet).forEach(name=> clone.style.setProperty(name, colorSet[name]));
+    // 导出图不显示：当前星期高亮列、当前时间指示线、表头交叉格里的教学周数字
+    clone.querySelectorAll('.today-col').forEach(el=>{ el.style.background = ''; });
+    clone.querySelectorAll('.now-line-cell').forEach(el=> el.remove());
+    const cornerEl = clone.querySelector('.corner');
+    if(cornerEl) cornerEl.textContent = '';
+    const holder = document.createElement('div');
+    holder.style.cssText = 'position:fixed; top:0; left:-99999px; width:'+width+'px; height:'+height+'px; overflow:visible; pointer-events:none;';
+    holder.appendChild(clone);
+    document.body.appendChild(holder);
+    try{
+      const bg = colorSet['--surface'] || '#ffffff';
+      const canvas = await html2canvas(clone, {
+        backgroundColor: bg,
+        scale: Math.max(2, window.devicePixelRatio || 1),
+        useCORS: true,
+        width, height,
+        windowWidth: width,
+        windowHeight: height
+      });
+      canvas.toBlob((blob)=>{
+        if(!blob){ alert('图片导出失败。'); return; }
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        const titleTxt = '课程表';
+        a.download = titleTxt+'.png';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      }, 'image/png');
+    }catch(err){
+      alert('图片导出失败。');
+    }finally{
+      holder.remove();
+      btn.textContent = originalText;
+    }
+  }
+  document.getElementById('exportPngBtn').addEventListener('click', exportGridAsPNG);
+
+  // ---------- 清空课程表 / 恢复默认配置 ----------
+  document.getElementById('clearCoursesBtn').addEventListener('click', ()=>{
+    if(!confirm('确定要清空当前课程表吗？此操作不可撤销。')) return;
+    courses = [];
+    nextId = 1;
+    buildGrid();
+  });
+  document.getElementById('resetDefaultBtn').addEventListener('click', ()=>{
+    if(!confirm('确定要恢复为默认配置吗？当前的所有课程、节次及其他设置都将被清除，且此操作不可撤销。')) return;
+    try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
+    location.reload();
+  });
+
+  // ---------- 节次设置 ----------
+  const periodOverlay = document.getElementById('periodOverlay');
+  const periodList = document.getElementById('periodList');
+  const quickGenDetails = document.getElementById('quickGenDetails');
+
+  function renderPeriodSettings(){
+    periodList.innerHTML = '';
+    periods.forEach((p,idx)=>{
+      const row = document.createElement('div');
+      row.className = 'period-row';
+
+      const indexLabel = document.createElement('span');
+      indexLabel.className = 'pIndex';
+      indexLabel.textContent = idx+1;
+
+      const range = parsePeriodRange(p.time) || {};
+      const startInput = document.createElement('input');
+      startInput.type='time'; startInput.className='pTimeStart';
+      startInput.value = range.start!=null ? minutesToHHMM(range.start) : '';
+
+      const sep = document.createElement('span');
+      sep.className = 'pTimeSep'; sep.textContent = '–';
+
+      const endInput = document.createElement('input');
+      endInput.type='time'; endInput.className='pTimeEnd';
+      endInput.value = range.end!=null ? minutesToHHMM(range.end) : '';
+
+      const commitTime = ()=>{
+        const sv = startInput.value, ev = endInput.value;
+        if(!sv || !ev) return;
+        const newTime = sv+'-'+ev;
+        if(newTime === p.time) return;
+        p.time = newTime;
+        resortPeriodsByTime();
+        renderPeriodSettings();
+        buildGrid();
+      };
+      startInput.addEventListener('change', commitTime);
+      endInput.addEventListener('change', commitTime);
+
+      const spacer = document.createElement('div'); spacer.className='spacer';
+
+      const delBtn = document.createElement('button');
+      delBtn.className='icon-btn danger'; delBtn.type='button'; delBtn.textContent='✕'; delBtn.title='删除此节';
+      delBtn.addEventListener('click', ()=>{
+        const occupied = courses.filter(c=>{
+          const cIdx = periods.findIndex(pp=>pp.id===c.startId);
+          return cIdx>=0 && idx>=cIdx && idx<cIdx+c.span;
+        });
+        if(occupied.length){
+          alert('以下课程占用了该节次，请先删除或调整它们再删除此节：\n' + occupied.map(c=>c.name).join('、'));
+          return;
+        }
+        periods.splice(idx,1);
+        renderPeriodSettings();
+      });
+
+      row.appendChild(indexLabel);
+      row.appendChild(startInput);
+      row.appendChild(sep);
+      row.appendChild(endInput);
+      row.appendChild(spacer);
+      row.appendChild(delBtn);
+      periodList.appendChild(row);
+    });
+  }
+
+  document.getElementById('periodSettingsBtn').addEventListener('click', ()=>{
+    renderPeriodSettings();
+    periodOverlay.classList.add('open');
+  });
+
+  // ---------- 快捷生成节次 ----------
+  document.getElementById('qgGenerateBtn').addEventListener('click', ()=>{
+    const amCount = parseInt(document.getElementById('qgMorningCount').value, 10) || 0;
+    const pmCount = parseInt(document.getElementById('qgAfternoonCount').value, 10) || 0;
+    const amStartStr = document.getElementById('qgMorningStart').value;
+    const pmStartStr = document.getElementById('qgAfternoonStart').value;
+    const dur = parseInt(document.getElementById('qgClassDuration').value, 10) || 0;
+    const brk = parseInt(document.getElementById('qgBreakDuration').value, 10) || 0;
+    const total = amCount + pmCount;
+
+    if(total <= 0){ alert('请至少设置一节课（上午节数 + 下午节数需大于 0）。'); return; }
+    if(amCount>0 && !amStartStr){ alert('请设置上午第一节的起始时间。'); return; }
+    if(pmCount>0 && !pmStartStr){ alert('请设置下午第一节的起始时间。'); return; }
+    if(dur <= 0){ alert('每节课时长需大于 0 分钟。'); return; }
+    if(brk < 0){ alert('课间时长不能为负数。'); return; }
+    if(!confirm('生成节次将替换当前全部 '+periods.length+' 个节次，是否继续？\n（原有课程会尽量按原顺序对应到新节次，超出范围的课程将需要手动重新设置节次。）')) return;
+
+    const amStartMin = amCount>0 ? parseTimeToMinutes(amStartStr) : null;
+    const pmStartMin = pmCount>0 ? parseTimeToMinutes(pmStartStr) : null;
+    if(amCount>0 && amStartMin==null){ alert('上午起始时间格式不正确。'); return; }
+    if(pmCount>0 && pmStartMin==null){ alert('下午起始时间格式不正确。'); return; }
+
+    const oldPeriods = periods;
+    const newPeriods = [];
+    let cur = amStartMin;
+    for(let i=0;i<amCount;i++){
+      const end = cur + dur;
+      newPeriods.push({id: nextPeriodId++, label:'第'+(newPeriods.length+1)+'节', time: minutesToHHMM(cur)+'-'+minutesToHHMM(end)});
+      cur = end + brk;
+    }
+    cur = pmStartMin;
+    for(let i=0;i<pmCount;i++){
+      const end = cur + dur;
+      newPeriods.push({id: nextPeriodId++, label:'第'+(newPeriods.length+1)+'节', time: minutesToHHMM(cur)+'-'+minutesToHHMM(end)});
+      cur = end + brk;
+    }
+
+    // 尽量按原来的排列顺序，把课程重新对应到新生成的节次上；超出新节次总数范围的课程会被标记出来，需要用户手动调整
+    const orphaned = [];
+    courses.forEach(c=>{
+      const oldIdx = oldPeriods.findIndex(p=>p.id===c.startId);
+      if(oldIdx>=0 && oldIdx < newPeriods.length){
+        c.startId = newPeriods[oldIdx].id;
+        c.span = Math.max(1, Math.min(c.span, newPeriods.length - oldIdx));
+      } else {
+        orphaned.push(c.name);
+      }
+    });
+
+    periods = newPeriods;
+    renderPeriodSettings();
+    buildGrid();
+    quickGenDetails.removeAttribute('open');
+    if(orphaned.length){
+      alert('以下课程原来所在的节次已不存在，请手动为它们重新设置节次：\n' + orphaned.join('、'));
+    }
+  });
+  document.getElementById('addPeriodBtn').addEventListener('click', ()=>{
+    // 新增节次固定追加到最后一位：起始时间接续上一节的结束时间，默认时长 45 分钟；
+    // 新增本身不触发按时间自动排序（自动排序只在用户手动修改某节次的时间时才发生），
+    // 因此无论新节次的时间落在哪里，点击"添加一节"后它始终出现在列表最后，并自动跳转过去
+    let startMin = 8*60;
+    if(periods.length){
+      const last = periods[periods.length-1];
+      const range = parsePeriodRange(last.time);
+      if(range){ startMin = range.end; }
+      else{ const m = parseTimeToMinutes(last.time); if(m!=null) startMin = m + 45; }
+    }
+    const endMin = startMin + 45;
+    const newTime = minutesToHHMM(startMin)+'-'+minutesToHHMM(endMin);
+    periods.push({id: nextPeriodId++, label:'第'+(periods.length+1)+'节', time:newTime});
+    renderPeriodSettings();
+    requestAnimationFrame(()=>{
+      periodList.scrollTop = periodList.scrollHeight;
+      const rows = periodList.querySelectorAll('.period-row');
+      const newRow = rows[rows.length-1];
+      if(newRow){
+        const input = newRow.querySelector('.pTimeStart');
+        if(input) input.focus();
+      }
+    });
+  });
+  document.getElementById('periodDoneBtn').addEventListener('click', ()=>{
+    periodOverlay.classList.remove('open');
+    buildGrid();
+  });
+  setupBackdropClose(periodOverlay, ()=>{ periodOverlay.classList.remove('open'); buildGrid(); });
+
+  // ---------- 导出 / 导入 JSON ----------
+  function exportJSON(){
+    const data = { version: 4, ...serializeState() };
+    const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = '课程表数据.json';
+    document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  function applyImportedData(data){
+    if(typeof data.theme === 'string' && THEMES.some(t=>t.key===data.theme)){
+      selectTheme(data.theme);
+    }
+    if(typeof data.colorSchemeMode === 'string' && ['system','light','dark'].includes(data.colorSchemeMode)){
+      colorSchemeMode = data.colorSchemeMode;
+      applyColorScheme();
+      updateColorSchemeSegmentedUI();
+    }
+    if(typeof data.semesterStart === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(data.semesterStart)){
+      semesterStart = toISODate(mondayOf(new Date(data.semesterStart)));
+    }
+    if(Array.isArray(data.periods) && data.periods.length){
+      periods = data.periods.map((p,idx)=>({
+        id: p.id!=null ? p.id : (p.n!=null?p.n:idx+1),
+        label: p.label || ('第'+(p.n!=null?p.n:idx+1)+'节'),
+        time: p.time || '00:00-00:00'
+      }));
+      nextPeriodId = Math.max(...periods.map(p=>p.id), 0) + 1;
+    }
+    if(Array.isArray(data.courses)){
+      courses = data.courses.filter(c=>c && typeof c.name==='string').map(c=>{
+        const startId = c.startId!=null ? c.startId : c.start;
+        if(c.weeksFrom!==undefined || c.parity!==undefined){
+          return {...c, startId};
+        }
+        const legacy = parseLegacyWeeks(c.weeks);
+        return {...c, startId, weeksFrom:legacy.weeksFrom, weeksTo:legacy.weeksTo, parity:legacy.parity};
+      });
+      nextId = courses.reduce((m,c)=>Math.max(m, c.id||0), 0) + 1;
+    }
+    if(typeof data.defaultSpan === 'number'){ defaultSpan = data.defaultSpan; defaultSpanSelect.value = defaultSpan; }
+    if(typeof data.autoPromoteCurrent === 'boolean'){ autoPromoteCurrent = data.autoPromoteCurrent; autoPromoteToggle.checked = autoPromoteCurrent; }
+    if(typeof data.showWeekends === 'boolean'){ showWeekends = data.showWeekends; showWeekendsToggle.checked = showWeekends; }
+    if(typeof data.rowHeightPx === 'number' && data.rowHeightPx>0){ rowHeightPx = data.rowHeightPx; rowHeightInput.value = rowHeightPx; }
+    if(typeof data.colWidthPx === 'number' && data.colWidthPx>0){ colWidthPx = data.colWidthPx; colWidthInput.value = colWidthPx; }
+    if(typeof data.periodTimeFontSizePx === 'number' && data.periodTimeFontSizePx>0){ periodTimeFontSizePx = data.periodTimeFontSizePx; periodTimeFontSizeInput.value = periodTimeFontSizePx; }
+    applySizeVars();
+    if(Array.isArray(data.stackOrders)){
+      stackOrders.clear();
+      data.stackOrders.forEach(([k,v])=>{ if(typeof k==='string' && Array.isArray(v)) stackOrders.set(k,v); });
+    }
+    buildGrid();
+  }
+
+  document.getElementById('exportJsonBtn').addEventListener('click', exportJSON);
+
+  const importOverlay = document.getElementById('importOverlay');
+  const jsonFileInput = document.getElementById('jsonFileInput');
+  document.getElementById('importJsonBtn').addEventListener('click', ()=> importOverlay.classList.add('open'));
+  document.getElementById('importCancelBtn').addEventListener('click', ()=> importOverlay.classList.remove('open'));
+  setupBackdropClose(importOverlay, ()=> importOverlay.classList.remove('open'));
+  document.getElementById('fileDropZone').addEventListener('click', ()=> jsonFileInput.click());
+
+  jsonFileInput.addEventListener('change', (e)=>{
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev)=>{
+      try{
+        applyImportedData(JSON.parse(ev.target.result));
+        importOverlay.classList.remove('open');
+      }catch(err){ alert('导入失败：文件不是有效的课表 JSON。'); }
+      jsonFileInput.value = '';
+    };
+    reader.readAsText(file, 'utf-8');
+  });
+
+  // ---------- 本地持久化 ----------
+  function serializeState(){
+    return {
+      title: '我的课程表',
+      subtitle: '',
+      theme: document.documentElement.getAttribute('data-theme'),
+      colorSchemeMode,
+      semesterStart, periods, courses, defaultSpan, autoPromoteCurrent, showWeekends,
+      rowHeightPx, colWidthPx, periodTimeFontSizePx,
+      stackOrders: Array.from(stackOrders.entries())
+    };
+  }
+  function saveState(){
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(serializeState())); }catch(e){}
+  }
+  function loadState(){
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if(!raw) return false;
+      applyImportedData(JSON.parse(raw));
+      return true;
+    }catch(e){ return false; }
+  }
+
+  // ---------- 日历 ----------
+  const calendarOverlay = document.getElementById('calendarOverlay');
+  const calDays = document.getElementById('calDays');
+  const calMonthLabel = document.getElementById('calMonthLabel');
+  const semesterStartInput = document.getElementById('semesterStartInput');
+
+  function renderCalendar(){
+    const y = calViewDate.getFullYear(), m = calViewDate.getMonth();
+    calMonthLabel.textContent = y+'年 '+(m+1)+'月';
+    const firstOfMonth = new Date(y, m, 1);
+    const startGrid = sundayOf(firstOfMonth);
+    calDays.innerHTML = '';
+    const todayISO = toISODate(new Date());
+    const selISO = toISODate(selectedDate);
+    for(let k=0;k<42;k++){
+      const d = new Date(startGrid); d.setDate(startGrid.getDate()+k);
+      const cell = document.createElement('div');
+      let cls = 'cal-day';
+      if(d.getMonth()!==m) cls += ' outside';
+      if(toISODate(d)===todayISO) cls += ' is-today';
+      if(toISODate(d)===selISO) cls += ' is-selected';
+      cell.className = cls;
+      cell.textContent = d.getDate();
+      cell.addEventListener('click', ()=>{
+        selectedDate = d; selectedDate.setHours(0,0,0,0);
+        calendarOverlay.classList.remove('open');
+        buildGrid();
+      });
+      calDays.appendChild(cell);
+    }
+    semesterStartInput.value = semesterStart;
+  }
+
+  function openCalendarPicker(){
+    calViewDate = new Date(selectedDate);
+    renderCalendar();
+    calendarOverlay.classList.add('open');
+  }
+  document.getElementById('dateStatus').addEventListener('click', openCalendarPicker);
+  document.getElementById('calPrev').addEventListener('click', ()=>{ calViewDate.setMonth(calViewDate.getMonth()-1); renderCalendar(); });
+  document.getElementById('calNext').addEventListener('click', ()=>{ calViewDate.setMonth(calViewDate.getMonth()+1); renderCalendar(); });
+  document.getElementById('calCloseBtn').addEventListener('click', ()=> calendarOverlay.classList.remove('open'));
+  setupBackdropClose(calendarOverlay, ()=> calendarOverlay.classList.remove('open'));
+  semesterStartInput.addEventListener('change', ()=>{
+    if(semesterStartInput.value){
+      semesterStart = toISODate(mondayOf(new Date(semesterStartInput.value)));
+      renderCalendar();
+      buildGrid();
+    }
+  });
+
+  document.getElementById('todayBtn').addEventListener('click', ()=>{
+    selectedDate = new Date(); selectedDate.setHours(0,0,0,0);
+    calendarOverlay.classList.remove('open');
+    buildGrid();
+  });
+
+  // ---------- 帮助弹窗 ----------
+  // 下面这段占位内容可以直接在 html 源文件里改，支持简单的 markdown 语法：
+  // # 一级标题　## 二级标题　**加粗**　- 列表项　空行分段
+  const HELP_MARKDOWN = `
+轻量的课程表，没有任何多余的功能
+
+## 基本操作
+
+- 点击表格空白格和右上角加号以添加课程
+- 点击已有课程可以打开编辑
+- 点击左上角日期可以选择日期和回到今天
+
+## 特色功能
+- 支持 **PWA** 应用ߎ銭 自定义行高、列宽、左侧表头时间字号
+- 导入导出均为 JSON 格式，自由可读，掌握你自己的数据
+- 重叠课程：可以在同一个节次排列多个课程
+- 周末显隐：可以选择显示/隐藏周末列
+
+**Ver. 1.0**
+
+## 授权
+- 采用 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 协议共享
+- "导出 PNG"功能使用了第三方开源库 **html2canvas**（MIT License），相关版权与许可声明已保留在源代码文件中。
+`;
+
+  function renderMiniMarkdown(md){
+    const lines = md.split('\n');
+    let html = '';
+    let inList = false;
+    const closeList = ()=>{ if(inList){ html += '</ul>'; inList = false; } };
+    const inline = (text)=> text
+      .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    lines.forEach(raw=>{
+      const line = raw.trim();
+      if(line === ''){ closeList(); return; }
+      if(line.startsWith('## ')){ closeList(); html += '<h4>'+inline(line.slice(3))+'</h4>'; return; }
+      if(line.startsWith('# ')){ closeList(); html += '<h3>'+inline(line.slice(2))+'</h3>'; return; }
+      if(line.startsWith('- ')){
+        if(!inList){ html += '<ul>'; inList = true; }
+        html += '<li>'+inline(line.slice(2))+'</li>';
+        return;
+      }
+      closeList();
+      html += '<p>'+inline(line)+'</p>';
+    });
+    closeList();
+    return html;
+  }
+
+  const helpOverlay = document.getElementById('helpOverlay');
+  document.getElementById('helpBtn').addEventListener('click', ()=>{
+    document.getElementById('helpContent').innerHTML = renderMiniMarkdown(HELP_MARKDOWN);
+    helpOverlay.classList.add('open');
+  });
+  document.getElementById('helpCloseBtn').addEventListener('click', ()=> helpOverlay.classList.remove('open'));
+  setupBackdropClose(helpOverlay, ()=> helpOverlay.classList.remove('open'));
+
+  // ---------- PWA ----------
+  if('serviceWorker' in navigator && (location.protocol==='https:' || location.hostname==='localhost' || location.hostname==='127.0.0.1')){
+    window.addEventListener('load', ()=>{ navigator.serviceWorker.register('./sw.js').catch(()=>{}); });
+  }
+
+  // ---------- 顶部图标工具条："更多" 下拉菜单 ----------
+  // 根据当前视口剩余空间，动态限制设置条（moreMenu）的最大高度，
+  // 放不下时设置条内部出现纵向滚动条，可直接在设置条上滑动查看被遮挡的内容
+  function fitSettingsMenuHeight(menu){
+    const rect = menu.getBoundingClientRect();
+    const viewportH = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+    const safeBottom = 12; // 底部留白，避免贴边
+    const available = Math.floor(viewportH - rect.top - safeBottom);
+    menu.style.maxHeight = Math.max(120, available) + 'px';
+  }
+
+  function setupIconDropdown(wrapperId, toggleId, menuId){
+    const wrapper = document.getElementById(wrapperId);
+    const toggleBtn = document.getElementById(toggleId);
+    const menu = document.getElementById(menuId);
+    const isSettingsMenu = menu.classList.contains('settings-menu');
+    toggleBtn.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      const willOpen = !menu.classList.contains('open');
+      document.querySelectorAll('.icon-menu.open').forEach(m=> m.classList.remove('open'));
+      if(willOpen){
+        menu.classList.add('open');
+        if(isSettingsMenu) fitSettingsMenuHeight(menu);
+      }
+    });
+    // 无论设置条通过哪种方式（点击外部、菜单内按钮）被关闭，
+    // 只要它还处于打开状态就实时跟着视口变化重新计算高度，保证滑动区域始终准确
+    if(isSettingsMenu){
+      const reflow = ()=>{ if(menu.classList.contains('open')) fitSettingsMenuHeight(menu); };
+      window.addEventListener('resize', reflow);
+      window.addEventListener('orientationchange', reflow);
+      if(window.visualViewport) window.visualViewport.addEventListener('resize', reflow);
+    }
+    return {wrapper, menu};
+  }
+  const moreDD = setupIconDropdown('moreDropdown', 'moreToggleBtn', 'moreMenu');
+  document.addEventListener('click', (e)=>{
+    if(!moreDD.wrapper.contains(e.target)) moreDD.menu.classList.remove('open');
+  });
+  // 菜单内点击按钮后自动收起菜单（自动置顶开关、主题选择、默认课时除外，避免误触关闭）
+  document.querySelectorAll('#moreMenu .icon-menu-item').forEach(item=>{
+    if(item.tagName === 'BUTTON'){
+      item.addEventListener('click', ()=> moreDD.menu.classList.remove('open'));
+    }
+  });
+
+  // ---------- 初始化 ----------
+  renderThemeSelect();
+  autoPromoteToggle.checked = autoPromoteCurrent;
+  showWeekendsToggle.checked = showWeekends;
+  rowHeightInput.value = rowHeightPx;
+  colWidthInput.value = colWidthPx;
+  periodTimeFontSizeInput.value = periodTimeFontSizePx;
+  applySizeVars();
+  if(!loadState()){
+    selectTheme('mist');
+    buildGrid();
+  }
+  // 确保配色下拉框与最终生效的主题一致，兼容旧版无 theme 字段的存档；
+  // 外观模式（浅/深/系统）也放到主题确定之后再套用，这样状态栏颜色一次到位，不会先套错主题的颜色再纠正
+  (function syncThemeSelect(){
+    const current = document.documentElement.getAttribute('data-theme');
+    themeSelect.value = THEMES.some(t=>t.key===current) ? current : 'mist';
+  })();
+  applyColorScheme();
+  updateColorSchemeSegmentedUI();
+</script>
+</body>
+</html>
